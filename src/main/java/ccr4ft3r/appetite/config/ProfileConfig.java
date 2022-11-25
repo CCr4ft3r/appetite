@@ -92,6 +92,8 @@ public class ProfileConfig {
         public Data(ForgeConfigSpec.Builder builder, AppetiteProfile profile) {
             this.builder = builder;
             this.profile = profile;
+            builder.comment("When setting the values, keep in mind that 20 ticks last one second (in the best case)." +
+                "\nSo if you want to drop the hunger bar by 1 after 10 seconds of walking, you have to specify 200 (10 seconds * 20 ticks/second = 200 ticks)");
 
             builder.push("Interaction exhaustion");
             enableForShovelMineables = define(ENABLE_AT + "breaking blocks tagged with mineable/shovel", "enableForShovelMineables", true, true, true);
@@ -99,34 +101,34 @@ public class ProfileConfig {
             enableForPickaxeMineables = define(ENABLE_AT + "breaking blocks tagged with mineable/pickaxe", "enableForPickaxeMineables", true, true, true);
             enableForUsingHoe = define(ENABLE_AT + "using a hoe on tillable blocks", "enableForUsingHoe", true, true, true);
             enableForFishing = define(ENABLE_AT + "fishing items", "enableForFishing", true, true, true);
-            enableForAttacking = define(ENABLE_AT + "attacking entities", "enableForAttacking", true, true, true);
-            enableForBlocking = define(ENABLE_AT + "blocking an attack with a shield", "enableForBlocking", true, true, true);
+            enableForAttacking = define(ENABLE_AT + "attacking entities", "enableForAttacking", false, true, true);
+            enableForBlocking = define(ENABLE_AT + "blocking an attack with a shield", "enableForBlocking", false, true, true);
 
-            afterBreakingShovelMineables = defineRange(AFTER_ACTION + "breaking X blocks tagged with mineable/shovel", "afterBreakingShovelMineables", 1, 1600, 120, 90, 60);
-            afterBreakingAxeMineables = defineRange(AFTER_ACTION + "breaking X blocks tagged with mineable/axe", "afterBreakingAxeMineables", 1, 1600, 100, 70, 40);
-            afterBreakingPickaxeMineables = defineRange(AFTER_ACTION + "breaking X blocks tagged with mineable/pickaxe", "afterBreakingPickaxeMineables", 1, 1600, 80, 50, 20);
+            afterBreakingShovelMineables = defineRange(AFTER_ACTION + "breaking X blocks tagged with mineable/shovel", "afterBreakingShovelMineables", 1, 1600, 120, 80, 60);
+            afterBreakingAxeMineables = defineRange(AFTER_ACTION + "breaking X blocks tagged with mineable/axe", "afterBreakingAxeMineables", 1, 1600, 100, 70, 50);
+            afterBreakingPickaxeMineables = defineRange(AFTER_ACTION + "breaking X blocks tagged with mineable/pickaxe", "afterBreakingPickaxeMineables", 1, 1600, 80, 60, 40);
             afterUsingHoe = define(AFTER_ACTION + "using hoe on X blocks", "afterUsingHoe", 240, 180, 120);
             afterFishing = define(AFTER_ACTION + "fishing X items", "afterFishing", 60, 40, 20);
-            afterAttacking = defineRange(AFTER_ACTION + "landing X attacks on entities", "afterAttacking", 1, 80, 80, 60, 40);
-            afterBlocking = define(AFTER_ACTION + "blocking X attacks with shield", "afterBlocking", 80, 60, 40);
+            afterAttacking = defineRange(AFTER_ACTION + "landing X attacks on entities", "afterAttacking", 1, 80, 70, 50, 30);
+            afterBlocking = define(AFTER_ACTION + "blocking X attacks with shield", "afterBlocking", 70, 50, 35);
             builder.pop();
 
             builder.push("Movement exhaustion");
-            enableResting = define(ENABLE_WHILE + "resting (standing still, sitting, ...)", "enableWhileResting", true, true, true);
+            enableResting = define(ENABLE_WHILE + "resting (standing still, sitting, ...)", "enableWhileResting", false, false, true);
             enableSneaking = define(ENABLE_WHILE + "sneaking", "enableWhileSneaking", true, true, true);
-            enableWalking = define(ENABLE_WHILE + "walking", "enableWhileWalking", true, true, true);
+            enableWalking = define(ENABLE_WHILE + "walking", "enableWhileWalking", false, true, true);
             enableSwimming = define(ENABLE_WHILE + "swimming", "enableWhileSwimming", true, true, true);
             enableSprinting = define(ENABLE_WHILE + "sprinting", "enableWhileSprinting", true, true, true);
-            enablePaddling = define(ENABLE_WHILE + "paddling", "enableWhilePaddling", true, true, true);
+            enablePaddling = define(ENABLE_WHILE + "paddling", "enableWhilePaddling", false, true, true);
             enableClimbing = define(ENABLE_WHILE + "climbing", "enableWhileClimbing", true, true, true);
             enableJumping = define(ENABLE_WHILE + "jumping", "enableForJumping", true, true, true);
 
-            afterResting = defineTime(AFTER_TIME.formatted("resting"), "afterResting", 48000, 24000, 12000);
+            afterResting = defineTime(AFTER_TIME.formatted("resting"), "afterResting", 2400, 1200, 600);
             afterSneaking = defineTime(AFTER_TIME.formatted("sneaking"), "afterSneaking", 480, 240, 120);
-            afterWalking = defineTime(AFTER_TIME.formatted("walking"), "afterWalking", 240, 120, 60);
-            afterSwimming = defineTime(AFTER_TIME.formatted("swimming"), "afterSwimming", 120, 80, 40);
+            afterWalking = defineTime(AFTER_TIME.formatted("walking"), "afterWalking", 360, 160, 90);
+            afterSwimming = defineTime(AFTER_TIME.formatted("swimming"), "afterSwimming", 240, 100, 60);
             afterSprinting = defineTimeRange(AFTER_TIME.formatted("sprinting"), "afterSprinting", 1, 14, 14, 12, 10);
-            afterPaddling = defineTime(AFTER_TIME.formatted("paddling"), "afterPaddling", 120, 80, 40);
+            afterPaddling = defineTime(AFTER_TIME.formatted("paddling"), "afterPaddling", 180, 120, 80);
             afterClimbing = defineTime(AFTER_TIME.formatted("climbing"), "afterClimbing", 120, 80, 40);
             afterJumping = defineRange(AFTER_ACTION + "jumping X times", "afterJumping", 1, 160, 160, 80, 40);
             builder.pop();
@@ -135,7 +137,6 @@ public class ProfileConfig {
             enableFreezing = define(ENABLE_WHILE + "freezing", "enableWhileFreezing", false, false, true);
 
             whileFreezing = defineTime(AFTER_TIME.formatted("freezing"), "afterFreezing", 60, 30, 15);
-            builder.pop();
         }
 
         private ForgeConfigSpec.BooleanValue define(String comment, String property, boolean... profileValues) {

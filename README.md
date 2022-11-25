@@ -1,19 +1,18 @@
 <p><img src="https://shields.io/badge/-ModLoader:%20Forge-lightgrey" alt="" width="111" height="20" />&nbsp;<img src="https://img.shields.io/badge/-Minecraft%201.18.2-green" alt="" width="101" height="20" />&nbsp;<img src="https://shields.io/badge/-More%20versions%20&amp;%20features%20are%20work%20in%20progress-informational" alt="" width="265" height="20" />&nbsp;&nbsp;<img src="https://shields.io/badge/-Required%20on%20client%20and%20server%20-critical" alt="" width="173" height="20" />&nbsp;</p>
-<h5><strong>Have you ever thought that the hunger system of minecraft is to easy? Appetite can help you out.</strong></h5>
+<h5><strong>Have you ever thought that the hunger system of minecraft is too easy? Appetite can help you out.</strong></h5>
 <p><span style="font-weight: 400;">&nbsp;</span></p>
 <h4><b>💡<strong>About</strong></b></h4>
 <p><span style="font-weight: 400;">Appetite aims to make your survival experience more challenging - by forcing you to eat more food in relation to what you are doing.</span></p>
 <p><span style="font-weight: 400;">It adds <strong>time- and event-based rules </strong>that cause exhaustion&nbsp;to all players (excepts sleeping ones and players in creative/spectator mode).</span></p>
 <p><span style="font-weight: 400;">Exhaustion is caused by breaking blocks, attacking entities, walking, fishing, climbing and so much more.</span></p>
 <p>&nbsp;</p>
-<h4><strong>✅ Exhaustion Rules&nbsp;</strong>(customiziable &amp; deactivatable)</h4>
+<h4><strong>✅ Exhaustion Rules&nbsp;</strong>(customizable &amp; deactivatable)</h4>
 <p>&nbsp; &nbsp; &nbsp; &nbsp;🔨Exhaustion for breaking blocks</p>
 <p>&nbsp; &nbsp; &nbsp; &nbsp;🏃Exhaustion for walking, sneaking, jumping and running</p>
 <p>&nbsp; &nbsp; &nbsp; &nbsp;🏊🏻Exhaustion for swimming</p>
 <p>&nbsp; &nbsp; &nbsp; &nbsp;🐡Exhaustion for fishing items</p>
-<p>&nbsp; &nbsp; &nbsp; &nbsp;⚔️Exhaustion for attacking entities</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp;⚔️🛡️Exhaustion for attacking entities and blocking attacks</p>
 <p>&nbsp; &nbsp; &nbsp; &nbsp;⛵Exhaustion for paddling</p>
-<p>&nbsp; &nbsp; &nbsp; &nbsp;🛡️Exhaustion for blocking attacks</p>
 <p>&nbsp; &nbsp; &nbsp; &nbsp;🪜🌿Exhaustion for climbing on Climbables</p>
 <p>&nbsp; &nbsp; &nbsp; &nbsp;🥶Exhaustion for freezing (when being inside powder snow)</p>
 <p class="LC20lb MBeuO DKV0Md">&nbsp;</p>
@@ -34,6 +33,7 @@
 <ul>
 <li>Time-based rules increase exhaustion <strong>gradually</strong> - hence the rule also applies, but only proportionally, if you walk less than the defined time.</li>
 <li>Rules <strong>consider</strong> the <a href="https://minecraft.fandom.com/wiki/Hunger#Exhaustion_level_increase">vanilla exhaustion increase</a>. Meaning that "80" for the jumping rule decreases the food bar value exactly after 80 jumps.</li>
+<li>It's <strong>recommended</strong> to use Appetite in combination with <a href="https://www.curseforge.com/minecraft/mc-mods/appleskin">AppleSkin</a> and mods that add food/crops in general to minecraft.</li>
 <li>Appetite&nbsp;<strong>does not&nbsp;</strong>work in peaceful mode</li>
 </ul>
 <p>&nbsp;</p>
@@ -44,9 +44,12 @@
 <div class="spoiler">
 <p><strong><b>Q: Can I use Appetite in my modpack?</b></strong></p>
 <p><span style="font-weight: 400;">A: Yes -&nbsp; Feel free to include Appetite into your modpack - Remember to give credit and don't claim Appetite as your own creation.</span></p>
-<p><span style="font-weight: 400;">&nbsp;</span></p>
+<p>&nbsp;</p>
 <p><strong><b>Q: Which Minecraft versions are supported?</b></strong></p>
 <p><span style="font-weight: 400;">A: Appetite is currently available for </span><b>1.18.2</b> <b>- Hopefully other versions like 1.19.2 will coming soon.</b></p>
+<p>&nbsp;</p>
+<p><strong>Q: Are there any known incompatibilities with other mods?</strong></p>
+<p>A: Not yet - most mods like "Tough as Nails" &amp; "Survive" are compatible with Appetite - as long as they don't set player exhaustion to an internal used value. <br />If the mod you want to use, also add player exhaustion (like "Survive" do), you have to take this into account when setting the values for Appetite's exhaustion rules.</p>
 <p>&nbsp;</p>
 <p><strong><b>Q: Are you going to backport Appetite to versions before 1.18.2?</b></strong></p>
 <p><span style="font-weight: 400;">A: Probably not - There are some great mods for 1.12.2 and 1.16.5 that tweak the hunger mechanics. But if you have good reasons go ahead and try to convince me😉</span></p>
@@ -58,4 +61,4 @@
 <h4><b>🌎 <strong>Links</strong></b></h4>
 <p><a href="https://github.com/CCr4ft3r/appetite/issues"><b>Report issues and request features</b></a></p>
 <p>&nbsp;</p>
-<h5><strong> 🍏🍪 Enjoy your food! 🍗🥐&nbsp;</strong></h5>
+<h5><strong> 🍏🍪 Enjoy your food! 🍗🥐</strong></h5>

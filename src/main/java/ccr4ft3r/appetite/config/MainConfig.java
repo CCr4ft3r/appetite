@@ -23,7 +23,6 @@ public class MainConfig {
                 .define("enabled", true);
             enableExtendedLogging = builder.comment("Enables extended mod logging - only used for trouble shooting")
                 .define("enableExtendedLogging", false);
-            builder.pop();
         }
     }
 }
