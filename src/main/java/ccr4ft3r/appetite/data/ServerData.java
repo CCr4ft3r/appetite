@@ -8,14 +8,14 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class ServerData {
 
-    private static final Map<UUID, AdditionalPlayerData> DATA_PER_PLAYER = new ConcurrentHashMap<>();
+    private static final Map<UUID, ServerPlayerData> DATA_PER_PLAYER = new ConcurrentHashMap<>();
 
-    public static AdditionalPlayerData getPlayerData(Player player) {
-        AdditionalPlayerData additionalPlayerData = DATA_PER_PLAYER.get(player.getUUID());
-        if (additionalPlayerData == null) {
-            additionalPlayerData = new AdditionalPlayerData();
-            DATA_PER_PLAYER.put(player.getUUID(), additionalPlayerData);
+    public static ServerPlayerData getPlayerData(Player player) {
+        ServerPlayerData serverPlayerData = DATA_PER_PLAYER.get(player.getUUID());
+        if (serverPlayerData == null) {
+            serverPlayerData = new ServerPlayerData();
+            DATA_PER_PLAYER.put(player.getUUID(), serverPlayerData);
         }
-        return additionalPlayerData;
+        return serverPlayerData;
     }
 }

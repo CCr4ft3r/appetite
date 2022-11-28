@@ -7,13 +7,14 @@
 <p><span style="font-weight: 400;">Exhaustion is caused by breaking blocks, attacking entities, walking, fishing, climbing and so much more.</span></p>
 <p>&nbsp;</p>
 <h4><strong>✅ Exhaustion Rules&nbsp;</strong>(customizable &amp; deactivatable)</h4>
-<p>&nbsp; &nbsp; &nbsp; &nbsp;🔨Exhaustion for breaking blocks</p>
-<p>&nbsp; &nbsp; &nbsp; &nbsp;🏃Exhaustion for walking, sneaking, jumping and running</p>
-<p>&nbsp; &nbsp; &nbsp; &nbsp;🏊🏻Exhaustion for swimming</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp;⛏️🪓Exhaustion for breaking and placing blocks</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp;🚶🏃Exhaustion for sneaking, walking, jumping and running</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp;🪵🌱Exhaustion for tilling dirt, pathing dirt and stripping logs</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp;🏊🏻⛵Exhaustion for swimming and paddling</p>
 <p>&nbsp; &nbsp; &nbsp; &nbsp;🐡Exhaustion for fishing items</p>
-<p>&nbsp; &nbsp; &nbsp; &nbsp;⚔️🛡️Exhaustion for attacking entities and blocking attacks</p>
-<p>&nbsp; &nbsp; &nbsp; &nbsp;⛵Exhaustion for paddling</p>
-<p>&nbsp; &nbsp; &nbsp; &nbsp;🪜🌿Exhaustion for climbing on Climbables</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp;⚔️🏹Exhaustion for attacking entities and shooting arrows</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp;🛡️️&zwj;🩹Exhaustion for blocking attacks and taking damage</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp;🪜🌿Exhaustion for climbing on Climbables and walking up stairs/slabs</p>
 <p>&nbsp; &nbsp; &nbsp; &nbsp;🥶Exhaustion for freezing (when being inside powder snow)</p>
 <p class="LC20lb MBeuO DKV0Md">&nbsp;</p>
 <p class="LC20lb MBeuO DKV0Md">🔔&nbsp;<strong>More to come - stay tuned for updates&nbsp;</strong></p>
@@ -49,7 +50,7 @@
 <p><span style="font-weight: 400;">A: Appetite is currently available for </span><b>1.18.2</b> <b>- Hopefully other versions like 1.19.2 will coming soon.</b></p>
 <p>&nbsp;</p>
 <p><strong>Q: Are there any known incompatibilities with other mods?</strong></p>
-<p>A: Not yet - most mods like "Tough as Nails" &amp; "Survive" are compatible with Appetite - as long as they don't set player exhaustion to an internal used value. <br />If the mod you want to use, also add player exhaustion (like "Survive" do), you have to take this into account when setting the values for Appetite's exhaustion rules.</p>
+<p>A: Not yet - most mods like "Tough as Nails" &amp; "Survive" are compatible with Appetite - as long as they don't set player exhaustion to an internal used value. If the mod you want to use, also add player exhaustion (like "Survive" do), you have to take this into account when setting the values for Appetite's exhaustion rules.</p>
 <p>&nbsp;</p>
 <p><strong><b>Q: Are you going to backport Appetite to versions before 1.18.2?</b></strong></p>
 <p><span style="font-weight: 400;">A: Probably not - There are some great mods for 1.12.2 and 1.16.5 that tweak the hunger mechanics. But if you have good reasons go ahead and try to convince me😉</span></p>
