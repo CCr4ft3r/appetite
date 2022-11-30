@@ -16,7 +16,7 @@ import net.minecraftforge.event.entity.living.ShieldBlockEvent;
 import net.minecraftforge.event.entity.player.ArrowLooseEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.ItemFishedEvent;
-import net.minecraftforge.event.world.BlockEvent;
+import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -41,7 +41,7 @@ public class ExhaustionHandler {
 
     @SubscribeEvent
     public static void onArrowShooted(ArrowLooseEvent event) {
-        exhaust(event.getPlayer(), getProfile().enableForShootingArrows, true, getProfile().afterShootingArrows, 1L, 0);
+        exhaust(event.getEntity(), getProfile().enableForShootingArrows, true, getProfile().afterShootingArrows, 1L, 0);
     }
 
     @SubscribeEvent
@@ -65,7 +65,7 @@ public class ExhaustionHandler {
 
     @SubscribeEvent
     public static void onPlayerFishedItem(ItemFishedEvent event) {
-        exhaust(event.getPlayer(), getProfile().enableForFishing, !event.getDrops().isEmpty(), getProfile().afterFishing, 1, 0);
+        exhaust(event.getEntity(), getProfile().enableForFishing, !event.getDrops().isEmpty(), getProfile().afterFishing, 1, 0);
     }
 
     @SubscribeEvent
@@ -77,7 +77,7 @@ public class ExhaustionHandler {
 
     @SubscribeEvent
     public static void onPlayerAttack(AttackEntityEvent event) {
-        exhaust(event.getPlayer(), getProfile().enableForAttacking, true, getProfile().afterAttacking, 1, 0.1f);
+        exhaust(event.getEntity(), getProfile().enableForAttacking, true, getProfile().afterAttacking, 1, 0.1f);
     }
 
     @SubscribeEvent

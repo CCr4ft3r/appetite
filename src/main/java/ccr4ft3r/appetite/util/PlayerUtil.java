@@ -15,7 +15,7 @@ public class PlayerUtil {
             return;
 
         if (optionEnabled.get() && onlyIf) {
-            float exhaustion = Math.max(8f * multiplier / (float) exhaustionAfter.get() - diff, 0);
+            float exhaustion = Math.max(8f * multiplier / (float) exhaustionAfter.get() - diff, 0) + 1f / 1000000000;
             if (CONFIG_DATA.enableExtendedLogging.get())
                 LogUtils.getLogger().info("Adding {} exhaustion to player '{}' due to rule '{}'", exhaustion, player.getScoreboardName(),
                     String.join(".", exhaustionAfter.getPath()));
