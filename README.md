@@ -1,6 +1,4 @@
-<p><img src="https://shields.io/badge/-ModLoader:%20Forge-lightgrey" alt="" width="111" height="20" /></p>
-<p><img src="https://img.shields.io/badge/-Minecraft%201.18.2,%201.19.2-green" alt="" width="145" height="20" /></p>
-<p><img src="https://shields.io/badge/-More%20versions%20&amp;%20features%20are%20work%20in%20progress-informational" alt="" width="265" height="20" /><img src="https://shields.io/badge/-Required%20on%20client%20and%20server%20-critical" alt="" width="173" height="20" />&nbsp;</p>
+<p><img src="https://shields.io/badge/-ModLoader:%20Forge-lightgrey" alt="" width="111" height="20" />&nbsp;<img src="https://img.shields.io/badge/-Minecraft%201.18.2,%201.19.2-green" alt="" width="145" height="20" />&nbsp;<img src="https://shields.io/badge/-More%20versions%20&amp;%20features%20are%20work%20in%20progress-informational" alt="" width="265" height="20" />&nbsp;<img src="https://shields.io/badge/-Required%20on%20client%20and%20server%20-critical" alt="" width="173" height="20" />&nbsp;</p>
 <h5><strong>Have you ever thought that the hunger system of minecraft is too easy? Appetite can help you out.</strong></h5>
 <p><span style="font-weight: 400;">&nbsp;</span></p>
 <h4><b>💡<strong>About</strong></b></h4>
