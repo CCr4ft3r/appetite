@@ -1,10 +1,11 @@
-<p><img src="https://shields.io/badge/-ModLoader:%20Forge-lightgrey" alt="" width="111" height="20" />&nbsp;<img src="https://img.shields.io/badge/-Minecraft%201.18.2-green" alt="" width="101" height="20" />&nbsp;<img src="https://shields.io/badge/-More%20versions%20&amp;%20features%20are%20work%20in%20progress-informational" alt="" width="265" height="20" />&nbsp;&nbsp;<img src="https://shields.io/badge/-Required%20on%20client%20and%20server%20-critical" alt="" width="173" height="20" />&nbsp;</p>
+<p><img src="https://shields.io/badge/-ModLoader:%20Forge-lightgrey" alt="" width="111" height="20" />&nbsp;<img src="https://img.shields.io/badge/-Minecraft%201.18.2,%201.19.2-green" alt="" width="145" height="20" />&nbsp;<img src="https://shields.io/badge/-More%20versions%20&amp;%20features%20are%20work%20in%20progress-informational" alt="" width="265" height="20" />&nbsp;<img src="https://shields.io/badge/-Required%20on%20client%20and%20server%20-critical" alt="" width="173" height="20" />&nbsp;</p>
 <h5><strong>Have you ever thought that the hunger system of minecraft is too easy? Appetite can help you out.</strong></h5>
 <p><span style="font-weight: 400;">&nbsp;</span></p>
 <h4><b>💡<strong>About</strong></b></h4>
 <p><span style="font-weight: 400;">Appetite aims to make your survival experience more challenging - by forcing you to eat more food in relation to what you are doing.</span></p>
 <p><span style="font-weight: 400;">It adds <strong>time- and event-based rules </strong>that cause exhaustion&nbsp;to all players (excepts sleeping ones and players in creative/spectator mode).</span></p>
 <p><span style="font-weight: 400;">Exhaustion is caused by breaking blocks, attacking entities, walking, fishing, climbing and so much more.</span></p>
+<p>&nbsp;</p>
 <p>&nbsp;</p>
 <h4><strong>✅ Exhaustion Rules&nbsp;</strong>(customizable &amp; deactivatable)</h4>
 <p>&nbsp; &nbsp; &nbsp; &nbsp;⛏️🪓Exhaustion for breaking and placing blocks</p>
@@ -30,6 +31,19 @@
 <p><span style="font-weight: 400;">You can either edit these profiles directly (in the config/appetite folder) <strong>or you can create your own one</strong> by editing the custom profile. </span></p>
 <p><span style="font-weight: 400;">The main config specifies which profile should be used.</span></p>
 <p>&nbsp;</p>
+<h4><strong><b>🧊</b>Frozen Appetite</strong></h4>
+<p>There might be some situations where it's inconvenient or challenging to have all that extra exhaustion.&nbsp;</p>
+<p>Therefore Appetite adds the 'Frozen Appetite' effect. This effect freezes the player's hunger and exhaustion for the intended amount of time.</p>
+<p>Frozen Appetite is caused by</p>
+<ul>
+<li>eating frozen food items (currently frozen fish) for 1 minute and</li>
+<li>the homonymous potion for 2 minutes (requires Akward potion and frozen food)</li>
+</ul>
+<p>Frozen food can be crafted by dropping the non frozen food item into a cold biome. After the specified amount of time the item will be transformed into a frozen one.&nbsp;</p>
+<p>&nbsp;</p>
+<p>Frozen food can also be melted in the same way but in a warm biome.<br /><strong>But watch out!</strong> Eating too much frozen food can have unwanted side effects - just like in real life.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
 <h4><b>❗<strong>Important Notes</strong></b></h4>
 <ul>
 <li>Time-based rules increase exhaustion <strong>gradually</strong> - hence the rule also applies, but only proportionally, if you walk less than the defined time.</li>
@@ -47,7 +61,7 @@
 <p><span style="font-weight: 400;">A: Yes -&nbsp; Feel free to include Appetite into your modpack - Remember to give credit and don't claim Appetite as your own creation.</span></p>
 <p>&nbsp;</p>
 <p><strong><b>Q: Which Minecraft versions are supported?</b></strong></p>
-<p><span style="font-weight: 400;">A: Appetite is currently available for </span><b>1.18.2</b> <b>- Hopefully other versions like 1.19.2 will coming soon.</b></p>
+<p><span style="font-weight: 400;">A: Appetite is currently available for </span><b>1.18.2</b> <b>and 1.19.2.</b></p>
 <p>&nbsp;</p>
 <p><strong>Q: Are there any known incompatibilities with other mods?</strong></p>
 <p>A: Not yet - most mods like "Tough as Nails" &amp; "Survive" are compatible with Appetite - as long as they don't set player exhaustion to an internal used value. If the mod you want to use, also add player exhaustion (like "Survive" do), you have to take this into account when setting the values for Appetite's exhaustion rules.</p>

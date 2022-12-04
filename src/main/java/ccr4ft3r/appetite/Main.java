@@ -3,7 +3,11 @@ package ccr4ft3r.appetite;
 import ccr4ft3r.appetite.config.MainConfig;
 import ccr4ft3r.appetite.config.ProfileConfig;
 import ccr4ft3r.appetite.network.PacketHandler;
+import ccr4ft3r.appetite.registry.ModItems;
+import ccr4ft3r.appetite.registry.ModMobEffects;
+import ccr4ft3r.appetite.registry.ModPotions;
 import com.mojang.logging.LogUtils;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -15,10 +19,20 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 public class Main {
 
     public Main() {
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::onConfigLoading);
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::onConfigReloading);
+        IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
+        eventBus.addListener(this::onConfigLoading);
+        eventBus.addListener(this::onConfigReloading);
+
         registerConfigs();
+        registerObjects();
+
         PacketHandler.registerMessages();
+    }
+
+    private static void registerObjects() {
+        ModMobEffects.register();
+        ModPotions.register();
+        ModItems.register();
     }
 
     private static void registerConfigs() {

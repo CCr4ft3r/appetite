@@ -20,7 +20,7 @@ import static ccr4ft3r.appetite.config.MainConfig.*;
 import static ccr4ft3r.appetite.network.ServerboundPacket.Action.*;
 
 @Mod.EventBusSubscriber(modid = ModConstants.MOD_ID, value = Dist.CLIENT)
-public class MovementHandler {
+public class ClientHandler {
 
     private static final ClientPlayerData PLAYER_DATA = new ClientPlayerData();
 
