@@ -24,6 +24,11 @@ public class MainConfig {
                 .defineEnum("profileToUse", AppetiteProfile.HUNGRY);
             enabled = builder.comment("Enables appetite to cause exhaustion defined by the choosed profile. Can be used to disable Appetite temporary without uninstalling it.")
                 .define("enabled", true);
+            enableExtendedLogging = builder.comment("Enables extended mod logging - only used for trouble shooting")
+                .define("enableExtendedLogging", false);
+            builder.pop();
+
+            builder.push("Frozen Appetite");
             allowFrozenAppetite = builder.comment("Specifies whether the 'Frozen Appetite' effect can be caused by events. This effect freezes the player's hunger for the intended amount of time",
                     "Thereby the hunger and exhaustion value will not drop at all for the whole time of this effect.",
                     "If this option is disabled the homonymous potion and froozen food will only cause a negative effect after the amount of frozenAppetitePerDay.")
@@ -31,9 +36,7 @@ public class MainConfig {
             frozenAppetitePerDay = builder.comment("Sets the amount of frozen food items and potions of 'Frozen Appetite' a player can consume per day before they cause a negative effect instead of the wanted one.")
                 .defineInRange("frozenAppetitePerDay", 3, 1, 10);
             ticksToFreezeOrMelt = builder.comment("Specifies the amount of ticks a dropped fish item will freeze or a dropped frozen food item will melt and will transform into the other one.")
-                .defineInRange("ticksToFreezeOrMelt", 200, 1200, 6000);
-            enableExtendedLogging = builder.comment("Enables extended mod logging - only used for trouble shooting")
-                .define("enableExtendedLogging", false);
+                .defineInRange("ticksToFreezeOrMelt", 1200, 200, 6000);
         }
     }
 }

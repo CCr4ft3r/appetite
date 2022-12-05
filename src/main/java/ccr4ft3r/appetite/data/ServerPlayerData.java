@@ -49,11 +49,7 @@ public class ServerPlayerData {
     public void updateFoodData(FoodData foodData) {
         if (freezedFoodLevel == null) {
             setFoodData(foodData);
-            return;
         }
-        this.freezedFoodLevel = foodData.getFoodLevel();
-        this.freezedExhaustionLevel = foodData.getExhaustionLevel();
-        this.freezedSaturationLevel = foodData.getSaturationLevel();
     }
 
     public Float getFreezedSaturationLevel() {
