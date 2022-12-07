@@ -30,7 +30,7 @@ public class ExhaustionHandler {
 
     @SubscribeEvent
     public static void onPlayerBreakBlock(BlockEvent.BreakEvent event) {
-        if (cannotBeExhausted(event.getPlayer()))
+        if (cannotBeExhausted(event.getPlayer()) || event.isCanceled())
             return;
 
         BlockState blockState = event.getState();
@@ -46,10 +46,10 @@ public class ExhaustionHandler {
 
     @SubscribeEvent
     public static void onPlayerModifiyBlock(BlockEvent.BlockToolModificationEvent event) {
-        if (cannotBeExhausted(event.getPlayer()))
+        if (cannotBeExhausted(event.getPlayer()) || event.isCanceled())
             return;
-        exhaust(event.getPlayer(), getProfile().enableForUsingHoe, event.getHeldItemStack().getItem() instanceof HoeItem
-            && event.getState().is(DIRT), getProfile().afterUsingHoe, 1L, 0);
+        exhaust(event.getPlayer(), getProfile().enableForTillingDirt, event.getHeldItemStack().getItem() instanceof HoeItem
+            && event.getState().is(DIRT), getProfile().afterTillingDirt, 1L, 0);
         exhaust(event.getPlayer(), getProfile().enableForPathingDirt, event.getHeldItemStack().getItem() instanceof ShovelItem
             && event.getState().is(DIRT), getProfile().afterPathingDirt, 1L, 0);
         exhaust(event.getPlayer(), getProfile().enableForStrippingLogs, event.getHeldItemStack().getItem() instanceof AxeItem
@@ -58,40 +58,44 @@ public class ExhaustionHandler {
 
     @SubscribeEvent
     public static void onPlayerJump(LivingEvent.LivingJumpEvent event) {
-        if (!(event.getEntity() instanceof Player player))
+        if (!(event.getEntity() instanceof Player player) || event.isCanceled())
             return;
         exhaust(player, getProfile().enableJumping, !player.isInWater() && !player.onClimbable(), getProfile().afterJumping, 1, 0.05f);
     }
 
     @SubscribeEvent
     public static void onPlayerFishedItem(ItemFishedEvent event) {
+        if (event.isCanceled())
+            return;
         exhaust(event.getPlayer(), getProfile().enableForFishing, !event.getDrops().isEmpty(), getProfile().afterFishing, 1, 0);
     }
 
     @SubscribeEvent
     public static void onPlayerBlocks(ShieldBlockEvent event) {
-        if (!(event.getEntity() instanceof Player player))
+        if (!(event.getEntity() instanceof Player player) || event.isCanceled())
             return;
         exhaust(player, getProfile().enableForBlocking, true, getProfile().afterBlocking, 1, 0);
     }
 
     @SubscribeEvent
     public static void onPlayerAttack(AttackEntityEvent event) {
+        if (event.isCanceled())
+            return;
         exhaust(event.getPlayer(), getProfile().enableForAttacking, true, getProfile().afterAttacking, 1, 0.1f);
     }
 
     @SubscribeEvent
     public static void onPlayerPlaceBlock(BlockEvent.EntityPlaceEvent event) {
-        if (!(event.getEntity() instanceof Player player))
+        if (!(event.getEntity() instanceof Player player) || event.isCanceled())
             return;
         if (player.getMainHandItem().getItem() instanceof DiggerItem)
             return;
-        exhaust(player, getProfile().enableForPlacing, true, getProfile().afterPlacing, 1, 0);
+        exhaust(player, getProfile().enableForPlacingBlocks, true, getProfile().afterPlacingBlocks, 1, 0);
     }
 
     @SubscribeEvent
     public static void onPlayerBeingAttacked(LivingAttackEvent event) {
-        if (!(event.getEntity() instanceof Player player) || event.getAmount() == 0)
+        if (!(event.getEntity() instanceof Player player) || event.getAmount() == 0 || event.isCanceled())
             return;
         exhaust(player, getProfile().enableForTakingDamage, true, getProfile().afterTakingDamage, 1, 0.1f);
     }
