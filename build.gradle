@@ -1,10 +1,21 @@
+buildscript {
+    repositories {
+        maven { url = 'https://repo.spongepowered.org/maven' }
+    }
+
+    dependencies {
+        classpath 'org.spongepowered:mixingradle:0.7.+'
+    }
+}
+
 plugins {
     id 'net.minecraftforge.gradle' version '5.1.+'
 }
 
+apply plugin: 'org.spongepowered.mixin'
 
 group = 'ccr4ft3r'
-version = '0.3.1'
+version = '1.18.2-1.0.0'
 
 java {
     archivesBaseName = 'appetite'
@@ -129,6 +140,7 @@ repositories {
             includeGroup "curse.maven"
         }
     }
+    maven { url = 'https://repo.spongepowered.org/repository/maven-public/' }
 }
 
 dependencies {
@@ -137,6 +149,8 @@ dependencies {
     // The userdev artifact is a special name and will get all sorts of transformations applied to it.
     minecraft 'net.minecraftforge:forge:1.18.2-40.1.73'
     runtimeOnly fg.deobf("curse.maven:configured-457570:4010624")
+
+    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 
     // Real mod deobf dependency examples - these get remapped to your current mappings
     // compileOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}:api") // Adds JEI API as a compile dependency
@@ -149,6 +163,11 @@ dependencies {
     // For more info...
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
+}
+
+mixin {
+    add sourceSets.main, "appetite.refmap.json"
+    config "appetite.mixins.json"
 }
 
 // Example for how to get properties into the manifest for reading at runtime.

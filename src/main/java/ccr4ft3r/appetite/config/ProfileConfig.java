@@ -97,6 +97,9 @@ public class ProfileConfig {
         public ForgeConfigSpec.BooleanValue enableFreezing;
         public ForgeConfigSpec.IntValue afterFreezing;
 
+        public ForgeConfigSpec.BooleanValue enableOpenClosing;
+        public ForgeConfigSpec.IntValue afterOpenClosing;
+
         public ForgeConfigSpec.DoubleValue coldBiomeMultiplier;
         public ForgeConfigSpec.DoubleValue hotBiomeMultiplier;
 
@@ -128,12 +131,12 @@ public class ProfileConfig {
             builder.pop();
 
             builder.push("Exhaustion for Fights");
-            enableForAttacking = define(ENABLE_AT + "attacking entities", "enableForAttacking", false, true, true);
-            enableForBlocking = define(ENABLE_AT + "blocking an attack with a shield", "enableForBlocking", false, true, true);
+            enableForAttacking = define(ENABLE_AT + "attacking entities", "enableForAttackingEntities", false, true, true);
+            enableForBlocking = define(ENABLE_AT + "blocking an attack with a shield", "enableForBlockingAttacks", false, true, true);
             enableForTakingDamage = define(ENABLE_AT + "taking damage", "enableForTakingDamage", false, true, true);
             enableForShootingArrows = define(ENABLE_AT + "shooting arrows", "enableForShootingArrows", true, true, true);
-            afterAttacking = defineRange(AFTER_ACTION + "landing X attacks on entities", "afterAttacking", 1, 80, 70, 50, 30);
-            afterBlocking = define(AFTER_ACTION + "blocking X attacks with shield", "afterBlocking", 70, 50, 35);
+            afterAttacking = defineRange(AFTER_ACTION + "landing X attacks on entities", "afterAttackingEntities", 1, 80, 70, 50, 30);
+            afterBlocking = define(AFTER_ACTION + "blocking X attacks with shield", "afterBlockingAttacks", 70, 50, 35);
             afterTakingDamage = defineRange(AFTER_ACTION + "taking damage X times", "afterTakingDamage", 1, 80, 80, 50, 35);
             afterShootingArrows = define(AFTER_ACTION + "shooting X arrows", "afterShootingArrows", 120, 60, 40);
             builder.pop();
@@ -143,6 +146,8 @@ public class ProfileConfig {
             enableForPlacingBlocks = define(ENABLE_AT + "placing blocks", "enableForPlacingBlocks", false, true, true);
             enableForFishing = define(ENABLE_AT + "fishing items", "enableForFishing", true, true, true);
             afterFishing = define(AFTER_ACTION + "fishing X items", "afterFishing", 60, 40, 20);
+            enableOpenClosing = define(ENABLE_AT + "open and closing doors/trapdoors/gates/chests (without closing chests)", "enableForOpenAndClosing", false, true, true);
+            afterOpenClosing = define(AFTER_ACTION + "open and closing X doors/trapdoors/gates/chests", "afterOpenAndClosing", 180, 90, 60);
             builder.pop();
 
             builder.push("Exhaustion for Movement");
@@ -173,10 +178,10 @@ public class ProfileConfig {
             builder.pop();
 
             builder.push("Advanced Settings");
-            coldBiomeMultiplier = define("Sets the multiplier for exhaustion caused by the rules of Appetite when the player is in a cold biome.",
-                "coldBiomeMultiplier", 1d, 1.375d, 1.5d);
-            hotBiomeMultiplier = define("Sets the multiplier for exhaustion caused by the rules of Appetite when the player is in a hot biome.",
-                "hotBiomeMultiplier", 1d, 1.375d, 1.75d);
+            coldBiomeMultiplier = defineRange("Sets the multiplier for exhaustion caused by the rules of Appetite when the player is in a cold biome.",
+                "coldBiomeMultiplier", 1d, 10d, 1d, 1d, 1d);
+            hotBiomeMultiplier = defineRange("Sets the multiplier for exhaustion caused by the rules of Appetite when the player is in a hot biome.",
+                "hotBiomeMultiplier", 1d, 10d, 1d, 1d, 1d);
         }
 
         private ForgeConfigSpec.BooleanValue define(String comment, String property, boolean... profileValues) {
@@ -192,7 +197,11 @@ public class ProfileConfig {
         }
 
         private ForgeConfigSpec.DoubleValue define(String comment, String property, Double... profileValues) {
-            return builder.comment(comment).defineInRange(property, get(profileValues), 1, Double.MAX_VALUE);
+            return defineRange(comment, property, 1d, Double.MAX_VALUE, profileValues);
+        }
+
+        private ForgeConfigSpec.DoubleValue defineRange(String comment, String property, Double min, Double max, Double... profileValues) {
+            return builder.comment(comment).defineInRange(property, get(profileValues), min, max);
         }
 
         private ForgeConfigSpec.IntValue defineTime(String comment, String property, Integer... seconds) {
