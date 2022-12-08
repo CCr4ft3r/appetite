@@ -113,12 +113,12 @@ public class ProfileConfig {
                 "\nSo if you want to drop the hunger bar by 1 after 10 seconds of walking, you have to specify 200 (10 seconds * 20 ticks/second = 200 ticks)");
 
             builder.push("Exhaustion for breaking blocks");
-            enableForShovelMineables = define(ENABLE_AT + "breaking blocks tagged with mineable/shovel", "enableForShovelMineables", true, true, true);
-            enableForAxeMineables = define(ENABLE_AT + "breaking blocks tagged with mineable/axe", "enableForAxeMineables", true, true, true);
-            enableForPickaxeMineables = define(ENABLE_AT + "breaking blocks tagged with mineable/pickaxe", "enableForPickaxeMineables", true, true, true);
-            afterBreakingShovelMineables = defineRange(AFTER_ACTION + "breaking X blocks tagged with mineable/shovel", "afterBreakingShovelMineables", 1, 1600, 120, 80, 60);
-            afterBreakingAxeMineables = defineRange(AFTER_ACTION + "breaking X blocks tagged with mineable/axe", "afterBreakingAxeMineables", 1, 1600, 100, 70, 50);
-            afterBreakingPickaxeMineables = defineRange(AFTER_ACTION + "breaking X blocks tagged with mineable/pickaxe", "afterBreakingPickaxeMineables", 1, 1600, 80, 60, 40);
+            enableForShovelMineables = define(ENABLE_AT + "breaking blocks tagged with mineable/shovel (like dirt, sand, ...)", "enableForShovelMineables", true, true, true);
+            enableForAxeMineables = define(ENABLE_AT + "breaking blocks tagged with mineable/axe (like logs, planks, ...)", "enableForAxeMineables", true, true, true);
+            enableForPickaxeMineables = define(ENABLE_AT + "breaking blocks tagged with mineable/pickaxe (like stone, ores, ...)", "enableForPickaxeMineables", true, true, true);
+            afterBreakingShovelMineables = defineRange(AFTER_ACTION + "breaking X blocks tagged with mineable/shovel (like dirt, sand, ...)", "afterBreakingShovelMineables", 1, 1600, 120, 80, 60);
+            afterBreakingAxeMineables = defineRange(AFTER_ACTION + "breaking X blocks tagged with mineable/axe (like logs, planks, ...)", "afterBreakingAxeMineables", 1, 1600, 100, 70, 50);
+            afterBreakingPickaxeMineables = defineRange(AFTER_ACTION + "breaking X blocks tagged with mineable/pickaxe (like stone, ores, ...)", "afterBreakingPickaxeMineables", 1, 1600, 80, 60, 40);
             builder.pop();
 
             builder.push("Exhaustion for modifying blocks");
@@ -159,7 +159,7 @@ public class ProfileConfig {
             enablePaddling = define(ENABLE_WHILE + "paddling", "enableWhilePaddling", false, true, true);
             enableClimbing = define(ENABLE_WHILE + "climbing", "enableWhileClimbing", true, true, true);
             enableJumping = define(ENABLE_WHILE + "jumping", "enableForJumping", true, true, true);
-            enableWalkingUp = define(ENABLE_WHILE + "walking up (stairs & slabs)", "enableForWalkingUp", true, true, true);
+            enableWalkingUp = define(ENABLE_WHILE + "walking up (stairs & slabs)", "enableWhileWalkingUp", true, true, true);
 
             afterResting = defineTime(AFTER_TIME.formatted("resting"), "afterResting", 2400, 1200, 600);
             afterSneaking = defineTime(AFTER_TIME.formatted("sneaking"), "afterSneaking", 480, 240, 120);
@@ -173,14 +173,14 @@ public class ProfileConfig {
             builder.pop();
 
             builder.push("Exhaustion for States");
-            enableFreezing = define(ENABLE_WHILE + "freezing", "enableWhileFreezing", false, false, true);
-            afterFreezing = defineTime(AFTER_TIME.formatted("freezing"), "afterFreezing", 60, 30, 15);
+            enableFreezing = define(ENABLE_WHILE + "freezing (while being inside powder snow)", "enableWhileFreezing", false, false, true);
+            afterFreezing = defineTime(AFTER_TIME.formatted("freezing (while being inside powder snow)"), "afterFreezing", 60, 30, 15);
             builder.pop();
 
             builder.push("Advanced Settings");
-            coldBiomeMultiplier = defineRange("Sets the multiplier for exhaustion caused by the rules of Appetite when the player is in a cold biome.",
+            coldBiomeMultiplier = defineRange("Sets the multiplier for exhaustion caused by the rules of Appetite when the player is in a cold biome",
                 "coldBiomeMultiplier", 1d, 10d, 1d, 1d, 1d);
-            hotBiomeMultiplier = defineRange("Sets the multiplier for exhaustion caused by the rules of Appetite when the player is in a hot biome.",
+            hotBiomeMultiplier = defineRange("Sets the multiplier for exhaustion caused by the rules of Appetite when the player is in a hot biome",
                 "hotBiomeMultiplier", 1d, 10d, 1d, 1d, 1d);
         }
 

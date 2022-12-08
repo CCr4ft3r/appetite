@@ -28,8 +28,7 @@ logoFile="appetite.png" #optional
 authors = "CCr4ft3r" #optional
 # The description text for the mod (multi line!) (#mandatory)
 description = '''
-Makes you hungry to make survival more challenging - Highly customizable to match your preferences
-'''
+Makes you hungry to make survival more challenging - Highly customizable to match your preferences'''
 # A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
 [[dependencies.appetite]] #optional
 # the modid of the dependency
