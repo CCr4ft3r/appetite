@@ -15,6 +15,7 @@
 <p>&nbsp; &nbsp; &nbsp; &nbsp;⚔️🏹Exhaustion for attacking entities and shooting arrows</p>
 <p>&nbsp; &nbsp; &nbsp; &nbsp;🛡️️&zwj;🩹Exhaustion for blocking attacks and taking damage</p>
 <p>&nbsp; &nbsp; &nbsp; &nbsp;🪜🌿Exhaustion for climbing on Climbables and walking up stairs/slabs</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp;🚪📦Exhaustion for open and closing doors, trapdoors, fence gates and chests</p>
 <p>&nbsp; &nbsp; &nbsp; &nbsp;🥶Exhaustion for freezing (when being inside powder snow)</p>
 <p class="LC20lb MBeuO DKV0Md">&nbsp;</p>
 <p class="LC20lb MBeuO DKV0Md">🔔&nbsp;<strong>More to come - stay tuned for updates&nbsp;</strong></p>

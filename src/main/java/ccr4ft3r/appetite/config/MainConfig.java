@@ -29,7 +29,7 @@ public class MainConfig {
             enablesRules = builder.comment("Enables appetite to cause exhaustion defined by the choosed profile. Can be used to disable Appetite temporary without uninstalling it.")
                 .define("enablesRules", true);
             dimensionBlacklist = builder.comment("Sets the dimensions (ids) in which Appetite rules should be disabled, for example: [\"minecraft:the_nether\", \"minecraft:the_end\"])")
-                .define("dimensionBlacklist", new ArrayList<>());
+                .define("dimensionBlacklist", new ArrayList<>(), (s) -> s instanceof List && ((List<?>) s).stream().allMatch(d -> d != null && d.toString().matches("^.+:.+$")));
             enableExtendedLogging = builder.comment("Enables extended mod logging - only used for trouble shooting")
                 .define("enableExtendedLogging", false);
             builder.pop();
