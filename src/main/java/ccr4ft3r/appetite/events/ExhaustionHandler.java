@@ -10,8 +10,8 @@ import net.minecraft.world.item.HoeItem;
 import net.minecraft.world.item.ShovelItem;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.living.ShieldBlockEvent;
 import net.minecraftforge.event.entity.player.ArrowLooseEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
@@ -94,7 +94,7 @@ public class ExhaustionHandler {
     }
 
     @SubscribeEvent
-    public static void onPlayerBeingAttacked(LivingAttackEvent event) {
+    public static void onPlayerHurted(LivingHurtEvent event) {
         if (!(event.getEntity() instanceof Player player) || event.getAmount() == 0 || event.isCanceled())
             return;
         exhaust(player, getProfile().enableForTakingDamage, true, getProfile().afterTakingDamage, 1, 0.1f);
