@@ -8,4 +8,8 @@ public class BiomeUtil {
     public static boolean isCold(Entity entity) {
         return entity.getLevel().getBiome(entity.blockPosition()).is(Tags.Biomes.IS_COLD);
     }
+
+    public static boolean isHot(Entity entity) {
+        return entity.getLevel().getBiome(entity.blockPosition()).is(Tags.Biomes.IS_HOT);
+    }
 }

@@ -1,0 +1,10 @@
+{
+  "required": true,
+  "package": "ccr4ft3r.appetite.mixins",
+  "compatibilityLevel": "JAVA_17",
+  "refmap": "appetite.refmap.json",
+  "mixins": [
+    "OpenablesMixin"
+  ],
+  "minVersion": "0.8"
+}

@@ -6,7 +6,6 @@
 <p><span style="font-weight: 400;">It adds <strong>time- and event-based rules </strong>that cause exhaustion&nbsp;to all players (excepts sleeping ones and players in creative/spectator mode).</span></p>
 <p><span style="font-weight: 400;">Exhaustion is caused by breaking blocks, attacking entities, walking, fishing, climbing and so much more.</span></p>
 <p>&nbsp;</p>
-<p>&nbsp;</p>
 <h4><strong>✅ Exhaustion Rules&nbsp;</strong>(customizable &amp; deactivatable)</h4>
 <p>&nbsp; &nbsp; &nbsp; &nbsp;⛏️🪓Exhaustion for breaking and placing blocks</p>
 <p>&nbsp; &nbsp; &nbsp; &nbsp;🚶🏃Exhaustion for sneaking, walking, jumping and running</p>
@@ -16,33 +15,30 @@
 <p>&nbsp; &nbsp; &nbsp; &nbsp;⚔️🏹Exhaustion for attacking entities and shooting arrows</p>
 <p>&nbsp; &nbsp; &nbsp; &nbsp;🛡️️&zwj;🩹Exhaustion for blocking attacks and taking damage</p>
 <p>&nbsp; &nbsp; &nbsp; &nbsp;🪜🌿Exhaustion for climbing on Climbables and walking up stairs/slabs</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp;🚪📦Exhaustion for open and closing doors, trapdoors, fence gates and chests</p>
 <p>&nbsp; &nbsp; &nbsp; &nbsp;🥶Exhaustion for freezing (when being inside powder snow)</p>
 <p class="LC20lb MBeuO DKV0Md">&nbsp;</p>
 <p class="LC20lb MBeuO DKV0Md">🔔&nbsp;<strong>More to come - stay tuned for updates&nbsp;</strong></p>
 <p>&nbsp;</p>
 <h4><b>📖 <strong>Getting Started</strong></b></h4>
 <p><span style="font-weight: 400;">You can enable or disable the exhaustion rules and even tweak the amount of time and events after which exhaustion should be added to players.</span></p>
-<p><span style="font-weight: 400;">There are 3 predefined profiles (difficulty levels) that you can choose from</span><span style="font-weight: 400;">:</span></p>
+<p><span style="font-weight: 400;">I recommend <a href="https://www.curseforge.com/minecraft/mc-mods/configured">Configured</a></span><span style="font-weight: 400;">. There are 3 predefined profiles (difficulty levels) that you can choose from</span><span style="font-weight: 400;">:</span></p>
 <ul>
 <li style="padding-left: 30px;">PECKISH: Enables a few action- and event-based rules and adds a slight amount of additional exhaustion to vanilla.</li>
 <li style="padding-left: 30px;">HUNGRY (default profile): Adds moderate exhaustion by enabling a majority of rules.</li>
 <li style="padding-left: 30px;">STARVING: All exhaustion rules of interaction, movement and state are enabled to increase your appetite to a whole new level.</li>
 </ul>
-<p><span style="font-weight: 400;">You can either edit these profiles directly (in the config/appetite folder) <strong>or you can create your own one</strong> by editing the custom profile. </span></p>
-<p><span style="font-weight: 400;">The main config specifies which profile should be used.</span></p>
+<p><span style="font-weight: 400;">You can either edit these profiles&nbsp;<strong>or you can create your own one</strong> by editing the custom profile. </span></p>
 <p>&nbsp;</p>
-<h4><strong><b>🧊</b>Frozen Appetite</strong></h4>
-<p>There might be some situations where it's inconvenient or challenging to have all that extra exhaustion.&nbsp;</p>
-<p>Therefore Appetite adds the 'Frozen Appetite' effect. This effect freezes the player's hunger and exhaustion for the intended amount of time.</p>
-<p>Frozen Appetite is caused by</p>
+<h4 class="LC20lb MBeuO DKV0Md"><strong>🧊Frozen Appetite</strong></h4>
+<p class="LC20lb MBeuO DKV0Md">There might be some situations where it's inconvenient or challenging to have all that extra exhaustion.&nbsp;</p>
+<p>Therefore Appetite adds an effect that freezes the player's hunger and exhaustion: The 'Frozen Appetite Effect'.<br />During the effect time the player can do anything without being exhausted. Frozen Appetite is&nbsp;<span style="font-size: 1.2rem;">caused by</span></p>
 <ul>
 <li>eating frozen food items (currently frozen fish) for 1 minute and</li>
-<li>the homonymous potion for 2 minutes (requires Akward potion and frozen food)</li>
+<li>the homonymous potion for 2 minutes</li>
 </ul>
-<p>Frozen food can be crafted by dropping the non frozen food item into a cold biome. After the specified amount of time the item will be transformed into a frozen one.&nbsp;</p>
-<p>&nbsp;</p>
-<p>Frozen food can also be melted in the same way but in a warm biome.<br /><strong>But watch out!</strong> Eating too much frozen food can have unwanted side effects - just like in real life.</p>
-<p>&nbsp;</p>
+<p>To get frozen food just drop the non frozen food item into a cold biome and wait a minute. Frozen food can also be melted in the same way but in a warm biome.</p>
+<p><strong>But watch out!&nbsp;</strong>Overconsuming froozen food causes unwanted side effects - just like in real life.</p>
 <p>&nbsp;</p>
 <h4><b>❗<strong>Important Notes</strong></b></h4>
 <ul>
