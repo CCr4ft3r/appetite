@@ -151,6 +151,8 @@ dependencies {
     runtimeOnly fg.deobf("curse.maven:configured-457570:${mod_configured_file_id}")
 
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+    runtimeOnly fg.deobf("curse.maven:goprone-327968:${mod_goprone_file_id}")
+    implementation fg.deobf("curse.maven:paragliders-289240:${mod_paragliders_file_id}")
 
     // Real mod deobf dependency examples - these get remapped to your current mappings
     // compileOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}:api") // Adds JEI API as a compile dependency

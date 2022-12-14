@@ -38,4 +38,5 @@ public class PlayerUtil {
             player.isCreative() || player.isSpectator() || player.isSleeping() || !player.isAlive() ||
             CONFIG_DATA.dimensionBlacklist.get().contains(player.getLevel().dimension().location().toString());
     }
+
 }

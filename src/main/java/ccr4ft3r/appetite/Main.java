@@ -2,13 +2,16 @@ package ccr4ft3r.appetite;
 
 import ccr4ft3r.appetite.config.MainConfig;
 import ccr4ft3r.appetite.config.ProfileConfig;
+import ccr4ft3r.appetite.events.CompatibilityHandler;
 import ccr4ft3r.appetite.network.PacketHandler;
 import ccr4ft3r.appetite.registry.ModItems;
 import ccr4ft3r.appetite.registry.ModMobEffects;
 import ccr4ft3r.appetite.registry.ModPotions;
 import com.mojang.logging.LogUtils;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig.Type;
@@ -27,6 +30,7 @@ public class Main {
         registerObjects();
 
         PacketHandler.registerMessages();
+        addCompatibilitiesListener();
     }
 
     private static void registerObjects() {
@@ -41,6 +45,13 @@ public class Main {
         ModLoadingContext.get().registerConfig(Type.COMMON, ProfileConfig.CONFIG_HUNGRY, ModConstants.MOD_ID + "/hungry-profile.toml");
         ModLoadingContext.get().registerConfig(Type.COMMON, ProfileConfig.CONFIG_STARVING, ModConstants.MOD_ID + "/starving-profile.toml");
         ModLoadingContext.get().registerConfig(Type.COMMON, ProfileConfig.CONFIG_CUSTOM, ModConstants.MOD_ID + "/custom-profile.toml");
+    }
+
+    private static void addCompatibilitiesListener() {
+        if (ModList.get().isLoaded(ModConstants.PARAGLIDER_MOD_ID))
+            MinecraftForge.EVENT_BUS.addListener(CompatibilityHandler::onParagliding);
+        if (ModList.get().isLoaded(ModConstants.GO_PRONE_MOD_ID))
+            MinecraftForge.EVENT_BUS.addListener(CompatibilityHandler::onCrawling);
     }
 
     @SubscribeEvent
