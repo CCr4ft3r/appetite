@@ -103,6 +103,11 @@ public class ProfileConfig {
         public ForgeConfigSpec.DoubleValue coldBiomeMultiplier;
         public ForgeConfigSpec.DoubleValue hotBiomeMultiplier;
 
+        public ForgeConfigSpec.BooleanValue enableParagliding;
+        public ForgeConfigSpec.IntValue afterParagliding;
+        public ForgeConfigSpec.BooleanValue enableCrawling;
+        public ForgeConfigSpec.IntValue afterCrawling;
+
         private final AppetiteProfile profile;
         private final ForgeConfigSpec.Builder builder;
 
@@ -175,6 +180,13 @@ public class ProfileConfig {
             builder.push("Exhaustion for States");
             enableFreezing = define(ENABLE_WHILE + "freezing (while being inside powder snow)", "enableWhileFreezing", false, false, true);
             afterFreezing = defineTime(AFTER_TIME.formatted("freezing (while being inside powder snow)"), "afterFreezing", 60, 30, 15);
+            builder.pop();
+
+            builder.push("Exhaustion for other mods");
+            enableParagliding = define(ENABLE_WHILE + "paragliding (Paragliders Mod)", "enableWhileParagliding", true, true, true);
+            afterParagliding = defineTime(AFTER_TIME.formatted("paragliding (Paragliders Mod)"), "afterParagliding", 180, 120, 90);
+            enableCrawling = define(ENABLE_WHILE + "crawling (GoProne Mod)", "enableWhileCrawling", true, true, true);
+            afterCrawling = defineTime(AFTER_TIME.formatted("crawling (GoProne Mod)"), "afterCrawling", 150, 90, 60);
             builder.pop();
 
             builder.push("Advanced Settings");

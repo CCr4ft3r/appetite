@@ -9,6 +9,8 @@ public class ServerPlayerData {
     private Vec3 lastPosition;
     private boolean isMoving;
     private boolean startedMoving;
+    private boolean isParagliding;
+    private boolean isCrawling;
 
     private Integer freezedFoodLevel = null;
     private Float freezedSaturationLevel = null;
@@ -38,6 +40,22 @@ public class ServerPlayerData {
         if (moving && !isMoving)
             startedMoving = true;
         isMoving = moving;
+    }
+
+    public boolean isParagliding() {
+        return isParagliding;
+    }
+
+    public void setParagliding(boolean paragliding) {
+        isParagliding = paragliding;
+    }
+
+    public boolean isCrawling() {
+        return isCrawling;
+    }
+
+    public void setCrawling(boolean crawling) {
+        isCrawling = crawling;
     }
 
     public void setFoodData(FoodData foodData) {

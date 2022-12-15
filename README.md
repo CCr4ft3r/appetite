@@ -17,8 +17,7 @@
 <p>&nbsp; &nbsp; &nbsp; &nbsp;🪜🌿Exhaustion for climbing on Climbables and walking up stairs/slabs</p>
 <p>&nbsp; &nbsp; &nbsp; &nbsp;🚪📦Exhaustion for open and closing doors, trapdoors, fence gates and chests</p>
 <p>&nbsp; &nbsp; &nbsp; &nbsp;🥶Exhaustion for freezing (when being inside powder snow)</p>
-<p class="LC20lb MBeuO DKV0Md">&nbsp;</p>
-<p class="LC20lb MBeuO DKV0Md">🔔&nbsp;<strong>More to come - stay tuned for updates&nbsp;</strong></p>
+<p class="LC20lb MBeuO DKV0Md">🆕There are also rules for other mods - see paragraph "Compatibilities"</p>
 <p>&nbsp;</p>
 <h4><b>📖 <strong>Getting Started</strong></b></h4>
 <p><span style="font-weight: 400;">You can enable or disable the exhaustion rules and even tweak the amount of time and events after which exhaustion should be added to players.</span></p>
@@ -39,6 +38,13 @@
 </ul>
 <p>To get frozen food just drop the non frozen food item into a cold biome and wait a minute. Frozen food can also be melted in the same way but in a warm biome.</p>
 <p><strong>But watch out!&nbsp;</strong>Overconsuming froozen food causes unwanted side effects - just like in real life.</p>
+<p>&nbsp;</p>
+<h4 class="LC20lb MBeuO DKV0Md">🔌<strong>Compatibilities</strong></h4>
+<p>&nbsp;Appetite also add exhaustion for other mods -&nbsp;all supported mods are optional&nbsp;dependencies so you can choose which one you want to use or none at all.</p>
+<p class="LC20lb MBeuO DKV0Md">&nbsp; &nbsp; &nbsp;🥷<a href="https://www.curseforge.com/minecraft/mc-mods/goprone">GoProne</a>&nbsp;- exhaustion rule for crawling</p>
+<p class="LC20lb MBeuO DKV0Md">&nbsp; &nbsp; &nbsp;🪂<a href="https://www.curseforge.com/minecraft/mc-mods/paragliders">Paragliders</a> - exhaustion rule for paragliding</p>
+<p class="LC20lb MBeuO DKV0Md">&nbsp;</p>
+<p class="LC20lb MBeuO DKV0Md">🔔&nbsp;<strong>More to come - stay tuned for updates&nbsp;</strong></p>
 <p>&nbsp;</p>
 <h4><b>❗<strong>Important Notes</strong></b></h4>
 <ul>

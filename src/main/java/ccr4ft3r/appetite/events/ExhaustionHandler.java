@@ -118,7 +118,7 @@ public class ExhaustionHandler {
         else
             exhaust(player, getProfile().enableResting, !isMoving, getProfile().afterResting, 20, 0);
 
-        if (!isMoving)
+        if (!isMoving || playerData.isCrawling() || playerData.isParagliding())
             return;
 
         boolean isInVehicle = player.getVehicle() != null;
