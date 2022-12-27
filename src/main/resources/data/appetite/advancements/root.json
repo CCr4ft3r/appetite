@@ -1,0 +1,29 @@
+{
+  "display": {
+    "icon": {
+      "item": "appetite:appetite"
+    },
+    "title": {
+      "translate": "advancements.appetite.root.title"
+    },
+    "description": {
+      "translate": "advancements.appetite.root.description"
+    },
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false,
+    "hidden": true,
+    "background": "minecraft:textures/block/cracked_stone_bricks.png"
+  },
+  "criteria": {
+    "tick": {
+      "trigger": "minecraft:tick",
+      "conditions": {}
+    }
+  },
+  "requirements": [
+    [
+      "tick"
+    ]
+  ]
+}

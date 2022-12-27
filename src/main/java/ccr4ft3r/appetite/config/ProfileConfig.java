@@ -107,6 +107,13 @@ public class ProfileConfig {
         public ForgeConfigSpec.IntValue afterParagliding;
         public ForgeConfigSpec.BooleanValue enableCrawling;
         public ForgeConfigSpec.IntValue afterCrawling;
+        public ForgeConfigSpec.BooleanValue enablePullingUp;
+        public ForgeConfigSpec.IntValue afterPullingUp;
+        public ForgeConfigSpec.BooleanValue enableChoppingTrees;
+
+        public ForgeConfigSpec.BooleanValue enableHungerLeveling;
+        public ForgeConfigSpec.IntValue initialHungerbarMaximum;
+        public ForgeConfigSpec.IntValue raisingHungerbarAfter;
 
         private final AppetiteProfile profile;
         private final ForgeConfigSpec.Builder builder;
@@ -187,6 +194,13 @@ public class ProfileConfig {
             afterParagliding = defineTime(AFTER_TIME.formatted("paragliding (Paragliders Mod)"), "afterParagliding", 180, 120, 90);
             enableCrawling = define(ENABLE_WHILE + "crawling (GoProne Mod)", "enableWhileCrawling", true, true, true);
             afterCrawling = defineTime(AFTER_TIME.formatted("crawling (GoProne Mod)"), "afterCrawling", 150, 90, 60);
+            builder.pop();
+
+            builder.push("Hunger leveling");
+            enableHungerLeveling = define("Provides the option to lower the initial maximum of the player's hunger bar. The defined maximum " +
+                "can be increased by leveling up (by gaining experience).", "enableHungerLeveling", false, true, true);
+            initialHungerbarMaximum = defineRange("Determines the hunger indicator (drumstick amount) each player starts with when joining a world for the first time (vanilla's default is 10).", "initialHungerbarMaximum", 1, 10, 10, 7, 5);
+            raisingHungerbarAfter = defineRange("Determines what level delta is needed to increase the initialHungerbarMaximum by one drumstick.", "raisingHungerbarAfter", 1, 20, 3, 6, 7);
             builder.pop();
 
             builder.push("Advanced Settings");

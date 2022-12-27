@@ -5,16 +5,22 @@ import ccr4ft3r.appetite.config.MainConfig;
 import ccr4ft3r.appetite.data.ServerData;
 import ccr4ft3r.appetite.data.capabilities.AppetiteCapabilityProvider;
 import ccr4ft3r.appetite.data.capabilities.FrozenAppetiteCapability;
+import ccr4ft3r.appetite.data.capabilities.HungerLevelingCapability;
+import ccr4ft3r.appetite.data.capabilities.HungerLevelingProvider;
+import ccr4ft3r.appetite.network.ClientboundCapabilityPacket;
+import ccr4ft3r.appetite.network.PacketHandler;
 import ccr4ft3r.appetite.registry.ModMobEffects;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.living.PotionEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.event.entity.player.PlayerXpEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -33,18 +39,26 @@ public class PlayerEventHandler {
         if (event.getPlayer().getLevel().isClientSide())
             return;
         ServerData.addMe(event.getPlayer());
+        event.getPlayer().getCapability(HungerLevelingProvider.HUNGER_LEVELING_CAP).ifPresent(cap -> {
+            cap.increaseFoodMaximum(event.getPlayer(), 0);
+            PacketHandler.sendToPlayer(new ClientboundCapabilityPacket(cap), (ServerPlayer) event.getPlayer());
+        });
     }
 
     @SubscribeEvent
     public static void onRegisterCapabilities(RegisterCapabilitiesEvent event) {
         event.register(FrozenAppetiteCapability.class);
+        event.register(HungerLevelingCapability.class);
     }
 
     @SubscribeEvent
     public static void onAttachPlayerCapabilities(AttachCapabilitiesEvent<Entity> event) {
-        if (!(event.getObject() instanceof Player player) || player.getCapability(AppetiteCapabilityProvider.FROZEN_APPETITE_CAP).isPresent())
+        if (!(event.getObject() instanceof Player player))
             return;
-        event.addCapability(new ResourceLocation(ModConstants.MOD_ID, "appetite"), new AppetiteCapabilityProvider());
+        if (!player.getCapability(AppetiteCapabilityProvider.FROZEN_APPETITE_CAP).isPresent())
+            event.addCapability(new ResourceLocation(ModConstants.MOD_ID, "appetite"), new AppetiteCapabilityProvider());
+        if (!player.getCapability(HungerLevelingProvider.HUNGER_LEVELING_CAP).isPresent())
+            event.addCapability(new ResourceLocation(ModConstants.MOD_ID, "hunger_leveling"), new HungerLevelingProvider());
     }
 
     @SubscribeEvent
@@ -58,6 +72,16 @@ public class PlayerEventHandler {
                 c.effectUsed(player.getLevel());
             else
                 c.setShouldEffectBeRemoved(true);
+        });
+    }
+
+    @SubscribeEvent
+    public static void onLevelingUp(PlayerXpEvent.LevelChange event) {
+        if (event.getPlayer().getLevel().isClientSide())
+            return;
+        event.getPlayer().getCapability(HungerLevelingProvider.HUNGER_LEVELING_CAP).ifPresent((cap) -> {
+            if (cap.increaseFoodMaximum(event.getPlayer(), event.getLevels()))
+                PacketHandler.sendToPlayer(new ClientboundCapabilityPacket(cap), (ServerPlayer) event.getPlayer());
         });
     }
 

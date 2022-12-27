@@ -4,7 +4,13 @@
   "compatibilityLevel": "JAVA_17",
   "refmap": "appetite.refmap.json",
   "mixins": [
+    "FoodDataMixin",
+    "FoodHelperMixin",
     "OpenablesMixin"
+  ],
+  "client": [
+    "ForgeIngameGuiMixin",
+    "HudOverlayHandlerMixin"
   ],
   "minVersion": "0.8"
 }
