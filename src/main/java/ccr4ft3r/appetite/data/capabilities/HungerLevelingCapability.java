@@ -35,8 +35,11 @@ public class HungerLevelingCapability implements INBTSerializable<CompoundTag> {
 
     public boolean increaseFoodMaximum(Player player, int newLevels) {
         try {
+            if (!getProfile().enableHungerLeveling.get())
+                return false;
+
             if (player.experienceLevel + newLevels >= lastLevelOfIncrease + getProfile().raisingHungerbarAfter.get()
-                && currentFoodMaximum < 10) {
+                && getCurrentFoodMaximum() < 10) {
                 currentFoodMaximum++;
                 lastLevelOfIncrease = player.experienceLevel + newLevels;
                 PlayerAdvancements advancements = ((ServerPlayer) player).getAdvancements();
@@ -49,11 +52,10 @@ public class HungerLevelingCapability implements INBTSerializable<CompoundTag> {
             return false;
         } finally {
             if (player.getFoodData() instanceof IFoodData iFoodData)
-                iFoodData.setFoodbarMax(currentFoodMaximum);
+                iFoodData.setFoodbarMax(getCurrentFoodMaximum());
         }
     }
-
     public int getCurrentFoodMaximum() {
-        return currentFoodMaximum;
+        return getProfile().enableHungerLeveling.get() ? currentFoodMaximum : getProfile().getInitalHungerbarMaximum();
     }
 }

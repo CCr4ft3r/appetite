@@ -1,5 +1,6 @@
 package ccr4ft3r.appetite.config;
 
+import ccr4ft3r.appetite.ModConstants;
 import com.mojang.logging.LogUtils;
 import net.minecraftforge.common.ForgeConfigSpec;
 
@@ -117,6 +118,10 @@ public class ProfileConfig {
 
         private final AppetiteProfile profile;
         private final ForgeConfigSpec.Builder builder;
+
+        public int getInitalHungerbarMaximum() {
+            return enableHungerLeveling.get() ? initialHungerbarMaximum.get() : ModConstants.VANILLA_MAX_FOOD_LEVEL / 2;
+        }
 
         public Data(ForgeConfigSpec.Builder builder, AppetiteProfile profile) {
             this.builder = builder;

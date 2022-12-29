@@ -21,9 +21,10 @@
       "conditions": {
         "item": {
           "items": [
-            "appetite:frozen_cod"
-          ],
-          "count": 1
+            "appetite:frozen_cod",
+            "appetite:frozen_salmon",
+            "appetite:frozen_tropical_fish"
+          ]
         }
       }
     }
