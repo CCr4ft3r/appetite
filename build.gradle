@@ -148,10 +148,13 @@ dependencies {
     // that the dep is a ForgeGradle 'patcher' dependency, and its patches will be applied.
     // The userdev artifact is a special name and will get all sorts of transformations applied to it.
     minecraft "net.minecraftforge:forge:${mc_version}-${forge_version}"
-    runtimeOnly fg.deobf("curse.maven:configured-457570:${mod_configured_file_id}")
 
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+
+    runtimeOnly fg.deobf("curse.maven:configured-457570:${mod_configured_file_id}")
     runtimeOnly fg.deobf("curse.maven:goprone-327968:${mod_goprone_file_id}")
+
+    implementation fg.deobf("curse.maven:appleskin-248787:${mod_appleskin_file_id}")
     implementation fg.deobf("curse.maven:paragliders-289240:${mod_paragliders_file_id}")
 
     // Real mod deobf dependency examples - these get remapped to your current mappings

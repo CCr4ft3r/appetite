@@ -1,0 +1,61 @@
+{
+  "parent": "appetite:root",
+  "display": {
+    "icon": {
+      "item": "minecraft:snow_block"
+    },
+    "title": {
+      "translate": "advancements.appetite.drop_fish.title"
+    },
+    "description": {
+      "translate": "advancements.appetite.drop_fish.description"
+    },
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "stepping_on": {
+                "block": {
+                  "tag": "minecraft:snow"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "requirement2": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "player": [
+          {
+            "condition": "minecraft:entity_properties",
+            "entity": "this",
+            "predicate": {
+              "stepping_on": {
+                "block": {
+                  "tag": "minecraft:ice"
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "requirement",
+      "requirement2"
+    ]
+  ]
+}

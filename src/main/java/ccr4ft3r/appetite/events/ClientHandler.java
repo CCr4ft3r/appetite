@@ -22,7 +22,7 @@ import static ccr4ft3r.appetite.network.ServerboundPacket.Action.*;
 @Mod.EventBusSubscriber(modid = ModConstants.MOD_ID, value = Dist.CLIENT)
 public class ClientHandler {
 
-    private static final ClientPlayerData PLAYER_DATA = new ClientPlayerData();
+    public static final ClientPlayerData PLAYER_DATA = new ClientPlayerData();
 
     private static final Predicate<LocalPlayer> NOT_JUMPABLE = (player) -> player.isInWater() || player.onClimbable();
 

@@ -14,5 +14,14 @@
   "item.appetite.frozen_salmon": "Frozen Salmon",
 
   "effect.appetite.brain_freeze.message1": "Frozen Appetite cannot be used more than %s times a day.",
-  "effect.appetite.brain_freeze.message2": "Frozen food/potions should be consumed one after the other."
+  "effect.appetite.brain_freeze.message2": "Frozen food/potions should be consumed one after the other.",
+
+  "advancements.appetite.frozen_appetite.title": "Frozen Appetite",
+  "advancements.appetite.frozen_appetite.description": "Eat some frozen food.",
+  "advancements.appetite.level_up.title": "Enjoy more food",
+  "advancements.appetite.level_up.description": "Level up to get a further drumstick.",
+  "advancements.appetite.drop_fish.title": "Drop your fish here",
+  "advancements.appetite.drop_fish.description": "Throw a fish into a cold biome and wait ...",
+  "advancements.appetite.root.title": "Appetite",
+  "advancements.appetite.root.description": "Advancements for the Appetite mod"
 }
