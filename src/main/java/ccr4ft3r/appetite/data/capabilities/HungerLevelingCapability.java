@@ -2,13 +2,14 @@ package ccr4ft3r.appetite.data.capabilities;
 
 import ccr4ft3r.appetite.IFoodData;
 import ccr4ft3r.appetite.ModConstants;
+import ccr4ft3r.appetite.network.ClientboundCapabilityPacket;
+import ccr4ft3r.appetite.network.PacketHandler;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.IntTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.PlayerAdvancements;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.common.util.INBTSerializable;
 
 import static ccr4ft3r.appetite.config.ProfileConfig.*;
@@ -33,25 +34,26 @@ public class HungerLevelingCapability implements INBTSerializable<CompoundTag> {
         this.lastLevelOfIncrease = tag.getInt("lastLevelOfIncrease");
     }
 
-    public boolean increaseFoodMaximum(Player player, int newLevels) {
+    public void updateFoodMax(ServerPlayer player, int newLevels) {
         try {
             if (!getProfile().enableHungerLeveling.get())
-                return false;
+                return;
+
             if (player.experienceLevel + newLevels >= lastLevelOfIncrease + getProfile().raisingHungerbarAfter.get()
                 && getCurrentFoodMaximum() < 10) {
                 currentFoodMaximum++;
                 lastLevelOfIncrease = player.experienceLevel + newLevels;
-                PlayerAdvancements advancements = ((ServerPlayer) player).getAdvancements();
+                PlayerAdvancements advancements = player.getAdvancements();
                 Advancement levelUpAdvancement = player.createCommandSourceStack().getAdvancement(
                     new ResourceLocation(ModConstants.MOD_ID, "level_up"));
                 advancements.getOrStartProgress(levelUpAdvancement).revokeProgress("requirement");
                 advancements.award(levelUpAdvancement, "requirement");
-                return true;
             }
-            return false;
         } finally {
-            if (player.getFoodData() instanceof IFoodData iFoodData)
+            if (player.getFoodData() instanceof IFoodData iFoodData) {
                 iFoodData.setFoodbarMax(getCurrentFoodMaximum());
+                PacketHandler.sendToPlayer(new ClientboundCapabilityPacket(this), player);
+            }
         }
     }
 
