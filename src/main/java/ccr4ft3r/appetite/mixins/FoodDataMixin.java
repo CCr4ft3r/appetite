@@ -69,6 +69,7 @@ public class FoodDataMixin implements IFoodData {
         this.foodbarMax = foodbarMax;
     }
 
+    @Override
     public int getFoodbarMax() {
         return foodbarMax;
     }
