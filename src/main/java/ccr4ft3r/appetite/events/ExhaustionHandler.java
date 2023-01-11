@@ -20,6 +20,10 @@ import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.BooleanSupplier;
+
 import static ccr4ft3r.appetite.config.ProfileConfig.*;
 import static ccr4ft3r.appetite.data.ServerData.*;
 import static ccr4ft3r.appetite.util.PlayerUtil.*;
@@ -28,9 +32,12 @@ import static net.minecraft.tags.BlockTags.*;
 @Mod.EventBusSubscriber(modid = ModConstants.MOD_ID)
 public class ExhaustionHandler {
 
+    public static final Map<Class<?>, BooleanSupplier> INCLUDE_EVENT_PER_CLASS = new HashMap<>();
+
     @SubscribeEvent
     public static void onPlayerBreakBlock(BlockEvent.BreakEvent event) {
-        if (cannotBeExhausted(event.getPlayer()) || event.isCanceled())
+        if (cannotBeExhausted(event.getPlayer()) || event.isCanceled()
+            || !INCLUDE_EVENT_PER_CLASS.getOrDefault(event.getClass(), () -> true).getAsBoolean())
             return;
 
         BlockState blockState = event.getState();
@@ -118,7 +125,7 @@ public class ExhaustionHandler {
         else
             exhaust(player, getProfile().enableResting, !isMoving, getProfile().afterResting, 20, 0);
 
-        if (!isMoving || playerData.isCrawling() || playerData.isParagliding())
+        if (!isMoving || playerData.isCrawling() || playerData.isParagliding() || playerData.isPullingUp())
             return;
 
         boolean isInVehicle = player.getVehicle() != null;

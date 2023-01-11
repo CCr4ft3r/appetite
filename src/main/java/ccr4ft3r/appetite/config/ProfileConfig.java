@@ -199,6 +199,9 @@ public class ProfileConfig {
             afterParagliding = defineTime(AFTER_TIME.formatted("paragliding (Paragliders Mod)"), "afterParagliding", 180, 120, 90);
             enableCrawling = define(ENABLE_WHILE + "crawling (GoProne Mod)", "enableWhileCrawling", true, true, true);
             afterCrawling = defineTime(AFTER_TIME.formatted("crawling (GoProne Mod)"), "afterCrawling", 150, 90, 60);
+            enablePullingUp = define(AFTER_TIME.formatted("pulling yourself up (Grappling Hook Mod)"), "enableWhilePullingUp", true, true, true);
+            afterPullingUp = defineTime(AFTER_TIME.formatted("pulling yourself up (Grappling Hook Mod"), "afterPullingUp", 28, 14, 7);
+            enableChoppingTrees = define(ENABLE_AT.formatted("chopping trees (Falling Tree Mod). For changing the exhaustion see: afterBreakingAxeMineables"), "enableForChoppingTrees", true, true, true);
             builder.pop();
 
             builder.push("Hunger leveling");
