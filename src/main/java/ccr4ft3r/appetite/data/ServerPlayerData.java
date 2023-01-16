@@ -11,6 +11,7 @@ public class ServerPlayerData {
     private boolean startedMoving;
     private boolean isParagliding;
     private boolean isCrawling;
+    private boolean isPullingUp;
 
     private Integer freezedFoodLevel = null;
     private Float freezedSaturationLevel = null;
@@ -80,5 +81,13 @@ public class ServerPlayerData {
 
     public Integer getFreezedFoodLevel() {
         return freezedFoodLevel;
+    }
+
+    public boolean isPullingUp() {
+        return isPullingUp;
+    }
+
+    public void setPullingUp(boolean pullingUp) {
+        isPullingUp = pullingUp;
     }
 }

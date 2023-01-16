@@ -3,11 +3,13 @@ package ccr4ft3r.appetite;
 import ccr4ft3r.appetite.config.MainConfig;
 import ccr4ft3r.appetite.config.ProfileConfig;
 import ccr4ft3r.appetite.events.CompatibilityHandler;
+import ccr4ft3r.appetite.events.ExhaustionHandler;
 import ccr4ft3r.appetite.network.PacketHandler;
 import ccr4ft3r.appetite.registry.ModItems;
 import ccr4ft3r.appetite.registry.ModMobEffects;
 import ccr4ft3r.appetite.registry.ModPotions;
 import com.mojang.logging.LogUtils;
+import fr.raksrinana.fallingtree.forge.event.FallingTreeBlockBreakEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -17,6 +19,8 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig.Type;
 import net.minecraftforge.fml.event.config.ModConfigEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+
+import static ccr4ft3r.appetite.config.ProfileConfig.*;
 
 @Mod(ModConstants.MOD_ID)
 public class Main {
@@ -52,6 +56,10 @@ public class Main {
             MinecraftForge.EVENT_BUS.addListener(CompatibilityHandler::onParagliding);
         if (ModList.get().isLoaded(ModConstants.GO_PRONE_MOD_ID))
             MinecraftForge.EVENT_BUS.addListener(CompatibilityHandler::onCrawling);
+        if (ModList.get().isLoaded(ModConstants.GRAPPLING_HOOK_MOD_ID))
+            MinecraftForge.EVENT_BUS.addListener(CompatibilityHandler::onPullingUp);
+        if (ModList.get().isLoaded(ModConstants.FALLING_TREE_MOD_ID))
+            ExhaustionHandler.INCLUDE_EVENT_PER_CLASS.put(FallingTreeBlockBreakEvent.class, () -> getProfile().enableChoppingTrees.get());
     }
 
     @SubscribeEvent

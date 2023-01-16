@@ -2,6 +2,7 @@ package ccr4ft3r.appetite.events;
 
 import ccr4ft3r.appetite.data.ServerData;
 import ccr4ft3r.appetite.data.ServerPlayerData;
+import com.yyon.grapplinghook.server.ServerControllerManager;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.common.util.LazyOptional;
@@ -44,4 +45,18 @@ public class CompatibilityHandler {
         ServerData.getPlayerData(player).setCrawling(isCrawling);
         exhaust(event.player, getProfile().enableCrawling, isCrawling, getProfile().afterCrawling, 20, 0);
     }
+
+    @SubscribeEvent
+    public static void onPullingUp(TickEvent.PlayerTickEvent event) {
+        Player player = event.player;
+        if (shouldSkipTick(event, player))
+            return;
+
+        ServerPlayerData playerData = getPlayerData(player);
+        boolean isUpward = playerData.isMoving() && playerData.getLastPosition() != null && player.position().y > playerData.getLastPosition().y;
+        boolean isPullingUp = isUpward && ServerControllerManager.attached.contains(player.getId());
+        ServerData.getPlayerData(player).setPullingUp(isPullingUp);
+        exhaust(player, getProfile().enablePullingUp, isPullingUp, getProfile().afterPullingUp, 20, 0);
+    }
+
 }
