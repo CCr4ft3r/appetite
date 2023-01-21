@@ -103,6 +103,8 @@ public class ProfileConfig {
 
         public ForgeConfigSpec.DoubleValue coldBiomeMultiplier;
         public ForgeConfigSpec.DoubleValue hotBiomeMultiplier;
+        public ForgeConfigSpec.BooleanValue enableArmorImpactOnExhaustion;
+        public ForgeConfigSpec.DoubleValue armorLogarithmicImpact;
 
         public ForgeConfigSpec.BooleanValue enableParagliding;
         public ForgeConfigSpec.IntValue afterParagliding;
@@ -216,6 +218,11 @@ public class ProfileConfig {
                 "coldBiomeMultiplier", 1d, 10d, 1d, 1d, 1d);
             hotBiomeMultiplier = defineRange("Sets the multiplier for exhaustion caused by the rules of Appetite when the player is in a hot biome",
                 "hotBiomeMultiplier", 1d, 10d, 1d, 1d, 1d);
+            enableArmorImpactOnExhaustion = define("Determines that each armor wil have an individual impact on the added exhaustion. Lighter armor will have an lower impact and heavier armor an higher impact.", "ArmorImpactOnExhaustion", false, true, true);
+            armorLogarithmicImpact = defineRange("Appetite is using the logarithm as a multiplier to modify the exhaustion defined by the rules, depending on the armor defense points. This value defines the logarithmic base whereas the defense points will be used as the numerus. The higher the value the higher the reward (lower exhaustion) for wearing lighter armor but the lower the additional exhaustion for heavier armor. The lower the value the higher the exhaustion for wearing heavy armor but the lower the reward for wearing lighter armor." +
+                    "\nExample for rewarding the player (default mode): Wearing leather armor (numerus = 7) for the defined impact of 12 (base) leads to an multiplier of 0.78 (22% fewer exhaustion). Wearing diamond armor (numerus = 20) for the same impact leads to a multiplier of 1.2 (20% higher exhaustion). A calculated multiplier for leather armor lower than 1 is also used when the player is wearing no armor."
+                +"\nExample for higher difficulty: Wearing leather armor for the defined impact of 6 leads to an multiplier of 1.09 (9% more exhaustion). Wearing diamond armor for the same impact leads to a multiplier of 1.67 (67% higher exhaustion).",
+                "armorLogarithmicImpact", 6d, 20d, 15d, 12d, 7d);
         }
 
         private ForgeConfigSpec.BooleanValue define(String comment, String property, boolean... profileValues) {

@@ -14,7 +14,6 @@ public class PlayerUtil {
                                float vanillaExhaustion) {
         if (cannotBeExhausted(player))
             return;
-
         if (optionEnabled.get() && onlyIf) {
             float appetiteExhaustion = 8f * multiplier * getExhaustionMultiplier(player) / (float) exhaustionAfter.get();
             float exhaustion = Math.max(appetiteExhaustion - vanillaExhaustion, 0);
@@ -26,11 +25,22 @@ public class PlayerUtil {
     }
 
     private static float getExhaustionMultiplier(Player player) {
+        float multiplier = 1;
         if (BiomeUtil.isHot(player))
-            return getProfile().hotBiomeMultiplier.get().floatValue();
+            multiplier *= getProfile().hotBiomeMultiplier.get().floatValue();
         if (BiomeUtil.isCold(player))
-            return getProfile().coldBiomeMultiplier.get().floatValue();
-        return 1;
+            multiplier *= getProfile().coldBiomeMultiplier.get().floatValue();
+        if (getProfile().enableArmorImpactOnExhaustion.get()) {
+            float logBase = getProfile().armorLogarithmicImpact.get().floatValue();
+            if (logBase > 0) {
+                double logDivisor = Math.log(logBase);
+                int armorValue = player.getArmorValue();
+                if (logDivisor != 0 && armorValue >= 0) {
+                    multiplier *= Math.log(armorValue == 0 ? 7 : armorValue) / logDivisor;
+                }
+            }
+        }
+        return multiplier == 0 ? 1 : multiplier;
     }
 
     public static boolean cannotBeExhausted(Player player) {
@@ -38,5 +48,4 @@ public class PlayerUtil {
             player.isCreative() || player.isSpectator() || player.isSleeping() || !player.isAlive() ||
             CONFIG_DATA.dimensionBlacklist.get().contains(player.getLevel().dimension().location().toString());
     }
-
 }

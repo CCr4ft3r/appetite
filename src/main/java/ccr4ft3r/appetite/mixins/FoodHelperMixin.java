@@ -38,8 +38,4 @@ public class FoodHelperMixin {
         return getMaxFoodLevel();
     }
 
-    @ModifyConstant(method = "getEstimatedHealthIncrement(IFF)F", constant = @Constant(intValue = VANILLA_FOOD_HEAL_LEVEL, ordinal = 1), remap = false)
-    private static int getMaxFoodLevelForEstimatedHealthIncrement2(int i) {
-        return getFoodHealLevel();
-    }
 }
