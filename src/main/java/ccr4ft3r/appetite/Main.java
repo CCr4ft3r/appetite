@@ -9,8 +9,10 @@ import ccr4ft3r.appetite.registry.ModItems;
 import ccr4ft3r.appetite.registry.ModMobEffects;
 import ccr4ft3r.appetite.registry.ModPotions;
 import com.mojang.logging.LogUtils;
-import fr.raksrinana.fallingtree.forge.event.FallingTreeBlockBreakEvent;
+import fr.rakambda.fallingtree.forge.event.FallingTreeBlockBreakEvent;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.CreativeModeTabEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModList;
@@ -21,8 +23,10 @@ import net.minecraftforge.fml.event.config.ModConfigEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 import static ccr4ft3r.appetite.config.ProfileConfig.*;
+import static ccr4ft3r.appetite.registry.ModTabs.*;
 
 @Mod(ModConstants.MOD_ID)
+@Mod.EventBusSubscriber(modid = ModConstants.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class Main {
 
     public Main() {
@@ -43,6 +47,11 @@ public class Main {
         ModItems.register();
     }
 
+    @SubscribeEvent
+    static void registerCreativeModeTabs(CreativeModeTabEvent.Register event) {
+        event.registerCreativeModeTab(new ResourceLocation(ModConstants.MOD_ID, "all_items"), MOD_TAB_BUILDER_CONSUMER);
+    }
+
     private static void registerConfigs() {
         ModLoadingContext.get().registerConfig(Type.COMMON, MainConfig.CONFIG, ModConstants.MOD_ID + "-common.toml");
         ModLoadingContext.get().registerConfig(Type.COMMON, ProfileConfig.CONFIG_PECKISH, ModConstants.MOD_ID + "/peckish-profile.toml");
@@ -52,12 +61,12 @@ public class Main {
     }
 
     private static void addCompatibilitiesListener() {
-        if (ModList.get().isLoaded(ModConstants.PARAGLIDER_MOD_ID))
-            MinecraftForge.EVENT_BUS.addListener(CompatibilityHandler::onParagliding);
+/*        if (ModList.get().isLoaded(ModConstants.PARAGLIDER_MOD_ID))
+            MinecraftForge.EVENT_BUS.addListener(CompatibilityHandler::onParagliding);*/
         if (ModList.get().isLoaded(ModConstants.GO_PRONE_MOD_ID))
             MinecraftForge.EVENT_BUS.addListener(CompatibilityHandler::onCrawling);
-        if (ModList.get().isLoaded(ModConstants.GRAPPLING_HOOK_MOD_ID))
-            MinecraftForge.EVENT_BUS.addListener(CompatibilityHandler::onPullingUp);
+/*        if (ModList.get().isLoaded(ModConstants.GRAPPLING_HOOK_MOD_ID))
+            MinecraftForge.EVENT_BUS.addListener(CompatibilityHandler::onPullingUp);*/
         if (ModList.get().isLoaded(ModConstants.FALLING_TREE_MOD_ID))
             ExhaustionHandler.INCLUDE_EVENT_PER_CLASS.put(FallingTreeBlockBreakEvent.class, () -> getProfile().enableChoppingTrees.get());
     }

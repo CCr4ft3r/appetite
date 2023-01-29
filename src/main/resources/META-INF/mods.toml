@@ -46,7 +46,7 @@ side = "BOTH"
 modId = "minecraft"
 mandatory = true
 # This version range declares a minimum of the current minecraft version up to but not including the next major version
-versionRange = "[1.19.2,1.20)"
+versionRange = "[1.19.3,1.20)"
 ordering = "NONE"
 side = "BOTH"
 [[dependencies.appetite]]
@@ -58,6 +58,6 @@ side = "SERVER"
 [[dependencies.appetite]]
 modId = "goprone"
 mandatory = false
-versionRange = "[1.19-2.4.0,)"
+versionRange = "[1.19-2.2.0,)"
 ordering = "AFTER"
 side = "SERVER"

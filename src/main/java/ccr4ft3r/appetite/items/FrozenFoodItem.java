@@ -18,7 +18,7 @@ public class FrozenFoodItem extends Item {
     private final Item unfrozenItem;
 
     public FrozenFoodItem(Item unfrozenItem) {
-        super(new Item.Properties().tab(ModTabs.MOD_TAB).food(new FoodProperties.Builder().alwaysEat().build()));
+        super(new Item.Properties().food(new FoodProperties.Builder().alwaysEat().build()));
         this.unfrozenItem = unfrozenItem;
     }
 

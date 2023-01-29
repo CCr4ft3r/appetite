@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "appetite:items/frozen_tropical_fish"
+    "layer0": "appetite:item/frozen_tropical_fish"
   }
 }

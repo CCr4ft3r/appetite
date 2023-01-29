@@ -156,8 +156,8 @@ dependencies {
     runtimeOnly fg.deobf("curse.maven:goprone-327968:${mod_goprone_file_id}")
 
     implementation fg.deobf("curse.maven:appleskin-248787:${mod_appleskin_file_id}")
-    implementation fg.deobf("curse.maven:paragliders-289240:${mod_paragliders_file_id}")
-    implementation fg.deobf("curse.maven:grapplinghook-238911:${mod_grapplinghook_id}")
+    // No 1.19.3 yet implementation fg.deobf("curse.maven:paragliders-289240:${mod_paragliders_file_id}")
+    // No 1.19.3 yet implementation fg.deobf("curse.maven:grapplinghook-238911:${mod_grapplinghook_id}")
     implementation fg.deobf("curse.maven:falling-tree-349559:${mod_falling_tree_id}")
 
     // Real mod deobf dependency examples - these get remapped to your current mappings
