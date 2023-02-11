@@ -3,14 +3,15 @@ package ccr4ft3r.appetite.events;
 import ccr4ft3r.appetite.data.ServerData;
 import ccr4ft3r.appetite.data.ServerPlayerData;
 import com.yyon.grapplinghook.server.ServerControllerManager;
-import fr.raksrinana.fallingtree.forge.event.FallingTreeBlockBreakEvent;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import tictim.paraglider.capabilities.Caps;
 import tictim.paraglider.capabilities.PlayerMovement;
+import tschipp.carryon.common.handler.PickupHandler;
 
 import static ccr4ft3r.appetite.config.ProfileConfig.*;
 import static ccr4ft3r.appetite.data.ServerData.*;
@@ -60,4 +61,24 @@ public class CompatibilityHandler {
         exhaust(player, getProfile().enablePullingUp, isPullingUp, getProfile().afterPullingUp, 20, 0);
     }
 
+    @SubscribeEvent
+    public static void onPickingUp(PickupHandler.PickUpBlockEvent event) {
+        if (event.getPlayer().getLevel().isClientSide())
+            return;
+        getPlayerData(event.getPlayer()).setCarrying(true);
+    }
+
+    @SubscribeEvent
+    public static void onPickingUpEntity(PickupHandler.PickUpEntityEvent event) {
+        if (!(event.getEntity() instanceof Player player) || player.getLevel().isClientSide())
+            return;
+        getPlayerData(event.getPlayer()).setCarrying(true);
+    }
+
+    @SubscribeEvent
+    public static void onPlacingEntity(BlockEvent.EntityPlaceEvent event) {
+        if (!(event.getEntity() instanceof Player player) || player.getLevel().isClientSide())
+            return;
+        getPlayerData((Player) event.getEntity()).setCarrying(false);
+    }
 }

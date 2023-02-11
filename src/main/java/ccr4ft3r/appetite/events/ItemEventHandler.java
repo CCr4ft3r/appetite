@@ -23,6 +23,8 @@ public class ItemEventHandler {
 
     @SubscribeEvent
     public static void onItemExpire(ItemExpireEvent event) {
+        if (!MainConfig.CONFIG_DATA.enableFishFreezing.get())
+            return;
         Level level = event.getEntity().getLevel();
         if (event.isCanceled() || level.isClientSide()) return;
         final ItemEntity itemEntity = event.getEntityItem();
@@ -40,6 +42,8 @@ public class ItemEventHandler {
 
     @SubscribeEvent
     public static void onItemDropped(EntityJoinWorldEvent event) {
+        if (!MainConfig.CONFIG_DATA.enableFishFreezing.get())
+            return;
         if (event.isCanceled() || event.getWorld().isClientSide()) return;
         if (!(event.getEntity() instanceof final ItemEntity itemEntity)) return;
         Item item = itemEntity.getItem().getItem();

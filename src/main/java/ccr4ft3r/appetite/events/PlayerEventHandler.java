@@ -14,13 +14,17 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.living.PotionEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerXpEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
+import tschipp.carryon.common.item.ItemCarryonBlock;
+import tschipp.carryon.common.item.ItemCarryonEntity;
 
 import static ccr4ft3r.appetite.data.capabilities.HungerLevelingProvider.*;
 
@@ -36,10 +40,17 @@ public class PlayerEventHandler {
 
     @SubscribeEvent
     public static void onPlayerLoggedIn(PlayerEvent.PlayerLoggedInEvent event) {
-        if (event.getPlayer().getLevel().isClientSide())
+        Player player = event.getPlayer();
+        if (player.getLevel().isClientSide())
             return;
-        ServerData.addMe(event.getPlayer());
-        event.getPlayer().getCapability(HungerLevelingProvider.HUNGER_LEVELING_CAP).ifPresent(cap -> cap.updateFoodMax((ServerPlayer) event.getPlayer(), 0));
+        ServerData.addMe(player);
+        player.getCapability(HungerLevelingProvider.HUNGER_LEVELING_CAP).ifPresent(cap -> cap.updateFoodMax((ServerPlayer) player, 0));
+        if (ModList.get().isLoaded(ModConstants.CARRY_ON_MOD_ID)) {
+            ServerData.getPlayerData(player).setCarrying(
+                ItemCarryonBlock.getBlock(player.getMainHandItem()) != Blocks.AIR
+                    || ItemCarryonEntity.hasEntityData(player.getMainHandItem())
+            );
+        }
     }
 
     @SubscribeEvent

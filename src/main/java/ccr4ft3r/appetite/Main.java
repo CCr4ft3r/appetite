@@ -43,6 +43,7 @@ public class Main {
         ModItems.register();
     }
 
+
     private static void registerConfigs() {
         ModLoadingContext.get().registerConfig(Type.COMMON, MainConfig.CONFIG, ModConstants.MOD_ID + "-common.toml");
         ModLoadingContext.get().registerConfig(Type.COMMON, ProfileConfig.CONFIG_PECKISH, ModConstants.MOD_ID + "/peckish-profile.toml");
@@ -60,6 +61,12 @@ public class Main {
             MinecraftForge.EVENT_BUS.addListener(CompatibilityHandler::onPullingUp);
         if (ModList.get().isLoaded(ModConstants.FALLING_TREE_MOD_ID))
             ExhaustionHandler.INCLUDE_EVENT_PER_CLASS.put(FallingTreeBlockBreakEvent.class, () -> getProfile().enableChoppingTrees.get());
+
+        if (ModList.get().isLoaded(ModConstants.CARRY_ON_MOD_ID)) {
+            MinecraftForge.EVENT_BUS.addListener(CompatibilityHandler::onPickingUp);
+            MinecraftForge.EVENT_BUS.addListener(CompatibilityHandler::onPickingUpEntity);
+            MinecraftForge.EVENT_BUS.addListener(CompatibilityHandler::onPlacingEntity);
+        }
     }
 
     @SubscribeEvent

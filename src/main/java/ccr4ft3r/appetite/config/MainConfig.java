@@ -5,6 +5,8 @@ import net.minecraftforge.common.ForgeConfigSpec;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.lang.Integer.*;
+
 public class MainConfig {
 
     private static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
@@ -20,6 +22,7 @@ public class MainConfig {
         public ForgeConfigSpec.ConfigValue<List<String>> dimensionBlacklist;
         public ForgeConfigSpec.IntValue ticksToFreezeOrMelt;
         public ForgeConfigSpec.IntValue frozenAppetitePerDay;
+        public ForgeConfigSpec.BooleanValue enableFishFreezing;
 
         public Data(ForgeConfigSpec.Builder builder) {
             builder.push("1 - General");
@@ -41,6 +44,8 @@ public class MainConfig {
                 .define("enableFrozenAppetite", true);
             frozenAppetitePerDay = builder.comment("Sets the amount of frozen food items and potions of 'Frozen Appetite' a player can consume per day before they cause a negative effect instead of the wanted one.")
                 .defineInRange("frozenAppetitePerDay", 3, 1, 10);
+            enableFishFreezing = builder.comment("Determines whether dropped fish should freeze in cold biomes.")
+                .define("enableFishFreezing", true);
             ticksToFreezeOrMelt = builder.comment("Specifies the amount of ticks a dropped fish item will freeze or a dropped frozen food item will melt and will transform into the other one.")
                 .defineInRange("ticksToFreezeOrMelt", 1200, 200, 6000);
         }

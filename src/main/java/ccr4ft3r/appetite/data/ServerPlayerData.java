@@ -12,6 +12,7 @@ public class ServerPlayerData {
     private boolean isParagliding;
     private boolean isCrawling;
     private boolean isPullingUp;
+    private boolean isCarrying;
 
     private Integer freezedFoodLevel = null;
     private Float freezedSaturationLevel = null;
@@ -49,6 +50,14 @@ public class ServerPlayerData {
 
     public void setParagliding(boolean paragliding) {
         isParagliding = paragliding;
+    }
+
+    public boolean isCarrying() {
+        return isCarrying;
+    }
+
+    public void setCarrying(boolean isCarrying) {
+        this.isCarrying = isCarrying;
     }
 
     public boolean isCrawling() {

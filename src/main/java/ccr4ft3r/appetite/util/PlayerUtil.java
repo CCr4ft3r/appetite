@@ -1,5 +1,6 @@
 package ccr4ft3r.appetite.util;
 
+import ccr4ft3r.appetite.data.ServerData;
 import com.mojang.logging.LogUtils;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.common.ForgeConfigSpec;
@@ -30,6 +31,8 @@ public class PlayerUtil {
             multiplier *= getProfile().hotBiomeMultiplier.get().floatValue();
         if (BiomeUtil.isCold(player))
             multiplier *= getProfile().coldBiomeMultiplier.get().floatValue();
+        if (ServerData.getPlayerData(player).isCarrying() && getProfile().enableCarry.get())
+            multiplier *= getProfile().carryMultiplier.get().floatValue();
         if (getProfile().enableArmorImpactOnExhaustion.get()) {
             float logBase = getProfile().armorLogarithmicImpact.get().floatValue();
             if (logBase > 0) {
