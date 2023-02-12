@@ -1,7 +1,7 @@
 package ccr4ft3r.appetite.mixins;
 
 import ccr4ft3r.appetite.IFoodData;
-import net.minecraft.world.food.FoodData;
+import net.minecraft.util.FoodStats;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.*;
@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import static ccr4ft3r.appetite.ModConstants.*;
 import static ccr4ft3r.appetite.config.ProfileConfig.*;
 
-@Mixin(FoodData.class)
+@Mixin(FoodStats.class)
 public class FoodDataMixin implements IFoodData {
     private int foodbarMax;
 
@@ -19,6 +19,8 @@ public class FoodDataMixin implements IFoodData {
 
     @Shadow
     private int lastFoodLevel;
+
+    @Shadow private float exhaustionLevel;
 
     private Integer getInitalFoodLevel() {
         return getProfile().initialHungerbarMaximum.get() * 2;
@@ -72,5 +74,15 @@ public class FoodDataMixin implements IFoodData {
     @Override
     public int getFoodbarMax() {
         return foodbarMax;
+    }
+
+    @Override
+    public void setExhaustion(float exhaustionLevel) {
+        this.exhaustionLevel = exhaustionLevel;
+    }
+
+    @Override
+    public float getExhaustionLevel() {
+        return exhaustionLevel;
     }
 }

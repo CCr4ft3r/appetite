@@ -3,8 +3,8 @@ package ccr4ft3r.appetite.events;
 import ccr4ft3r.appetite.data.ServerData;
 import ccr4ft3r.appetite.data.ServerPlayerData;
 import com.yyon.grapplinghook.server.ServerControllerManager;
-import net.minecraft.world.entity.Pose;
-import net.minecraft.world.entity.player.Player;
+import net.minecraft.entity.Pose;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.world.BlockEvent;
@@ -19,13 +19,13 @@ import static ccr4ft3r.appetite.util.PlayerUtil.*;
 
 public class CompatibilityHandler {
 
-    private static boolean shouldSkipTick(TickEvent.PlayerTickEvent event, Player player) {
-        return player.tickCount % 20 != 0 || event.phase != TickEvent.Phase.END || player.getLevel().isClientSide();
+    private static boolean shouldSkipTick(TickEvent.PlayerTickEvent event, PlayerEntity player) {
+        return player.tickCount % 20 != 0 || event.phase != TickEvent.Phase.END || player.level.isClientSide();
     }
 
     @SubscribeEvent
     public static void onParagliding(TickEvent.PlayerTickEvent event) {
-        Player player = event.player;
+        PlayerEntity player = event.player;
         if (shouldSkipTick(event, player))
             return;
 
@@ -37,7 +37,7 @@ public class CompatibilityHandler {
 
     @SubscribeEvent
     public static void onCrawling(TickEvent.PlayerTickEvent event) {
-        Player player = event.player;
+        PlayerEntity player = event.player;
         if (shouldSkipTick(event, player))
             return;
 
@@ -50,7 +50,7 @@ public class CompatibilityHandler {
 
     @SubscribeEvent
     public static void onPullingUp(TickEvent.PlayerTickEvent event) {
-        Player player = event.player;
+        PlayerEntity player = event.player;
         if (shouldSkipTick(event, player))
             return;
 
@@ -63,22 +63,22 @@ public class CompatibilityHandler {
 
     @SubscribeEvent
     public static void onPickingUp(PickupHandler.PickUpBlockEvent event) {
-        if (event.getPlayer().getLevel().isClientSide())
+        if (event.getPlayer().level.isClientSide())
             return;
         getPlayerData(event.getPlayer()).setCarrying(true);
     }
 
     @SubscribeEvent
     public static void onPickingUpEntity(PickupHandler.PickUpEntityEvent event) {
-        if (!(event.getEntity() instanceof Player player) || player.getLevel().isClientSide())
+        if (!isPlayerServerside(event.getEntity()))
             return;
         getPlayerData(event.getPlayer()).setCarrying(true);
     }
 
     @SubscribeEvent
     public static void onPlacingEntity(BlockEvent.EntityPlaceEvent event) {
-        if (!(event.getEntity() instanceof Player player) || player.getLevel().isClientSide())
+        if (!isPlayerServerside(event.getEntity()))
             return;
-        getPlayerData((Player) event.getEntity()).setCarrying(false);
+        getPlayerData((PlayerEntity) event.getEntity()).setCarrying(false);
     }
 }

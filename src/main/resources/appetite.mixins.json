@@ -1,13 +1,14 @@
 {
   "required": true,
   "package": "ccr4ft3r.appetite.mixins",
-  "compatibilityLevel": "JAVA_17",
+  "compatibilityLevel": "JAVA_8",
   "refmap": "appetite.refmap.json",
   "mixins": [
     "FoodDataMixin",
     "FoodHelperMixin",
     "ItemCarryonEntityMixin",
-    "OpenablesMixin"
+    "OpenablesMixin",
+    "PlayerEntityMixin"
   ],
   "client": [
     "ForgeIngameGuiMixin",

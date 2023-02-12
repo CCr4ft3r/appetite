@@ -2,12 +2,12 @@ package ccr4ft3r.appetite.registry;
 
 import ccr4ft3r.appetite.ModConstants;
 import ccr4ft3r.appetite.items.FrozenFoodItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
+import net.minecraft.item.Item;
+import net.minecraft.item.Items;
+import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;

@@ -19,7 +19,7 @@ version = "${mc_version}-${mod_version}"
 
 java {
     archivesBaseName = 'appetite'
-    toolchain.languageVersion = JavaLanguageVersion.of(17)
+    toolchain.languageVersion = JavaLanguageVersion.of(8)
 }
 
 minecraft {
@@ -151,10 +151,9 @@ dependencies {
 
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 
-    runtimeOnly fg.deobf("curse.maven:cloth-config-api-348521:3972426")
+    runtimeOnly fg.deobf("curse.maven:cloth-config-api-348521:${mod_cloth_config_file_id}")
     runtimeOnly fg.deobf("curse.maven:configured-457570:${mod_configured_file_id}")
     runtimeOnly fg.deobf("curse.maven:goprone-327968:${mod_goprone_file_id}")
-    runtimeOnly fg.deobf("curse.maven:player-animator-658587:${mod_player_animator_file_id}")
 
     implementation fg.deobf("curse.maven:appleskin-248787:${mod_appleskin_file_id}")
     implementation fg.deobf("curse.maven:paragliders-289240:${mod_paragliders_file_id}")

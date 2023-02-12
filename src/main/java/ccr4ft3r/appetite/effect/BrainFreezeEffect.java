@@ -1,24 +1,25 @@
 package ccr4ft3r.appetite.effect;
 
-import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.effect.MobEffect;
-import net.minecraft.world.effect.MobEffectCategory;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.potion.Effect;
+import net.minecraft.potion.EffectType;
+import net.minecraft.util.DamageSource;
 
 import javax.annotation.Nullable;
 
-public class BrainFreezeEffect extends MobEffect {
+import static ccr4ft3r.appetite.util.PlayerUtil.*;
+
+public class BrainFreezeEffect extends Effect {
 
     public BrainFreezeEffect() {
-        super(MobEffectCategory.HARMFUL, 2785727);
+        super(EffectType.HARMFUL, 2785727);
     }
 
     @Override
     public void applyEffectTick(@Nullable LivingEntity entity, int amplifier) {
-        if (!(entity instanceof Player player) || player.getLevel().isClientSide())
+        if (!isPlayerServerside(entity))
             return;
-        player.hurt(DamageSource.FREEZE, 0.4f);
+        entity.hurt(DamageSource.GENERIC, 0.4f);
     }
 
     @Override

@@ -1,12 +1,13 @@
 package ccr4ft3r.appetite.data;
 
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.food.FoodData;
-import net.minecraft.world.phys.Vec3;
+import ccr4ft3r.appetite.IFoodData;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.FoodStats;
+import net.minecraft.util.math.vector.Vector3d;
 
 public class ServerPlayerData {
 
-    private Vec3 lastPosition;
+    private Vector3d lastPosition;
     private boolean isMoving;
     private boolean startedMoving;
     private boolean isParagliding;
@@ -18,15 +19,15 @@ public class ServerPlayerData {
     private Float freezedSaturationLevel = null;
     private Float freezedExhaustionLevel = null;
 
-    ServerPlayerData(Player player) {
+    ServerPlayerData(PlayerEntity player) {
         setFoodData(player.getFoodData());
     }
 
-    public Vec3 getLastPosition() {
+    public Vector3d getLastPosition() {
         return lastPosition;
     }
 
-    public void setLastPosition(Vec3 lastPosition) {
+    public void setLastPosition(Vector3d lastPosition) {
         this.lastPosition = lastPosition;
     }
 
@@ -68,13 +69,13 @@ public class ServerPlayerData {
         isCrawling = crawling;
     }
 
-    public void setFoodData(FoodData foodData) {
+    public void setFoodData(FoodStats foodData) {
         this.freezedFoodLevel = foodData.getFoodLevel();
-        this.freezedExhaustionLevel = foodData.getExhaustionLevel();
+        this.freezedExhaustionLevel = ((IFoodData) foodData).getExhaustionLevel();
         this.freezedSaturationLevel = foodData.getSaturationLevel();
     }
 
-    public void updateFoodData(FoodData foodData) {
+    public void updateFoodData(FoodStats foodData) {
         if (freezedFoodLevel == null) {
             setFoodData(foodData);
         }

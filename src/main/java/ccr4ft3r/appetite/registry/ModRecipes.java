@@ -1,12 +1,12 @@
 package ccr4ft3r.appetite.registry;
 
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.alchemy.Potion;
-import net.minecraft.world.item.alchemy.PotionUtils;
-import net.minecraft.world.item.alchemy.Potions;
-import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.item.crafting.IRecipeSerializer;
+import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionUtils;
+import net.minecraft.potion.Potions;
 import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -16,7 +16,7 @@ import net.minecraftforge.fml.common.Mod;
 public class ModRecipes {
 
     @SubscribeEvent
-    public static void registerRecipes(RegistryEvent.Register<RecipeSerializer<?>> event) {
+    public static void registerRecipes(RegistryEvent.Register<IRecipeSerializer<?>> event) {
         add(Potions.AWKWARD, new ItemStack(ModItems.FROZEN_COD.get()), ModPotions.FROZEN_APPETITE.get());
         add(Potions.AWKWARD, new ItemStack(ModItems.FROZEN_SALMON.get()), ModPotions.FROZEN_APPETITE.get());
         add(Potions.AWKWARD, new ItemStack(ModItems.FROZEN_TROPICAL_FISH.get()), ModPotions.FROZEN_APPETITE.get());

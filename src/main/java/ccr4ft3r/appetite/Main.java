@@ -5,19 +5,21 @@ import ccr4ft3r.appetite.config.ProfileConfig;
 import ccr4ft3r.appetite.events.CompatibilityHandler;
 import ccr4ft3r.appetite.events.ExhaustionHandler;
 import ccr4ft3r.appetite.network.PacketHandler;
+import ccr4ft3r.appetite.registry.ModCaps;
 import ccr4ft3r.appetite.registry.ModItems;
 import ccr4ft3r.appetite.registry.ModMobEffects;
 import ccr4ft3r.appetite.registry.ModPotions;
-import com.mojang.logging.LogUtils;
-import fr.raksrinana.fallingtree.forge.event.FallingTreeBlockBreakEvent;
+import ccr4ft3r.appetite.util.LogUtils;
+import fr.raksrinana.fallingtree.forge.FallingTreeBlockBreakEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.config.ModConfig.Type;
-import net.minecraftforge.fml.event.config.ModConfigEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 import static ccr4ft3r.appetite.config.ProfileConfig.*;
@@ -29,6 +31,7 @@ public class Main {
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
         eventBus.addListener(this::onConfigLoading);
         eventBus.addListener(this::onConfigReloading);
+        eventBus.addListener(this::onRegisterCaps);
 
         registerConfigs();
         registerObjects();
@@ -42,7 +45,6 @@ public class Main {
         ModPotions.register();
         ModItems.register();
     }
-
 
     private static void registerConfigs() {
         ModLoadingContext.get().registerConfig(Type.COMMON, MainConfig.CONFIG, ModConstants.MOD_ID + "-common.toml");
@@ -70,13 +72,18 @@ public class Main {
     }
 
     @SubscribeEvent
-    public void onConfigLoading(ModConfigEvent.Loading configEvent) {
+    public void onConfigLoading(ModConfig.Loading configEvent) {
         LogUtils.getLogger().info("Loaded config {}", configEvent.getConfig().getFileName());
     }
 
     @SubscribeEvent
-    public void onConfigReloading(ModConfigEvent.Reloading configEvent) {
+    public void onConfigReloading(ModConfig.Reloading configEvent) {
         LogUtils.getLogger().info("Reloaded config {}", configEvent.getConfig().getFileName());
         ProfileConfig.updateChoosedProfile();
+    }
+
+    @SubscribeEvent
+    public void onRegisterCaps(FMLCommonSetupEvent event) {
+        ModCaps.register();
     }
 }

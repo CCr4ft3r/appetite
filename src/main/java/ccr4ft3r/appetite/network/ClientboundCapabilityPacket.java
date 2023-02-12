@@ -1,26 +1,26 @@
 package ccr4ft3r.appetite.network;
 
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.common.util.INBTSerializable;
 
 public class ClientboundCapabilityPacket {
 
-    public CompoundTag getCapData() {
+    public CompoundNBT getCapData() {
         return capData;
     }
 
-    private final CompoundTag capData;
+    private final CompoundNBT capData;
 
-    public ClientboundCapabilityPacket(INBTSerializable<CompoundTag> serializable) {
+    public ClientboundCapabilityPacket(INBTSerializable<CompoundNBT> serializable) {
         this.capData = serializable.serializeNBT();
     }
 
-    public ClientboundCapabilityPacket(FriendlyByteBuf friendlyByteBuf) {
+    public ClientboundCapabilityPacket(PacketBuffer friendlyByteBuf) {
         this.capData = friendlyByteBuf.readNbt();
     }
 
-    public static void encode(final ClientboundCapabilityPacket msg, final FriendlyByteBuf packetBuffer) {
+    public static void encode(final ClientboundCapabilityPacket msg, final PacketBuffer packetBuffer) {
          packetBuffer.writeNbt(msg.capData);
     }
 }

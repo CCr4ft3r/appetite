@@ -1,16 +1,20 @@
 package ccr4ft3r.appetite.data.capabilities;
 
-import net.minecraft.core.Direction;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraftforge.common.capabilities.*;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.Direction;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.CapabilityInject;
+import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.common.util.LazyOptional;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class HungerLevelingProvider implements ICapabilityProvider, ICapabilitySerializable<CompoundTag> {
+public class HungerLevelingProvider implements ICapabilityProvider, ICapabilitySerializable<CompoundNBT> {
 
-    public static Capability<HungerLevelingCapability> HUNGER_LEVELING_CAP = CapabilityManager.get(new CapabilityToken<>(){});
+    @CapabilityInject(HungerLevelingCapability.class)
+    public static Capability<HungerLevelingCapability> HUNGER_LEVELING_CAP = null;
     private HungerLevelingCapability hungerLevelingCapability = null;
     private final LazyOptional<HungerLevelingCapability> opt = LazyOptional.of(this::createCapability);
 
@@ -28,19 +32,19 @@ public class HungerLevelingProvider implements ICapabilityProvider, ICapabilityS
 
     @Override
     public <T> @Nonnull LazyOptional<T> getCapability(@Nonnull Capability<T> cap) {
-        if(cap == HUNGER_LEVELING_CAP)
+        if (cap == HUNGER_LEVELING_CAP)
             return opt.cast();
         else
             return LazyOptional.empty();
     }
 
     @Override
-    public CompoundTag serializeNBT() {
+    public CompoundNBT serializeNBT() {
         return createCapability().serializeNBT();
     }
 
     @Override
-    public void deserializeNBT(CompoundTag nbt) {
+    public void deserializeNBT(CompoundNBT nbt) {
         createCapability().deserializeNBT(nbt);
     }
 }

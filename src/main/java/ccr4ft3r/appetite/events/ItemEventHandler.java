@@ -4,17 +4,17 @@ import ccr4ft3r.appetite.ModConstants;
 import ccr4ft3r.appetite.config.MainConfig;
 import ccr4ft3r.appetite.items.FrozenFoodItem;
 import ccr4ft3r.appetite.util.BiomeUtil;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
+import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
+import net.minecraft.world.World;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.item.ItemExpireEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.registries.RegistryObject;
 
 import static ccr4ft3r.appetite.registry.ModItems.*;
 
@@ -25,7 +25,7 @@ public class ItemEventHandler {
     public static void onItemExpire(ItemExpireEvent event) {
         if (!MainConfig.CONFIG_DATA.enableFishFreezing.get())
             return;
-        Level level = event.getEntity().getLevel();
+        World level = event.getEntity().level;
         if (event.isCanceled() || level.isClientSide()) return;
         final ItemEntity itemEntity = event.getEntityItem();
         final Item item = itemEntity.getItem().getItem();
@@ -33,10 +33,11 @@ public class ItemEventHandler {
         RegistryObject<FrozenFoodItem> frozenFood = FROZEN_FOOD_PER_FOOD_ITEM.get(item);
         if (frozenFood != null && isCold) {
             replaceExpiredItem(event, itemEntity, frozenFood.get());
-            level.playSound(null, itemEntity.blockPosition(), SoundEvents.TURTLE_EGG_CRACK, SoundSource.BLOCKS, 0.5f, 1f);
-        } else if (item instanceof FrozenFoodItem frozenFoodItem && !isCold) {
+            level.playSound(null, itemEntity.blockPosition(), SoundEvents.TURTLE_EGG_CRACK, SoundCategory.BLOCKS, 0.5f, 1f);
+        } else if (item instanceof FrozenFoodItem && !isCold) {
+            FrozenFoodItem frozenFoodItem = (FrozenFoodItem) item;
             replaceExpiredItem(event, itemEntity, frozenFoodItem.getUnfrozenItem());
-            level.playSound(null, itemEntity.blockPosition(), SoundEvents.TURTLE_EGG_CRACK, SoundSource.BLOCKS, 0.5f, 1f);
+            level.playSound(null, itemEntity.blockPosition(), SoundEvents.TURTLE_EGG_CRACK, SoundCategory.BLOCKS, 0.5f, 1f);
         }
     }
 
@@ -45,7 +46,8 @@ public class ItemEventHandler {
         if (!MainConfig.CONFIG_DATA.enableFishFreezing.get())
             return;
         if (event.isCanceled() || event.getWorld().isClientSide()) return;
-        if (!(event.getEntity() instanceof final ItemEntity itemEntity)) return;
+        if (!(event.getEntity() instanceof ItemEntity)) return;
+        ItemEntity itemEntity = (ItemEntity) event.getEntity();
         Item item = itemEntity.getItem().getItem();
         boolean isCold = BiomeUtil.isCold(itemEntity);
         if (FROZEN_FOOD_PER_FOOD_ITEM.get(item) != null && isCold || item instanceof FrozenFoodItem && !isCold)

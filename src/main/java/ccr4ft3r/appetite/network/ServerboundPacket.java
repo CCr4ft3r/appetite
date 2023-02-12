@@ -1,6 +1,6 @@
 package ccr4ft3r.appetite.network;
 
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.PacketBuffer;
 
 public class ServerboundPacket {
 
@@ -10,11 +10,11 @@ public class ServerboundPacket {
         this.action = action;
     }
 
-    public ServerboundPacket(FriendlyByteBuf packetBuffer) {
+    public ServerboundPacket(PacketBuffer packetBuffer) {
         this.action = packetBuffer.readEnum(Action.class);
     }
 
-    public void encodeOnClientSide(FriendlyByteBuf packetBuffer) {
+    public void encodeOnClientSide(PacketBuffer packetBuffer) {
         packetBuffer.writeEnum(this.action);
     }
 

@@ -1,8 +1,8 @@
 package ccr4ft3r.appetite.util;
 
 import ccr4ft3r.appetite.data.ServerData;
-import com.mojang.logging.LogUtils;
-import net.minecraft.world.entity.player.Player;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.util.FakePlayer;
 
@@ -11,7 +11,13 @@ import static ccr4ft3r.appetite.config.ProfileConfig.*;
 
 public class PlayerUtil {
 
-    public static void exhaust(Player player, ForgeConfigSpec.BooleanValue optionEnabled, boolean onlyIf, ForgeConfigSpec.IntValue exhaustionAfter, long multiplier,
+    public static boolean isPlayerServerside(Entity entity) {
+        if (entity instanceof PlayerEntity)
+            return !entity.level.isClientSide;
+        return false;
+    }
+
+    public static void exhaust(PlayerEntity player, ForgeConfigSpec.BooleanValue optionEnabled, boolean onlyIf, ForgeConfigSpec.IntValue exhaustionAfter, long multiplier,
                                float vanillaExhaustion) {
         if (cannotBeExhausted(player))
             return;
@@ -25,7 +31,7 @@ public class PlayerUtil {
         }
     }
 
-    private static float getExhaustionMultiplier(Player player) {
+    private static float getExhaustionMultiplier(PlayerEntity player) {
         float multiplier = 1;
         if (BiomeUtil.isHot(player))
             multiplier *= getProfile().hotBiomeMultiplier.get().floatValue();
@@ -46,9 +52,9 @@ public class PlayerUtil {
         return multiplier == 0 ? 1 : multiplier;
     }
 
-    public static boolean cannotBeExhausted(Player player) {
-        return player instanceof FakePlayer || player.getLevel().isClientSide() || !player.isAddedToWorld() ||
+    public static boolean cannotBeExhausted(PlayerEntity player) {
+        return player instanceof FakePlayer || player.level.isClientSide() || !player.isAddedToWorld() ||
             player.isCreative() || player.isSpectator() || player.isSleeping() || !player.isAlive() ||
-            CONFIG_DATA.dimensionBlacklist.get().contains(player.getLevel().dimension().location().toString());
+            CONFIG_DATA.dimensionBlacklist.get().contains(player.level.dimension().location().toString());
     }
 }

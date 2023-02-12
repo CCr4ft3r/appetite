@@ -1,7 +1,7 @@
 package ccr4ft3r.appetite.config;
 
 import ccr4ft3r.appetite.ModConstants;
-import com.mojang.logging.LogUtils;
+import ccr4ft3r.appetite.util.LogUtils;
 import net.minecraftforge.common.ForgeConfigSpec;
 
 import static java.lang.Integer.*;
@@ -34,11 +34,20 @@ public class ProfileConfig {
     public static void updateChoosedProfile() {
         AppetiteProfile profile = MainConfig.CONFIG_DATA.profileToUse.get();
         switch (profile) {
-            case CUSTOM -> CURRENT_PROFILE = PROFILE_CUSTOM;
-            case PECKISH -> CURRENT_PROFILE = PROFILE_PECKISH;
-            case HUNGRY -> CURRENT_PROFILE = PROFILE_HUNGRY;
-            case STARVING -> CURRENT_PROFILE = PROFILE_STARVING;
+            case CUSTOM:
+                CURRENT_PROFILE = PROFILE_CUSTOM;
+                break;
+            case PECKISH:
+                CURRENT_PROFILE = PROFILE_PECKISH;
+                break;
+            case HUNGRY:
+                CURRENT_PROFILE = PROFILE_HUNGRY;
+                break;
+            case STARVING:
+                CURRENT_PROFILE = PROFILE_STARVING;
+                break;
         }
+
         LogUtils.getLogger().info("Exhaustion profile {} will be used for adding exhaustion.", profile);
     }
 
@@ -95,9 +104,6 @@ public class ProfileConfig {
         public ForgeConfigSpec.IntValue afterJumping;
         public ForgeConfigSpec.IntValue afterWalkingUp;
 
-        public ForgeConfigSpec.BooleanValue enableFreezing;
-        public ForgeConfigSpec.IntValue afterFreezing;
-
         public ForgeConfigSpec.BooleanValue enableOpenClosing;
         public ForgeConfigSpec.IntValue afterOpenClosing;
 
@@ -115,8 +121,6 @@ public class ProfileConfig {
         public ForgeConfigSpec.BooleanValue enableChoppingTrees;
         public ForgeConfigSpec.BooleanValue enableCarry;
         public ForgeConfigSpec.DoubleValue carryMultiplier;
-        public ForgeConfigSpec.BooleanValue enableRolling;
-        public ForgeConfigSpec.IntValue afterRolling;
 
         public ForgeConfigSpec.BooleanValue enableHungerLeveling;
         public ForgeConfigSpec.IntValue initialHungerbarMaximum;
@@ -184,34 +188,27 @@ public class ProfileConfig {
             enableJumping = define(ENABLE_WHILE + "jumping", "enableForJumping", true, true, true);
             enableWalkingUp = define(ENABLE_WHILE + "walking up (stairs & slabs)", "enableWhileWalkingUp", true, true, true);
 
-            afterResting = defineTime(AFTER_TIME.formatted("resting"), "afterResting", 2400, 1200, 600);
-            afterSneaking = defineTime(AFTER_TIME.formatted("sneaking"), "afterSneaking", 480, 240, 120);
-            afterWalking = defineTime(AFTER_TIME.formatted("walking"), "afterWalking", 360, 160, 90);
-            afterSwimming = defineTime(AFTER_TIME.formatted("swimming"), "afterSwimming", 240, 100, 60);
-            afterSprinting = defineTimeRange(AFTER_TIME.formatted("sprinting"), "afterSprinting", 1, 14, 14, 12, 10);
-            afterPaddling = defineTime(AFTER_TIME.formatted("paddling"), "afterPaddling", 180, 120, 80);
-            afterClimbing = defineTime(AFTER_TIME.formatted("climbing"), "afterClimbing", 120, 80, 40);
+            afterResting = defineTime(format(AFTER_TIME, "resting"), "afterResting", 2400, 1200, 600);
+            afterSneaking = defineTime(format(AFTER_TIME, "sneaking"), "afterSneaking", 480, 240, 120);
+            afterWalking = defineTime(format(AFTER_TIME, "walking"), "afterWalking", 360, 160, 90);
+            afterSwimming = defineTime(format(AFTER_TIME, "swimming"), "afterSwimming", 240, 100, 60);
+            afterSprinting = defineTimeRange(format(AFTER_TIME, "sprinting"), "afterSprinting", 1, 14, 14, 12, 10);
+            afterPaddling = defineTime(format(AFTER_TIME, "paddling"), "afterPaddling", 180, 120, 80);
+            afterClimbing = defineTime(format(AFTER_TIME, "climbing"), "afterClimbing", 120, 80, 40);
             afterJumping = defineRange(AFTER_ACTION + "jumping X times", "afterJumping", 1, 160, 160, 80, 40);
-            afterWalkingUp = defineTime(AFTER_TIME.formatted("walking up (stairs & slabs)"), "afterWalkingUp", 240, 120, 70);
-            builder.pop();
-
-            builder.push("Exhaustion for States");
-            enableFreezing = define(ENABLE_WHILE + "freezing (while being inside powder snow)", "enableWhileFreezing", false, false, true);
-            afterFreezing = defineTime(AFTER_TIME.formatted("freezing (while being inside powder snow)"), "afterFreezing", 60, 30, 15);
+            afterWalkingUp = defineTime(format(AFTER_TIME, "walking up (stairs & slabs)"), "afterWalkingUp", 240, 120, 70);
             builder.pop();
 
             builder.push("Exhaustion for other mods");
             enableParagliding = define(ENABLE_WHILE + "paragliding (Paragliders Mod)", "enableWhileParagliding", true, true, true);
-            afterParagliding = defineTime(AFTER_TIME.formatted("paragliding (Paragliders Mod)"), "afterParagliding", 180, 120, 90);
+            afterParagliding = defineTime(format(AFTER_TIME, "paragliding (Paragliders Mod)"), "afterParagliding", 180, 120, 90);
             enableCrawling = define(ENABLE_WHILE + "crawling (GoProne Mod)", "enableWhileCrawling", true, true, true);
-            afterCrawling = defineTime(AFTER_TIME.formatted("crawling (GoProne Mod)"), "afterCrawling", 150, 90, 60);
-            enablePullingUp = define(AFTER_TIME.formatted("pulling yourself up (Grappling Hook Mod)"), "enableWhilePullingUp", true, true, true);
-            afterPullingUp = defineTime(AFTER_TIME.formatted("pulling yourself up (Grappling Hook Mod"), "afterPullingUp", 28, 14, 7);
+            afterCrawling = defineTime(format(AFTER_TIME, "crawling (GoProne Mod)"), "afterCrawling", 150, 90, 60);
+            enablePullingUp = define(format(AFTER_TIME, "pulling yourself up (Grappling Hook Mod)"), "enableWhilePullingUp", true, true, true);
+            afterPullingUp = defineTime(format(AFTER_TIME, "pulling yourself up (Grappling Hook Mod"), "afterPullingUp", 28, 14, 7);
             enableChoppingTrees = define(ENABLE_AT + "chopping trees (Falling Tree Mod). For changing the exhaustion see: afterBreakingAxeMineables", "enableForChoppingTrees", true, true, true);
             enableCarry = define(ENABLE_WHILE + "carrying objects (Carry on Mod", "enableForCarryingObjects", true, true, true);
             carryMultiplier = defineRange("Sets the multiplier for exhaustion when carrying objects (Carry On Mod)", "carryMultiplier", 1d, 10d, 1.5, 2d, 2.75);
-            enableRolling = define(ENABLE_AT + "rolling (Combat Roll Mod", "enableRolling", true, true, true);
-            afterRolling = defineRange(AFTER_ACTION + "rolling X times (Combat Roll Mod).", "afterRolling", 1, 75, 50, 30, 15);
             builder.pop();
 
             builder.push("Hunger leveling");
@@ -233,6 +230,11 @@ public class ProfileConfig {
                 "armorLogarithmicImpact", 6d, 20d, 15d, 12d, 7d);
         }
 
+        @SuppressWarnings("SameParameterValue")
+        private String format(String toFormat, Object... params) {
+            return String.format(toFormat, params);
+        }
+
         private ForgeConfigSpec.BooleanValue define(String comment, String property, boolean... profileValues) {
             return builder.comment(comment).define(property, get(profileValues));
         }
@@ -243,10 +245,6 @@ public class ProfileConfig {
 
         private ForgeConfigSpec.IntValue define(String comment, String property, Integer... profileValues) {
             return defineRange(comment, property, 1, MAX_VALUE, profileValues);
-        }
-
-        private ForgeConfigSpec.DoubleValue define(String comment, String property, Double... profileValues) {
-            return defineRange(comment, property, 1d, Double.MAX_VALUE, profileValues);
         }
 
         private ForgeConfigSpec.DoubleValue defineRange(String comment, String property, Double min, Double max, Double... profileValues) {
@@ -266,7 +264,7 @@ public class ProfileConfig {
         }
 
         @SafeVarargs
-        private <T> T get(T... profileValues) {
+        private final <T> T get(T... profileValues) {
             return profileValues.length <= profile.ordinal() ? profileValues[1] : profileValues[profile.ordinal()];
         }
     }

@@ -1,14 +1,13 @@
 package ccr4ft3r.appetite.mixins;
 
 import ccr4ft3r.appetite.util.PlayerUtil;
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.block.*;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Hand;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -24,7 +23,7 @@ public class OpenablesMixin extends Block {
     }
 
     @Inject(method = "use", at = @At("RETURN"))
-    protected void onUse(BlockState p_52769_, Level p_52770_, BlockPos p_52771_, Player player, InteractionHand p_52773_, BlockHitResult p_52774_, CallbackInfoReturnable<InteractionResult> cir) {
+    protected void onUse(BlockState p_52769_, World p_52770_, BlockPos p_52771_, PlayerEntity player, Hand p_52773_, BlockRayTraceResult p_52774_, CallbackInfoReturnable<ActionResultType> cir) {
         if (cir.isCancelled() || !cir.getReturnValue().consumesAction())
             return;
         PlayerUtil.exhaust(player, getProfile().enableOpenClosing, true, getProfile().afterOpenClosing, 1, 0);

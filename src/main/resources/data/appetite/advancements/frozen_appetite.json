@@ -16,22 +16,36 @@
     "hidden": false
   },
   "criteria": {
-    "requirement": {
+    "requirement1": {
       "trigger": "minecraft:consume_item",
       "conditions": {
         "item": {
-          "items": [
-            "appetite:frozen_cod",
-            "appetite:frozen_salmon",
-            "appetite:frozen_tropical_fish"
-          ]
+          "item": "appetite:frozen_cod"
+        }
+      }
+    },
+    "requirement2": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "item": "appetite:frozen_salmon"
+        }
+      }
+    },
+    "requirement3": {
+      "trigger": "minecraft:consume_item",
+      "conditions": {
+        "item": {
+          "item": "appetite:frozen_tropical_fish"
         }
       }
     }
   },
   "requirements": [
     [
-      "requirement"
+      "requirement1",
+      "requirement2",
+      "requirement3"
     ]
   ]
 }

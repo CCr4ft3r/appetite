@@ -1,15 +1,14 @@
 package ccr4ft3r.appetite.util;
 
-import net.minecraft.world.entity.Entity;
-import net.minecraftforge.common.Tags;
+import net.minecraft.entity.Entity;
 
 public class BiomeUtil {
 
     public static boolean isCold(Entity entity) {
-        return entity.getLevel().getBiome(entity.blockPosition()).is(Tags.Biomes.IS_COLD);
+        return entity.level.getBiome(entity.blockPosition()).getBaseTemperature() <= 0.05;
     }
 
     public static boolean isHot(Entity entity) {
-        return entity.getLevel().getBiome(entity.blockPosition()).is(Tags.Biomes.IS_HOT);
+        return entity.level.getBiome(entity.blockPosition()).getBaseTemperature() >= 2;
     }
 }

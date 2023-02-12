@@ -6,14 +6,14 @@ import ccr4ft3r.appetite.data.ServerData;
 import ccr4ft3r.appetite.data.capabilities.HungerLevelingCapability;
 import ccr4ft3r.appetite.events.ClientHandler;
 import net.minecraft.client.Minecraft;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.food.FoodData;
-import net.minecraftforge.network.NetworkDirection;
-import net.minecraftforge.network.NetworkEvent;
-import net.minecraftforge.network.NetworkRegistry;
-import net.minecraftforge.network.PacketDistributor;
-import net.minecraftforge.network.simple.SimpleChannel;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.util.FoodStats;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.network.NetworkDirection;
+import net.minecraftforge.fml.network.NetworkEvent;
+import net.minecraftforge.fml.network.NetworkRegistry;
+import net.minecraftforge.fml.network.PacketDistributor;
+import net.minecraftforge.fml.network.simple.SimpleChannel;
 
 import java.util.Optional;
 import java.util.function.Supplier;
@@ -34,20 +34,24 @@ public class PacketHandler {
         SIMPLE_CHANNEL.sendToServer(packet);
     }
 
-    public static void sendToPlayer(ClientboundCapabilityPacket packet, ServerPlayer player) {
+    public static void sendToPlayer(ClientboundCapabilityPacket packet, ServerPlayerEntity player) {
         SIMPLE_CHANNEL.send(PacketDistributor.PLAYER.with(() -> player), packet);
     }
 
     private static void handle(ServerboundPacket packet, Supplier<NetworkEvent.Context> ctx) {
         final NetworkEvent.Context context = ctx.get();
         context.enqueueWork(() -> {
-            final ServerPlayer sender = context.getSender();
+            final ServerPlayerEntity sender = context.getSender();
             if (sender == null) {
                 return;
             }
             switch (packet.getAction()) {
-                case PLAYER_MOVING -> ServerData.getPlayerData(sender).setMoving(true);
-                case PLAYER_STOP_MOVING -> ServerData.getPlayerData(sender).setMoving(false);
+                case PLAYER_MOVING:
+                    ServerData.getPlayerData(sender).setMoving(true);
+                    break;
+                case PLAYER_STOP_MOVING:
+                    ServerData.getPlayerData(sender).setMoving(false);
+                    break;
             }
             context.setPacketHandled(true);
         });
@@ -59,9 +63,9 @@ public class PacketHandler {
             HungerLevelingCapability cap = new HungerLevelingCapability();
             cap.deserializeNBT(packet.getCapData());
             ClientHandler.PLAYER_DATA.setHungerbarMaximum(cap.getCurrentFoodMaximum());
-            FoodData foodData = Minecraft.getInstance().player.getFoodData();
-            if (foodData instanceof IFoodData iFoodData)
-                iFoodData.setFoodbarMax(cap.getCurrentFoodMaximum());
+            FoodStats foodData = Minecraft.getInstance().player.getFoodData();
+            if (foodData instanceof IFoodData)
+                ((IFoodData) foodData).setFoodbarMax(cap.getCurrentFoodMaximum());
             context.setPacketHandled(true);
         });
     }

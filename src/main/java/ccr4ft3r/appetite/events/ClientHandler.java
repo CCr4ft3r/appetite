@@ -4,10 +4,10 @@ import ccr4ft3r.appetite.ModConstants;
 import ccr4ft3r.appetite.data.ClientPlayerData;
 import ccr4ft3r.appetite.network.PacketHandler;
 import ccr4ft3r.appetite.network.ServerboundPacket;
-import com.mojang.logging.LogUtils;
+import ccr4ft3r.appetite.util.LogUtils;
+import net.minecraft.client.GameSettings;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.Options;
-import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.client.entity.player.ClientPlayerEntity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -24,17 +24,17 @@ public class ClientHandler {
 
     public static final ClientPlayerData PLAYER_DATA = new ClientPlayerData();
 
-    private static final Predicate<LocalPlayer> NOT_JUMPABLE = (player) -> player.isInWater() || player.onClimbable();
+    private static final Predicate<ClientPlayerEntity> NOT_JUMPABLE = (player) -> player.isInWater() || player.onClimbable();
 
     @SubscribeEvent
     public static void onKeyInput(InputEvent.KeyInputEvent event) {
         boolean isPressed = event.getAction() == GLFW.GLFW_PRESS;
         if (isPressed || event.getAction() == GLFW.GLFW_RELEASE) {
-            LocalPlayer player = Minecraft.getInstance().player;
+            ClientPlayerEntity player = Minecraft.getInstance().player;
             if (player == null)
                 return;
 
-            Options options = Minecraft.getInstance().options;
+            GameSettings options = Minecraft.getInstance().options;
             int key = event.getKey();
             boolean isMovingKey = key == options.keyUp.getKey().getValue()
                 || key == options.keyDown.getKey().getValue()

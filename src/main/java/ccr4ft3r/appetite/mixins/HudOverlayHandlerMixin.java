@@ -9,12 +9,12 @@ import static ccr4ft3r.appetite.ModConstants.*;
 
 @Mixin(targets = {"squeek.appleskin.client.HUDOverlayHandler"})
 public class HudOverlayHandlerMixin {
-    @ModifyConstant(method = "drawHungerOverlay(IILnet/minecraft/client/Minecraft;Lcom/mojang/blaze3d/vertex/PoseStack;IIFZ)V", constant = @Constant(intValue = VANILLA_MAX_FOOD_LEVEL), remap = false)
+    @ModifyConstant(method = "drawHungerOverlay(IILnet/minecraft/client/Minecraft;Lcom/mojang/blaze3d/matrix/MatrixStack;IIFZ)V", constant = @Constant(intValue = VANILLA_MAX_FOOD_LEVEL), remap = false)
     private static int getMaxFoodLevelForHungerBar(int i) {
         return ClientHandler.PLAYER_DATA.getHungerbarMaximum() * 2;
     }
 
-    @ModifyConstant(method = "drawSaturationOverlay(FFLnet/minecraft/client/Minecraft;Lcom/mojang/blaze3d/vertex/PoseStack;IIF)V", constant = @Constant(floatValue = VANILLA_MAX_FOOD_LEVEL), remap = false)
+    @ModifyConstant(method = "drawSaturationOverlay(FFLnet/minecraft/client/Minecraft;Lcom/mojang/blaze3d/matrix/MatrixStack;IIF)V", constant = @Constant(floatValue = VANILLA_MAX_FOOD_LEVEL), remap = false)
     private static float getMaxFoodLevelForSaturationBar(float constant) {
         return ClientHandler.PLAYER_DATA.getHungerbarMaximum() * 2;
     }

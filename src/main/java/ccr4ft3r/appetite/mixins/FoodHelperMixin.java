@@ -18,7 +18,7 @@ public class FoodHelperMixin {
         return getMaxFoodLevel() - 2;
     }
 
-    @ModifyConstant(method = "getEstimatedHealthIncrement(Lnet/minecraft/world/item/ItemStack;Lsqueek/appleskin/api/food/FoodValues;Lnet/minecraft/world/entity/player/Player;)F", constant = @Constant(intValue = VANILLA_MAX_FOOD_LEVEL), remap = false)
+    @ModifyConstant(method = "getEstimatedHealthIncrement(Lnet/minecraft/item/ItemStack;Lsqueek/appleskin/api/food/FoodValues;Lnet/minecraft/entity/player/PlayerEntity;)F", constant = @Constant(intValue = VANILLA_MAX_FOOD_LEVEL), remap = false)
     private static int getMaxFoodLevelForEstimatedHealthIncrement(int i) {
         return getMaxFoodLevel();
     }
@@ -28,7 +28,7 @@ public class FoodHelperMixin {
         return getFoodHealLevel();
     }
 
-    @ModifyConstant(method = "getEstimatedHealthIncrement(Lnet/minecraft/world/item/ItemStack;Lsqueek/appleskin/api/food/FoodValues;Lnet/minecraft/world/entity/player/Player;)F", constant = @Constant(floatValue = VANILLA_FOOD_HEAL_LEVEL), remap = false)
+    @ModifyConstant(method = "getEstimatedHealthIncrement(Lnet/minecraft/item/ItemStack;Lsqueek/appleskin/api/food/FoodValues;Lnet/minecraft/entity/player/PlayerEntity;)F", constant = @Constant(floatValue = VANILLA_FOOD_HEAL_LEVEL), remap = false)
     private static float getFoodHealLevelForEstimatedHealthIncrement(float i) {
         return getFoodHealLevel();
     }
