@@ -61,3 +61,9 @@ mandatory = false
 versionRange = "[1.19-2.4.0,)"
 ordering = "AFTER"
 side = "SERVER"
+[[dependencies.appetite]]
+modId = "carryon"
+mandatory = false
+versionRange = "[2.0.3.4,)"
+ordering = "AFTER"
+side = "SERVER"

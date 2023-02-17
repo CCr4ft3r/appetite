@@ -6,7 +6,9 @@
   "mixins": [
     "FoodDataMixin",
     "FoodHelperMixin",
-    "OpenablesMixin"
+    "OpenablesMixin",
+    "PickupHandlerMixin",
+    "PlacementHandlerMixin"
   ],
   "client": [
     "ForgeIngameGuiMixin",

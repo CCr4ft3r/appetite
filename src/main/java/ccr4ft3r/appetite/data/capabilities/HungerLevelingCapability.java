@@ -34,15 +34,14 @@ public class HungerLevelingCapability implements INBTSerializable<CompoundTag> {
         this.lastLevelOfIncrease = tag.getInt("lastLevelOfIncrease");
     }
 
-    public void updateFoodMax(ServerPlayer player, int newLevels) {
+    public void updateFoodMax(ServerPlayer player) {
         try {
             if (!getProfile().enableHungerLeveling.get())
                 return;
 
-            if (player.experienceLevel + newLevels >= lastLevelOfIncrease + getProfile().raisingHungerbarAfter.get()
-                && getCurrentFoodMaximum() < 10) {
+            if (player.experienceLevel >= lastLevelOfIncrease + getProfile().raisingHungerbarAfter.get() && getCurrentFoodMaximum() < 10) {
                 currentFoodMaximum++;
-                lastLevelOfIncrease = player.experienceLevel + newLevels;
+                lastLevelOfIncrease = player.experienceLevel;
                 PlayerAdvancements advancements = player.getAdvancements();
                 Advancement levelUpAdvancement = player.createCommandSourceStack().getAdvancement(
                     new ResourceLocation(ModConstants.MOD_ID, "level_up"));

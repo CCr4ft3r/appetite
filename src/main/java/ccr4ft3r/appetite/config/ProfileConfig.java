@@ -113,6 +113,8 @@ public class ProfileConfig {
         public ForgeConfigSpec.BooleanValue enablePullingUp;
         public ForgeConfigSpec.IntValue afterPullingUp;
         public ForgeConfigSpec.BooleanValue enableChoppingTrees;
+        public ForgeConfigSpec.BooleanValue enableCarry;
+        public ForgeConfigSpec.DoubleValue carryMultiplier;
 
         public ForgeConfigSpec.BooleanValue enableHungerLeveling;
         public ForgeConfigSpec.IntValue initialHungerbarMaximum;
@@ -204,6 +206,8 @@ public class ProfileConfig {
             enablePullingUp = define(AFTER_TIME.formatted("pulling yourself up (Grappling Hook Mod)"), "enableWhilePullingUp", true, true, true);
             afterPullingUp = defineTime(AFTER_TIME.formatted("pulling yourself up (Grappling Hook Mod"), "afterPullingUp", 28, 14, 7);
             enableChoppingTrees = define(ENABLE_AT + "chopping trees (Falling Tree Mod). For changing the exhaustion see: afterBreakingAxeMineables", "enableForChoppingTrees", true, true, true);
+            enableCarry = define(ENABLE_WHILE + "carrying objects (Carry on Mod", "enableForCarryingObjects", true, true, true);
+            carryMultiplier = defineRange("Sets the multiplier for exhaustion when carrying objects (Carry On Mod)", "carryMultiplier", 1d, 10d, 1.5, 2d, 2.75);
             builder.pop();
 
             builder.push("Hunger leveling");
@@ -221,7 +225,7 @@ public class ProfileConfig {
             enableArmorImpactOnExhaustion = define("Determines that each armor wil have an individual impact on the added exhaustion. Lighter armor will have an lower impact and heavier armor an higher impact.", "ArmorImpactOnExhaustion", false, true, true);
             armorLogarithmicImpact = defineRange("Appetite is using the logarithm as a multiplier to modify the exhaustion defined by the rules, depending on the armor defense points. This value defines the logarithmic base whereas the defense points will be used as the numerus. The higher the value the higher the reward (lower exhaustion) for wearing lighter armor but the lower the additional exhaustion for heavier armor. The lower the value the higher the exhaustion for wearing heavy armor but the lower the reward for wearing lighter armor." +
                     "\nExample for rewarding the player (default mode): Wearing leather armor (numerus = 7) for the defined impact of 12 (base) leads to an multiplier of 0.78 (22% fewer exhaustion). Wearing diamond armor (numerus = 20) for the same impact leads to a multiplier of 1.2 (20% higher exhaustion). A calculated multiplier for leather armor lower than 1 is also used when the player is wearing no armor."
-                +"\nExample for higher difficulty: Wearing leather armor for the defined impact of 6 leads to an multiplier of 1.09 (9% more exhaustion). Wearing diamond armor for the same impact leads to a multiplier of 1.67 (67% higher exhaustion).",
+                    + "\nExample for higher difficulty: Wearing leather armor for the defined impact of 6 leads to an multiplier of 1.09 (9% more exhaustion). Wearing diamond armor for the same impact leads to a multiplier of 1.67 (67% higher exhaustion).",
                 "armorLogarithmicImpact", 6d, 20d, 15d, 12d, 7d);
         }
 

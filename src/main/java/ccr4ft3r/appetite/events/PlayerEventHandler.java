@@ -20,7 +20,9 @@ import net.minecraftforge.event.entity.living.MobEffectEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerXpEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
+import tschipp.carryon.common.carry.CarryOnDataManager;
 
 import static ccr4ft3r.appetite.data.capabilities.HungerLevelingProvider.*;
 
@@ -36,15 +38,23 @@ public class PlayerEventHandler {
 
     @SubscribeEvent
     public static void onPlayerLoggedIn(PlayerEvent.PlayerLoggedInEvent event) {
-        if (event.getEntity().getLevel().isClientSide())
+        Player player = event.getEntity();
+        if (player.getLevel().isClientSide())
             return;
-        ServerData.addMe(event.getEntity());
-        event.getEntity().getCapability(HungerLevelingProvider.HUNGER_LEVELING_CAP).ifPresent(cap -> cap.updateFoodMax((ServerPlayer) event.getEntity(), 0));
+        ServerData.addMe(player);
+        player.getCapability(HungerLevelingProvider.HUNGER_LEVELING_CAP).ifPresent(cap -> cap.updateFoodMax((ServerPlayer) player));
+        try {
+            Class.forName("tschipp.carryon.common.carry.CarryOnDataManager");
+            if (ModList.get().isLoaded(ModConstants.CARRY_ON_MOD_ID)) {
+                ServerData.getPlayerData(player).setCarrying(CarryOnDataManager.getCarryData(player).isCarrying());
+            }
+        } catch (ClassNotFoundException ignored) {
+        }
     }
 
     @SubscribeEvent
     public static void onPlayerRespawn(PlayerEvent.PlayerRespawnEvent event) {
-        event.getEntity().getCapability(HungerLevelingProvider.HUNGER_LEVELING_CAP).ifPresent(cap -> cap.updateFoodMax((ServerPlayer) event.getEntity(), 0));
+        event.getEntity().getCapability(HungerLevelingProvider.HUNGER_LEVELING_CAP).ifPresent(cap -> cap.updateFoodMax((ServerPlayer) event.getEntity()));
     }
 
     @SubscribeEvent
@@ -78,10 +88,10 @@ public class PlayerEventHandler {
     }
 
     @SubscribeEvent
-    public static void onLevelingUp(PlayerXpEvent.LevelChange event) {
+    public static void onLevelingUp(PlayerXpEvent.PickupXp event) {
         if (event.getEntity().getLevel().isClientSide())
             return;
-        event.getEntity().getCapability(HUNGER_LEVELING_CAP).ifPresent((cap) -> cap.updateFoodMax((ServerPlayer) event.getEntity(), event.getLevels()));
+        event.getEntity().getCapability(HUNGER_LEVELING_CAP).ifPresent((cap) -> cap.updateFoodMax((ServerPlayer) event.getEntity()));
     }
 
     @SubscribeEvent
