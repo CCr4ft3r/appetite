@@ -21,7 +21,7 @@ public class FoodDataMixin implements IFoodData {
     private int lastFoodLevel;
 
     private Integer getInitalFoodLevel() {
-        return getProfile().initialHungerbarMaximum.get() * 2;
+        return getProfile().getInitalHungerbarMaximum() * 2;
     }
 
     private Integer getCurrentMaxFoodLevel() {

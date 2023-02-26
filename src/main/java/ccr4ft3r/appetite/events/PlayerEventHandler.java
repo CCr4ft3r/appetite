@@ -27,6 +27,7 @@ import tschipp.carryon.common.item.ItemCarryonBlock;
 import tschipp.carryon.common.item.ItemCarryonEntity;
 
 import static ccr4ft3r.appetite.data.capabilities.HungerLevelingProvider.*;
+import static ccr4ft3r.appetite.util.CompatUtil.*;
 
 @Mod.EventBusSubscriber(modid = ModConstants.MOD_ID)
 public class PlayerEventHandler {
@@ -44,8 +45,9 @@ public class PlayerEventHandler {
         if (player.getLevel().isClientSide())
             return;
         ServerData.addMe(player);
-        player.getCapability(HungerLevelingProvider.HUNGER_LEVELING_CAP).ifPresent(cap -> cap.updateFoodMax((ServerPlayer) player, 0));
-        if (ModList.get().isLoaded(ModConstants.CARRY_ON_MOD_ID)) {
+        player.getCapability(HungerLevelingProvider.HUNGER_LEVELING_CAP).ifPresent(cap -> cap.updateFoodMax((ServerPlayer) player));
+        if (ModList.get().isLoaded(ModConstants.CARRY_ON_MOD_ID) && existsClass("tschipp.carryon.common.carry.CarryOnDataManager")
+        && existsClass("tschipp.carryon.common.item.ItemCarryonBlock") && existsClass("tschipp.carryon.common.item.ItemCarryonEntity")) {
             ServerData.getPlayerData(player).setCarrying(
                 ItemCarryonBlock.getBlock(player.getMainHandItem()) != Blocks.AIR
                     || ItemCarryonEntity.hasEntityData(player.getMainHandItem())
@@ -55,7 +57,7 @@ public class PlayerEventHandler {
 
     @SubscribeEvent
     public static void onPlayerRespawn(PlayerEvent.PlayerRespawnEvent event) {
-        event.getPlayer().getCapability(HungerLevelingProvider.HUNGER_LEVELING_CAP).ifPresent(cap -> cap.updateFoodMax((ServerPlayer) event.getPlayer(), 0));
+        event.getPlayer().getCapability(HungerLevelingProvider.HUNGER_LEVELING_CAP).ifPresent(cap -> cap.updateFoodMax((ServerPlayer) event.getPlayer()));
     }
 
     @SubscribeEvent
@@ -89,10 +91,10 @@ public class PlayerEventHandler {
     }
 
     @SubscribeEvent
-    public static void onLevelingUp(PlayerXpEvent.LevelChange event) {
+    public static void onLevelingUp(PlayerXpEvent.PickupXp event) {
         if (event.getPlayer().getLevel().isClientSide())
             return;
-        event.getPlayer().getCapability(HUNGER_LEVELING_CAP).ifPresent((cap) -> cap.updateFoodMax((ServerPlayer) event.getPlayer(), event.getLevels()));
+        event.getPlayer().getCapability(HUNGER_LEVELING_CAP).ifPresent((cap) -> cap.updateFoodMax((ServerPlayer) event.getPlayer()));
     }
 
     @SubscribeEvent

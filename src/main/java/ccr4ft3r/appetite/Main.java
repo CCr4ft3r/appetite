@@ -21,6 +21,7 @@ import net.minecraftforge.fml.event.config.ModConfigEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 import static ccr4ft3r.appetite.config.ProfileConfig.*;
+import static ccr4ft3r.appetite.util.CompatUtil.*;
 
 @Mod(ModConstants.MOD_ID)
 public class Main {
@@ -43,7 +44,6 @@ public class Main {
         ModItems.register();
     }
 
-
     private static void registerConfigs() {
         ModLoadingContext.get().registerConfig(Type.COMMON, MainConfig.CONFIG, ModConstants.MOD_ID + "-common.toml");
         ModLoadingContext.get().registerConfig(Type.COMMON, ProfileConfig.CONFIG_PECKISH, ModConstants.MOD_ID + "/peckish-profile.toml");
@@ -53,16 +53,22 @@ public class Main {
     }
 
     private static void addCompatibilitiesListener() {
-        if (ModList.get().isLoaded(ModConstants.PARAGLIDER_MOD_ID))
+        if (ModList.get().isLoaded(ModConstants.PARAGLIDER_MOD_ID)
+            && existsClass("tictim.paraglider.capabilities.PlayerMovement")
+            && existsClass("tictim.paraglider.capabilities.Caps"))
             MinecraftForge.EVENT_BUS.addListener(CompatibilityHandler::onParagliding);
         if (ModList.get().isLoaded(ModConstants.GO_PRONE_MOD_ID))
             MinecraftForge.EVENT_BUS.addListener(CompatibilityHandler::onCrawling);
-        if (ModList.get().isLoaded(ModConstants.GRAPPLING_HOOK_MOD_ID))
+        if (ModList.get().isLoaded(ModConstants.GRAPPLING_HOOK_MOD_ID) && existsClass("com.yyon.grapplinghook.server.ServerControllerManager"))
             MinecraftForge.EVENT_BUS.addListener(CompatibilityHandler::onPullingUp);
-        if (ModList.get().isLoaded(ModConstants.FALLING_TREE_MOD_ID))
+        if (ModList.get().isLoaded(ModConstants.FALLING_TREE_MOD_ID) && existsClass("fr.raksrinana.fallingtree.forge.event.FallingTreeBlockBreakEvent"))
             ExhaustionHandler.INCLUDE_EVENT_PER_CLASS.put(FallingTreeBlockBreakEvent.class, () -> getProfile().enableChoppingTrees.get());
 
-        if (ModList.get().isLoaded(ModConstants.CARRY_ON_MOD_ID)) {
+        if (ModList.get().isLoaded(ModConstants.CARRY_ON_MOD_ID)
+        && existsClass("tschipp.carryon.common.handler.PickupHandler")
+            && existsClass("tschipp.carryon.common.handler.PickupHandler$PickUpBlockEvent")
+            && existsClass("tschipp.carryon.common.handler.PickupHandler$PickUpEntityEvent")
+        ) {
             MinecraftForge.EVENT_BUS.addListener(CompatibilityHandler::onPickingUp);
             MinecraftForge.EVENT_BUS.addListener(CompatibilityHandler::onPickingUpEntity);
             MinecraftForge.EVENT_BUS.addListener(CompatibilityHandler::onPlacingEntity);
