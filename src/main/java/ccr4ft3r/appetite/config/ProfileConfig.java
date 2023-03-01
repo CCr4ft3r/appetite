@@ -103,6 +103,7 @@ public class ProfileConfig {
 
         public ForgeConfigSpec.DoubleValue coldBiomeMultiplier;
         public ForgeConfigSpec.DoubleValue hotBiomeMultiplier;
+        public ForgeConfigSpec.DoubleValue healingCostsMultiplier;
         public ForgeConfigSpec.BooleanValue enableArmorImpactOnExhaustion;
         public ForgeConfigSpec.DoubleValue armorLogarithmicImpact;
 
@@ -183,6 +184,7 @@ public class ProfileConfig {
             enableClimbing = define(ENABLE_WHILE + "climbing", "enableWhileClimbing", true, true, true);
             enableJumping = define(ENABLE_WHILE + "jumping", "enableForJumping", true, true, true);
             enableWalkingUp = define(ENABLE_WHILE + "walking up (stairs & slabs)", "enableWhileWalkingUp", true, true, true);
+            enableCrawling = define(ENABLE_WHILE + "crawling (for vanilla, GoProne & Personality Mod)", "enableWhileCrawling", true, true, true);
 
             afterResting = defineTime(AFTER_TIME.formatted("resting"), "afterResting", 2400, 1200, 600);
             afterSneaking = defineTime(AFTER_TIME.formatted("sneaking"), "afterSneaking", 480, 240, 120);
@@ -193,6 +195,7 @@ public class ProfileConfig {
             afterClimbing = defineTime(AFTER_TIME.formatted("climbing"), "afterClimbing", 120, 80, 40);
             afterJumping = defineRange(AFTER_ACTION + "jumping X times", "afterJumping", 1, 160, 160, 80, 40);
             afterWalkingUp = defineTime(AFTER_TIME.formatted("walking up (stairs & slabs)"), "afterWalkingUp", 240, 120, 70);
+            afterCrawling = defineTime(AFTER_TIME.formatted("crawling (for vanilla, GoProne & Personality Mod)"), "afterCrawling", 150, 90, 60);
             builder.pop();
 
             builder.push("Exhaustion for States");
@@ -203,8 +206,6 @@ public class ProfileConfig {
             builder.push("Exhaustion for other mods");
             enableParagliding = define(ENABLE_WHILE + "paragliding (Paragliders Mod)", "enableWhileParagliding", true, true, true);
             afterParagliding = defineTime(AFTER_TIME.formatted("paragliding (Paragliders Mod)"), "afterParagliding", 180, 120, 90);
-            enableCrawling = define(ENABLE_WHILE + "crawling (GoProne Mod)", "enableWhileCrawling", true, true, true);
-            afterCrawling = defineTime(AFTER_TIME.formatted("crawling (GoProne Mod)"), "afterCrawling", 150, 90, 60);
             enablePullingUp = define(AFTER_TIME.formatted("pulling yourself up (Grappling Hook Mod)"), "enableWhilePullingUp", true, true, true);
             afterPullingUp = defineTime(AFTER_TIME.formatted("pulling yourself up (Grappling Hook Mod"), "afterPullingUp", 28, 14, 7);
             enableChoppingTrees = define(ENABLE_AT + "chopping trees (Falling Tree Mod). For changing the exhaustion see: afterBreakingAxeMineables", "enableForChoppingTrees", true, true, true);
@@ -226,6 +227,8 @@ public class ProfileConfig {
                 "coldBiomeMultiplier", 1d, 10d, 1d, 1d, 1d);
             hotBiomeMultiplier = defineRange("Sets the multiplier for exhaustion caused by the rules of Appetite when the player is in a hot biome",
                 "hotBiomeMultiplier", 1d, 10d, 1d, 1d, 1d);
+            healingCostsMultiplier = defineRange("Increases the amount of hunger that is used to regenerate hearts when damaged. At vanilla one regenerated heart costs 1.5 drumsticks. A multiplier of 1.3333 will costs 2 drumsticks, 2 will costs 3 and so on.",
+                "healingCosts", 1d, 5d, 1d, 1.3333d, 2d);
             enableArmorImpactOnExhaustion = define("Determines that each armor wil have an individual impact on the added exhaustion. Lighter armor will have an lower impact and heavier armor an higher impact.", "ArmorImpactOnExhaustion", false, true, true);
             armorLogarithmicImpact = defineRange("Appetite is using the logarithm as a multiplier to modify the exhaustion defined by the rules, depending on the armor defense points. This value defines the logarithmic base whereas the defense points will be used as the numerus. The higher the value the higher the reward (lower exhaustion) for wearing lighter armor but the lower the additional exhaustion for heavier armor. The lower the value the higher the exhaustion for wearing heavy armor but the lower the reward for wearing lighter armor." +
                     "\nExample for rewarding the player (default mode): Wearing leather armor (numerus = 7) for the defined impact of 12 (base) leads to an multiplier of 0.78 (22% fewer exhaustion). Wearing diamond armor (numerus = 20) for the same impact leads to a multiplier of 1.2 (20% higher exhaustion). A calculated multiplier for leather armor lower than 1 is also used when the player is wearing no armor."

@@ -57,8 +57,6 @@ public class Main {
             && existsClass("tictim.paraglider.capabilities.PlayerMovement")
             && existsClass("tictim.paraglider.capabilities.Caps"))
             MinecraftForge.EVENT_BUS.addListener(CompatibilityHandler::onParagliding);
-        if (ModList.get().isLoaded(ModConstants.GO_PRONE_MOD_ID))
-            MinecraftForge.EVENT_BUS.addListener(CompatibilityHandler::onCrawling);
         if (ModList.get().isLoaded(ModConstants.GRAPPLING_HOOK_MOD_ID) && existsClass("com.yyon.grapplinghook.server.ServerControllerManager"))
             MinecraftForge.EVENT_BUS.addListener(CompatibilityHandler::onPullingUp);
         if (ModList.get().isLoaded(ModConstants.FALLING_TREE_MOD_ID) && existsClass("fr.raksrinana.fallingtree.forge.event.FallingTreeBlockBreakEvent"))

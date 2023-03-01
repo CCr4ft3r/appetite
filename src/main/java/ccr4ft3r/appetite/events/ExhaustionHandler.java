@@ -1,7 +1,9 @@
 package ccr4ft3r.appetite.events;
 
 import ccr4ft3r.appetite.ModConstants;
+import ccr4ft3r.appetite.data.ServerData;
 import ccr4ft3r.appetite.data.ServerPlayerData;
+import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.item.AxeItem;
@@ -49,6 +51,19 @@ public class ExhaustionHandler {
     @SubscribeEvent
     public static void onArrowShooted(ArrowLooseEvent event) {
         exhaust(event.getPlayer(), getProfile().enableForShootingArrows, true, getProfile().afterShootingArrows, 1L, 0);
+    }
+
+    @SubscribeEvent
+    public static void onCrawling(TickEvent.PlayerTickEvent event) {
+        Player player = event.player;
+        if (shouldSkipTick(event, player))
+            return;
+
+        boolean hasCrawlPos = !player.isInLava() && !player.isInWater() && player.getPose() == Pose.SWIMMING;
+        ServerPlayerData playerData = getPlayerData(player);
+        boolean isCrawling = hasCrawlPos && playerData.isMoving() && !player.position().equals(playerData.getLastPosition());
+        ServerData.getPlayerData(player).setCrawling(isCrawling);
+        exhaust(event.player, getProfile().enableCrawling, isCrawling, getProfile().afterCrawling, 20, 0);
     }
 
     @SubscribeEvent

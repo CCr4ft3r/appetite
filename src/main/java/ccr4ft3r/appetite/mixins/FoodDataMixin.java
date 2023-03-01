@@ -59,6 +59,11 @@ public class FoodDataMixin implements IFoodData {
         return VANILLA_MAX_EXHAUSTION * ((float) getCurrentMaxFoodLevel() / VANILLA_MAX_FOOD_LEVEL);
     }
 
+    @ModifyConstant(method = "tick", constant = @Constant(floatValue = VANILLA_HEAL_EXHAUSTION))
+    public float getVanillaHealExhaustion(float constant) {
+        return (float) (getProfile().healingCostsMultiplier.get() * VANILLA_HEAL_EXHAUSTION) * ((float) getCurrentMaxFoodLevel() / VANILLA_MAX_FOOD_LEVEL);
+    }
+
     @ModifyConstant(method = "tick", constant = @Constant(floatValue = VANILLA_MAX_EXHAUSTION, ordinal = 1))
     public float getMaxExhaustionDelta(float constant) {
         return getMaxExhaustion(constant);

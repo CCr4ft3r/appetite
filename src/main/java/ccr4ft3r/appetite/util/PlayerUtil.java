@@ -5,11 +5,16 @@ import com.mojang.logging.LogUtils;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.util.FakePlayer;
+import net.minecraftforge.event.TickEvent;
 
 import static ccr4ft3r.appetite.config.MainConfig.*;
 import static ccr4ft3r.appetite.config.ProfileConfig.*;
 
 public class PlayerUtil {
+
+    public static boolean shouldSkipTick(TickEvent.PlayerTickEvent event, Player player) {
+        return player.tickCount % 20 != 0 || event.phase != TickEvent.Phase.END || player.getLevel().isClientSide();
+    }
 
     public static void exhaust(Player player, ForgeConfigSpec.BooleanValue optionEnabled, boolean onlyIf, ForgeConfigSpec.IntValue exhaustionAfter, long multiplier,
                                float vanillaExhaustion) {
