@@ -70,9 +70,9 @@ public class CompatibilityHandler {
 
     @SubscribeEvent
     public static void onPickingUpEntity(PickupHandler.PickUpEntityEvent event) {
-        if (!isPlayerServerside(event.getEntity()))
+        if (!isPlayerServerside(event.player))
             return;
-        getPlayerData(event.getPlayer()).setCarrying(true);
+        getPlayerData(event.player).setCarrying(true);
     }
 
     @SubscribeEvent
