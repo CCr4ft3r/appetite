@@ -51,9 +51,9 @@ public class CompatibilityHandler {
 
     @SubscribeEvent
     public static void onPickingUpEntity(PickupHandler.PickUpEntityEvent event) {
-        if (!(event.getEntity() instanceof Player player) || player.getLevel().isClientSide())
+        if (event.player.getLevel().isClientSide())
             return;
-        getPlayerData(event.getPlayer()).setCarrying(true);
+        getPlayerData(event.player).setCarrying(true);
     }
 
     @SubscribeEvent
