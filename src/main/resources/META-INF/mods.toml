@@ -66,4 +66,4 @@ modId = "carryon"
 mandatory = false
 versionRange = "[1.15.6.24,)"
 ordering = "AFTER"
-side = "SERVER"
+side = "BOTH"
