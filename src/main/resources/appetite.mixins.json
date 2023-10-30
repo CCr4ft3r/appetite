@@ -8,7 +8,9 @@
     "FoodHelperMixin",
     "OpenablesMixin",
     "PickupHandlerMixin",
-    "PlacementHandlerMixin"
+    "PlacementHandlerMixin",
+    "PlayerAccessor",
+    "ServerPlayerMixin"
   ],
   "client": [
     "ForgeIngameGuiMixin",

@@ -119,6 +119,8 @@ public class ProfileConfig {
         public ForgeConfigSpec.BooleanValue enableHungerLeveling;
         public ForgeConfigSpec.IntValue initialHungerbarMaximum;
         public ForgeConfigSpec.IntValue raisingHungerbarAfter;
+        public ForgeConfigSpec.BooleanValue enableFoodRestore;
+        public ForgeConfigSpec.IntValue minFoodLevelAfterRestore;
 
         private final AppetiteProfile profile;
         private final ForgeConfigSpec.Builder builder;
@@ -218,6 +220,10 @@ public class ProfileConfig {
             builder.pop();
 
             builder.push("Advanced Settings");
+            enableFoodRestore = define("Defines whether food stats (exhaustion, saturation, food level, ...) should be restored after death.",
+                "enableFoodRestore", false, true, true);
+            minFoodLevelAfterRestore = defineRange("Defines the minimum food level that players gets after their death. Only takes place if enableFoodRestore is enabled.",
+                "minFoodLevelAfterRestore", 1, 20, 18, 10, 8);
             coldBiomeMultiplier = defineRange("Sets the multiplier for exhaustion caused by the rules of Appetite when the player is in a cold biome",
                 "coldBiomeMultiplier", 1d, 10d, 1d, 1d, 1d);
             hotBiomeMultiplier = defineRange("Sets the multiplier for exhaustion caused by the rules of Appetite when the player is in a hot biome",
