@@ -3,6 +3,7 @@ package ccr4ft3r.appetite.events;
 import ccr4ft3r.appetite.data.ServerData;
 import ccr4ft3r.appetite.data.ServerPlayerData;
 import com.yyon.grapplinghook.server.ServerControllerManager;
+import ht.treechop.api.ChopEvent;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.common.util.LazyOptional;
@@ -59,4 +60,11 @@ public class CompatibilityHandler {
         exhaust(player, getProfile().enablePullingUp, isPullingUp, getProfile().afterPullingUp, 20, 0);
     }
 
+    @SubscribeEvent
+    public static void onChoppingTree(ChopEvent.FinishChopEvent event) {
+        if (event.getLevel().isClientSide() || event.getPlayer() == null
+            || event.getFelled())
+            return;
+        exhaust(event.getPlayer(), getProfile().enableChoppingTrees, true, getProfile().afterBreakingAxeMineables, 1L, 0);
+    }
 }

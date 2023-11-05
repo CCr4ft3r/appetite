@@ -62,6 +62,8 @@ public class Main {
             MinecraftForge.EVENT_BUS.addListener(CompatibilityHandler::onPullingUp);
         if (ModList.get().isLoaded(ModConstants.FALLING_TREE_MOD_ID) && existsClass("fr.raksrinana.fallingtree.forge.event.FallingTreeBlockBreakEvent"))
             ExhaustionHandler.INCLUDE_EVENT_PER_CLASS.put(FallingTreeBlockBreakEvent.class, () -> getProfile().enableChoppingTrees.get());
+        if (ModList.get().isLoaded(ModConstants.TREE_CHOP_MOD_ID) && existsClass("ht.treechop.api.ChopEvent$FinishChopEvent"))
+            MinecraftForge.EVENT_BUS.addListener(CompatibilityHandler::onChoppingTree);
     }
 
     private static boolean existsClass(String name) {

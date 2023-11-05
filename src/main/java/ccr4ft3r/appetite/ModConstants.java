@@ -9,6 +9,7 @@ public class ModConstants {
     public static final String GRAPPLING_HOOK_MOD_ID = "grapplemod";
     public static final String CARRY_ON_MOD_ID = "carryon";
     public static final String FALLING_TREE_MOD_ID = "fallingtree";
+    public static final String TREE_CHOP_MOD_ID = "treechop";
 
     public static final int VANILLA_MAX_FOOD_LEVEL = 20;
     public static final int VANILLA_FOOD_HEAL_LEVEL = 18;

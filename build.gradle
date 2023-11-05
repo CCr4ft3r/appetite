@@ -158,8 +158,9 @@ dependencies {
     implementation fg.deobf("curse.maven:appleskin-248787:${mod_appleskin_file_id}")
     implementation fg.deobf("curse.maven:paragliders-289240:${mod_paragliders_file_id}")
     implementation fg.deobf("curse.maven:grapplinghook-238911:${mod_grapplinghook_id}")
-    implementation fg.deobf("curse.maven:falling-tree-349559:${mod_falling_tree_id}")
+    compileOnly fg.deobf("curse.maven:falling-tree-349559:${mod_falling_tree_id}")
     implementation fg.deobf("curse.maven:carry-on-274259:${mod_carry_on_file_id}")
+    implementation fg.deobf("curse.maven:treechop-421377:${mod_hts_tree_chop_file_id}")
 
     // Real mod deobf dependency examples - these get remapped to your current mappings
     // compileOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}:api") // Adds JEI API as a compile dependency

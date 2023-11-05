@@ -207,7 +207,7 @@ public class ProfileConfig {
             afterCrawling = defineTime(AFTER_TIME.formatted("crawling (GoProne Mod)"), "afterCrawling", 150, 90, 60);
             enablePullingUp = define(AFTER_TIME.formatted("pulling yourself up (Grappling Hook Mod)"), "enableWhilePullingUp", true, true, true);
             afterPullingUp = defineTime(AFTER_TIME.formatted("pulling yourself up (Grappling Hook Mod"), "afterPullingUp", 28, 14, 7);
-            enableChoppingTrees = define(ENABLE_AT + "chopping trees (Falling Tree Mod). For changing the exhaustion see: afterBreakingAxeMineables", "enableForChoppingTrees", true, true, true);
+            enableChoppingTrees = define(ENABLE_AT + "chopping trees (Falling Tree Mod, HT's TreeChop mod). For changing the exhaustion see: afterBreakingAxeMineables", "enableForChoppingTrees", true, true, true);
             enableCarry = define(ENABLE_WHILE + "carrying objects (Carry on Mod", "enableForCarryingObjects", true, true, true);
             carryMultiplier = defineRange("Sets the multiplier for exhaustion when carrying objects (Carry On Mod)", "carryMultiplier", 1d, 10d, 1.5, 2d, 2.75);
             builder.pop();
