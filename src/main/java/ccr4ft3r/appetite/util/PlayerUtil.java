@@ -1,28 +1,44 @@
 package ccr4ft3r.appetite.util;
 
+import ccr4ft3r.appetite.IFoodData;
 import ccr4ft3r.appetite.data.ServerData;
+import ccr4ft3r.appetite.data.capabilities.AppetiteCapabilityProvider;
+import ccr4ft3r.appetite.data.capabilities.FrozenAppetiteCapability;
 import com.mojang.logging.LogUtils;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.util.FakePlayer;
+import net.minecraftforge.common.util.LazyOptional;
 
 import static ccr4ft3r.appetite.config.MainConfig.*;
 import static ccr4ft3r.appetite.config.ProfileConfig.*;
 
 public class PlayerUtil {
 
-    public static void exhaust(Player player, ForgeConfigSpec.BooleanValue optionEnabled, boolean onlyIf, ForgeConfigSpec.IntValue exhaustionAfter, long multiplier,
-                               float vanillaExhaustion) {
-        if (cannotBeExhausted(player))
+    public static void exhaust(Player player, boolean onlyIf, ForgeConfigSpec.IntValue exhaustionAfter, long multiplier,
+                               float vanillaExhaustion, boolean canBeExhaustedAlreadyChecked) {
+        if (!canBeExhaustedAlreadyChecked && cannotBeExhausted(player))
             return;
-        if (optionEnabled.get() && onlyIf) {
-            float appetiteExhaustion = 8f * multiplier * getExhaustionMultiplier(player) / (float) exhaustionAfter.get();
+        if (onlyIf && !getFrozenAppetiteEffect(player).map(FrozenAppetiteCapability::shouldEffectBeRemoved).orElse(false)) {
+            float appetiteExhaustion = (8f * (((IFoodData) player.getFoodData()).getFoodbarMax() / 10f))
+                * multiplier * getExhaustionMultiplier(player) / (float) exhaustionAfter.get();
             float exhaustion = Math.max(appetiteExhaustion - vanillaExhaustion, 0);
             if (CONFIG_DATA.enableExtendedLogging.get())
                 LogUtils.getLogger().info("Adding {} exhaustion to player '{}' due to rule '{}'", exhaustion, player.getScoreboardName(),
                     String.join(".", exhaustionAfter.getPath()));
             player.causeFoodExhaustion(exhaustion);
         }
+    }
+
+    public static LazyOptional<FrozenAppetiteCapability> getFrozenAppetiteEffect(Player player) {
+        return player.getCapability(AppetiteCapabilityProvider.FROZEN_APPETITE_CAP, null);
+    }
+
+    public static void exhaust(Player player, ForgeConfigSpec.BooleanValue optionEnabled, boolean onlyIf, ForgeConfigSpec.IntValue exhaustionAfter, long multiplier,
+                               float vanillaExhaustion) {
+        if (!optionEnabled.get())
+            return;
+        exhaust(player, onlyIf, exhaustionAfter, multiplier, vanillaExhaustion, false);
     }
 
     private static float getExhaustionMultiplier(Player player) {
@@ -46,9 +62,16 @@ public class PlayerUtil {
         return multiplier == 0 ? 1 : multiplier;
     }
 
+    public static boolean cannotBeExhaustedOverTime(Player player) {
+        return player instanceof FakePlayer || player.getLevel().isClientSide() || !player.isAddedToWorld() ||
+            player.isCreative() || player.isSpectator() || !player.isAlive() ||
+            CONFIG_DATA.dimensionBlacklist.get().contains(player.getLevel().dimension().location().toString());
+    }
+
     public static boolean cannotBeExhausted(Player player) {
         return player instanceof FakePlayer || player.getLevel().isClientSide() || !player.isAddedToWorld() ||
             player.isCreative() || player.isSpectator() || player.isSleeping() || !player.isAlive() ||
-            CONFIG_DATA.dimensionBlacklist.get().contains(player.getLevel().dimension().location().toString());
+            CONFIG_DATA.dimensionBlacklist.get().contains(player.getLevel().dimension().location().toString())
+            || !CONFIG_DATA.enablesRules.get();
     }
 }

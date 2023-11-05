@@ -158,10 +158,10 @@ public class ProfileConfig {
             enableForBlocking = define(ENABLE_AT + "blocking an attack with a shield", "enableForBlockingAttacks", false, true, true);
             enableForTakingDamage = define(ENABLE_AT + "taking damage", "enableForTakingDamage", false, true, true);
             enableForShootingArrows = define(ENABLE_AT + "shooting arrows", "enableForShootingArrows", true, true, true);
-            afterAttacking = defineRange(AFTER_ACTION + "landing X attacks on entities", "afterAttackingEntities", 1, 80, 70, 50, 30);
-            afterBlocking = define(AFTER_ACTION + "blocking X attacks with shield", "afterBlockingAttacks", 70, 50, 35);
-            afterTakingDamage = defineRange(AFTER_ACTION + "taking damage X times", "afterTakingDamage", 1, 80, 80, 50, 35);
-            afterShootingArrows = define(AFTER_ACTION + "shooting X arrows", "afterShootingArrows", 120, 60, 40);
+            afterAttacking = defineRange(AFTER_ACTION + "landing X attacks on entities", "afterAttackingEntities", 1, 80, 100, 75, 50);
+            afterBlocking = define(AFTER_ACTION + "blocking X attacks with shield", "afterBlockingAttacks", 100, 75, 50);
+            afterTakingDamage = defineRange(AFTER_ACTION + "taking damage X times", "afterTakingDamage", 1, 80, 100, 75, 50);
+            afterShootingArrows = define(AFTER_ACTION + "shooting X arrows", "afterShootingArrows", 120, 75, 50);
             builder.pop();
 
             builder.push("Exhaustion for Interaction");
@@ -228,7 +228,7 @@ public class ProfileConfig {
                 "coldBiomeMultiplier", 1d, 10d, 1d, 1d, 1d);
             hotBiomeMultiplier = defineRange("Sets the multiplier for exhaustion caused by the rules of Appetite when the player is in a hot biome",
                 "hotBiomeMultiplier", 1d, 10d, 1d, 1d, 1d);
-            enableArmorImpactOnExhaustion = define("Determines that each armor wil have an individual impact on the added exhaustion. Lighter armor will have an lower impact and heavier armor an higher impact.", "ArmorImpactOnExhaustion", false, true, true);
+            enableArmorImpactOnExhaustion = define("Determines that each armor wil have an individual impact on the added exhaustion. Lighter armor will have an lower impact and heavier armor an higher impact. When enabling this option keep in mind that each exhaustion rule will consider the logarithmic multiplier and therefore will slightly differ from the specified value.", "ArmorImpactOnExhaustion", false, false, false);
             armorLogarithmicImpact = defineRange("Appetite is using the logarithm as a multiplier to modify the exhaustion defined by the rules, depending on the armor defense points. This value defines the logarithmic base whereas the defense points will be used as the numerus. The higher the value the higher the reward (lower exhaustion) for wearing lighter armor but the lower the additional exhaustion for heavier armor. The lower the value the higher the exhaustion for wearing heavy armor but the lower the reward for wearing lighter armor." +
                     "\nExample for rewarding the player (default mode): Wearing leather armor (numerus = 7) for the defined impact of 12 (base) leads to an multiplier of 0.78 (22% fewer exhaustion). Wearing diamond armor (numerus = 20) for the same impact leads to a multiplier of 1.2 (20% higher exhaustion). A calculated multiplier for leather armor lower than 1 is also used when the player is wearing no armor."
                     + "\nExample for higher difficulty: Wearing leather armor for the defined impact of 6 leads to an multiplier of 1.09 (9% more exhaustion). Wearing diamond armor for the same impact leads to a multiplier of 1.67 (67% higher exhaustion).",

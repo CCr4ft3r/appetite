@@ -5,8 +5,6 @@ import net.minecraftforge.common.ForgeConfigSpec;
 import java.util.ArrayList;
 import java.util.List;
 
-import static java.lang.Integer.*;
-
 public class MainConfig {
 
     private static final ForgeConfigSpec.Builder BUILDER = new ForgeConfigSpec.Builder();
@@ -23,6 +21,7 @@ public class MainConfig {
         public ForgeConfigSpec.IntValue ticksToFreezeOrMelt;
         public ForgeConfigSpec.IntValue frozenAppetitePerDay;
         public ForgeConfigSpec.BooleanValue enableFishFreezing;
+        public ForgeConfigSpec.IntValue generalExhaustionAfterTicks;
 
         public Data(ForgeConfigSpec.Builder builder) {
             builder.push("1 - General");
@@ -35,6 +34,13 @@ public class MainConfig {
                 .define("dimensionBlacklist", new ArrayList<>(), (s) -> s instanceof List && ((List<?>) s).stream().allMatch(d -> d != null && d.toString().matches("^.+:.+$")));
             enableExtendedLogging = builder.comment("Enables extended mod logging - only used for trouble shooting")
                 .define("enableExtendedLogging", false);
+            generalExhaustionAfterTicks = builder.comment("Decreases saturation or food bar value by 1 after the specified amount of ticks. Setting this to 0 disable this feature.\n" +
+                    "When setting this value keep in mind that this will add on the exhaustion of all active rules of the selected Appetite profile.\n" +
+                    "This option will still apply if enablesRules is disabled.\n" +
+                    "This configuration can be helpful if all players should get a minimum amount of exhaustion every time period regardless what they are actually doing (this will add on vanilla exhaustion).\n" +
+                    "If you want that players looses one hunger bar value per day set it to 24000.\n" +
+                    "If players should looses the whole hunger bar on a day set it to 2400.")
+                .defineInRange("generalExhaustionAfterTicks", 0, 0, 96000);
             builder.pop();
 
             builder.push("2 - Frozen Appetite");

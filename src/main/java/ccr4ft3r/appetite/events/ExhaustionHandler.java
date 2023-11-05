@@ -24,6 +24,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.BooleanSupplier;
 
+import static ccr4ft3r.appetite.config.MainConfig.*;
 import static ccr4ft3r.appetite.config.ProfileConfig.*;
 import static ccr4ft3r.appetite.data.ServerData.*;
 import static ccr4ft3r.appetite.util.PlayerUtil.*;
@@ -112,6 +113,10 @@ public class ExhaustionHandler {
         Player player = event.player;
         if (player.tickCount % 20 != 0 || event.phase != TickEvent.Phase.END)
             return;
+        if (!cannotBeExhaustedOverTime(player))
+            exhaust(player, CONFIG_DATA.generalExhaustionAfterTicks.get() != 0,
+                CONFIG_DATA.generalExhaustionAfterTicks, 20, 0, true);
+
         if (cannotBeExhausted(player))
             return;
 
