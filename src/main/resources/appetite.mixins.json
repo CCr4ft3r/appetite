@@ -10,6 +10,7 @@
     "PickupHandlerMixin",
     "PlacementHandlerMixin",
     "PlayerAccessor",
+    "PlayerAdvancementsMixin",
     "ServerPlayerMixin"
   ],
   "client": [
