@@ -3,7 +3,10 @@ package ccr4ft3r.appetite.events;
 import ccr4ft3r.appetite.ModConstants;
 import ccr4ft3r.appetite.config.MainConfig;
 import ccr4ft3r.appetite.items.FrozenFoodItem;
+import ccr4ft3r.appetite.registry.ModTags;
 import ccr4ft3r.appetite.util.BiomeUtil;
+import ccr4ft3r.appetite.util.PlayerUtil;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -12,6 +15,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.item.ItemExpireEvent;
+import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.RegistryObject;
@@ -50,6 +54,15 @@ public class ItemEventHandler {
         boolean isCold = BiomeUtil.isCold(itemEntity);
         if (FROZEN_FOOD_PER_FOOD_ITEM.get(item) != null && isCold || item instanceof FrozenFoodItem && !isCold)
             itemEntity.lifespan = MainConfig.CONFIG_DATA.ticksToFreezeOrMelt.get();
+    }
+
+    @SubscribeEvent
+    public static void onCompletedUsingItem(LivingEntityUseItemEvent.Finish event) {
+        if (!(event.getEntity() instanceof ServerPlayer player))
+            return;
+        if (!event.getItem().is(ModTags.IS_FROZEN_FOOD))
+            return;
+        PlayerUtil.initiateFrozenFoodEffect(player);
     }
 
     private static void replaceExpiredItem(ItemExpireEvent event, ItemEntity itemEntity, Item replaceWith) {

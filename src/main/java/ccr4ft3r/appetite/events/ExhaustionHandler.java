@@ -1,7 +1,9 @@
 package ccr4ft3r.appetite.events;
 
+import ccr4ft3r.appetite.IFoodData;
 import ccr4ft3r.appetite.ModConstants;
 import ccr4ft3r.appetite.data.ServerPlayerData;
+import ccr4ft3r.appetite.util.PlayerUtil;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.item.AxeItem;
@@ -111,8 +113,20 @@ public class ExhaustionHandler {
     @SubscribeEvent
     public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
         Player player = event.player;
-        if (player.tickCount % 20 != 0 || event.phase != TickEvent.Phase.END)
+        if (event.phase != TickEvent.Phase.END)
             return;
+
+        if (getProfile().enableExhaustionAtTimeOfDay.get()) {
+            if (!cannotBeExhaustedOverTime(player)) {
+                Integer exhaustion = getProfile().getExhaustionByTime().get(player.level.getDayTime());
+                if (exhaustion != null && PlayerUtil.canApplyExhaustion(player))
+                    player.causeFoodExhaustion(exhaustion * (4f * (((IFoodData) player.getFoodData()).getFoodbarMax() / 10f)));
+            }
+        }
+
+        if (player.tickCount % 20 != 0)
+            return;
+
         if (!cannotBeExhaustedOverTime(player))
             exhaust(player, CONFIG_DATA.generalExhaustionAfterTicks.get() != 0,
                 CONFIG_DATA.generalExhaustionAfterTicks, 20, 0, true);

@@ -4,6 +4,11 @@ import ccr4ft3r.appetite.ModConstants;
 import com.mojang.logging.LogUtils;
 import net.minecraftforge.common.ForgeConfigSpec;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 import static java.lang.Integer.*;
 
 public class ProfileConfig {
@@ -122,11 +127,23 @@ public class ProfileConfig {
         public ForgeConfigSpec.BooleanValue enableFoodRestore;
         public ForgeConfigSpec.IntValue minFoodLevelAfterRestore;
 
+        public ForgeConfigSpec.BooleanValue enableExhaustionAtTimeOfDay;
+        public ForgeConfigSpec.ConfigValue<List<String>> exhaustionAtTimes;
+
+        private Map<Long, Integer> exhaustionByTime;
+
         private final AppetiteProfile profile;
         private final ForgeConfigSpec.Builder builder;
 
         public int getInitalHungerbarMaximum() {
             return enableHungerLeveling.get() ? initialHungerbarMaximum.get() : ModConstants.VANILLA_MAX_FOOD_LEVEL / 2;
+        }
+
+        public Map<Long, Integer> getExhaustionByTime() {
+            if (exhaustionByTime == null)
+                exhaustionByTime = exhaustionAtTimes.get().stream().collect(Collectors.toMap(
+                    e -> Long.parseLong(e.split(":")[0]), e -> Integer.parseInt(e.split(":")[1]), (e1, e2) -> e1));
+            return exhaustionByTime;
         }
 
         public Data(ForgeConfigSpec.Builder builder, AppetiteProfile profile) {
@@ -217,6 +234,12 @@ public class ProfileConfig {
                 "can be increased by leveling up (by gaining experience).", "enableHungerLeveling", false, true, true);
             initialHungerbarMaximum = defineRange("Determines the hunger indicator (drumstick amount) each player starts with when joining a world for the first time (vanilla's default is 10).", "initialHungerbarMaximum", 1, 10, 10, 7, 5);
             raisingHungerbarAfter = defineRange("Determines what level delta is needed to increase the initialHungerbarMaximum by one drumstick.", "raisingHungerbarAfter", 1, 20, 3, 6, 7);
+            builder.pop();
+
+            builder.push("Exhaustion by time of day");
+            enableExhaustionAtTimeOfDay = define("Determines whether players should receive exhaustion at a certain time of day", "enableExhaustionAtTimeOfDay", false, false, false);
+            exhaustionAtTimes = builder.comment("Defines the points in time (in ticks) at which players should get a constant exhaustion (hunger points). If you want to force players to have a breakfast, you can add the following entry: 1000:6 -> This will drop the hunger bar by 3 drumsticks (6 hunger points) each day at 07:00 am (at 1000 ticks).")
+                .define("exhaustionAtTimes", new ArrayList<>(), (s) -> s instanceof List && ((List<?>) s).stream().allMatch(d -> d != null && d.toString().matches("^\\d{1,5}:\\d{1,2}$")));
             builder.pop();
 
             builder.push("Advanced Settings");

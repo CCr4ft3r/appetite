@@ -1,10 +1,13 @@
 package ccr4ft3r.appetite.util;
 
 import ccr4ft3r.appetite.IFoodData;
+import ccr4ft3r.appetite.config.MainConfig;
 import ccr4ft3r.appetite.data.ServerData;
 import ccr4ft3r.appetite.data.capabilities.AppetiteCapabilityProvider;
 import ccr4ft3r.appetite.data.capabilities.FrozenAppetiteCapability;
+import ccr4ft3r.appetite.registry.ModMobEffects;
 import com.mojang.logging.LogUtils;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.util.FakePlayer;
@@ -19,7 +22,7 @@ public class PlayerUtil {
                                float vanillaExhaustion, boolean canBeExhaustedAlreadyChecked) {
         if (!canBeExhaustedAlreadyChecked && cannotBeExhausted(player))
             return;
-        if (onlyIf && !getFrozenAppetiteEffect(player).map(FrozenAppetiteCapability::shouldEffectBeRemoved).orElse(false)) {
+        if (onlyIf && canApplyExhaustion(player)) {
             float appetiteExhaustion = (8f * (((IFoodData) player.getFoodData()).getFoodbarMax() / 10f))
                 * multiplier * getExhaustionMultiplier(player) / (float) exhaustionAfter.get();
             float exhaustion = Math.max(appetiteExhaustion - vanillaExhaustion, 0);
@@ -28,6 +31,10 @@ public class PlayerUtil {
                     String.join(".", exhaustionAfter.getPath()));
             player.causeFoodExhaustion(exhaustion);
         }
+    }
+
+    public static boolean canApplyExhaustion(Player player) {
+        return !getFrozenAppetiteEffect(player).map(FrozenAppetiteCapability::shouldEffectBeRemoved).orElse(false);
     }
 
     public static LazyOptional<FrozenAppetiteCapability> getFrozenAppetiteEffect(Player player) {
@@ -73,5 +80,18 @@ public class PlayerUtil {
             player.isCreative() || player.isSpectator() || player.isSleeping() || !player.isAlive() ||
             CONFIG_DATA.dimensionBlacklist.get().contains(player.getLevel().dimension().location().toString())
             || !CONFIG_DATA.enablesRules.get();
+    }
+
+    public static void initiateFrozenFoodEffect(Player player) {
+        boolean isFrozenAppetiteAllowed = MainConfig.CONFIG_DATA.allowFrozenAppetite.get();
+        boolean isFrozenAppetiteAlreadyAdded = player.hasEffect(ModMobEffects.FROZEN_APPETITE.get());
+        boolean canFrozenAppetiteBeUsed = player.getCapability(AppetiteCapabilityProvider.FROZEN_APPETITE_CAP).map(c -> c.canUse(player.getLevel())).orElse(false);
+        boolean shouldBeBrainfreezed = isFrozenAppetiteAlreadyAdded || !canFrozenAppetiteBeUsed;
+
+        if (shouldBeBrainfreezed) {
+            player.addEffect(new MobEffectInstance(ModMobEffects.BRAIN_FREEZE.get(), 160));
+        } else if (isFrozenAppetiteAllowed) {
+            player.addEffect(new MobEffectInstance(ModMobEffects.FROZEN_APPETITE.get(), 1200));
+        }
     }
 }

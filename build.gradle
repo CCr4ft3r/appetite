@@ -151,16 +151,26 @@ dependencies {
 
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 
-    runtimeOnly fg.deobf("curse.maven:cloth-config-api-348521:${cloth_config_id}")
-    runtimeOnly fg.deobf("curse.maven:configured-457570:${mod_configured_file_id}")
     runtimeOnly fg.deobf("curse.maven:goprone-327968:${mod_goprone_file_id}")
-
     implementation fg.deobf("curse.maven:appleskin-248787:${mod_appleskin_file_id}")
     implementation fg.deobf("curse.maven:paragliders-289240:${mod_paragliders_file_id}")
     implementation fg.deobf("curse.maven:grapplinghook-238911:${mod_grapplinghook_id}")
     compileOnly fg.deobf("curse.maven:falling-tree-349559:${mod_falling_tree_id}")
     implementation fg.deobf("curse.maven:carry-on-274259:${mod_carry_on_file_id}")
     implementation fg.deobf("curse.maven:treechop-421377:${mod_hts_tree_chop_file_id}")
+
+    // Food-Mods
+    runtimeOnly fg.deobf("curse.maven:rotten-creatures-371033:${mod_rotten_creatures_file_id}")
+    runtimeOnly fg.deobf("curse.maven:farmers-delight-398521:${mod_farmers_delight_file_id}")
+    runtimeOnly fg.deobf("curse.maven:ends-delight-662675:${mod_ends_delight_file_id}")
+    runtimeOnly fg.deobf("curse.maven:collectors-reap-807101:${mod_collectors_reap_file_id}")
+    runtimeOnly fg.deobf("curse.maven:beachparty-858691:${mod_beach_party_file_id}")
+
+    // Libs
+    runtimeOnly fg.deobf("curse.maven:architectury-api-419699:${mod_architectury_file_id}")
+    runtimeOnly fg.deobf("curse.maven:cloth-config-api-348521:${mod_cloth_config_file_id}")
+    runtimeOnly fg.deobf("curse.maven:configured-457570:${mod_configured_file_id}")
+    runtimeOnly fg.deobf("curse.maven:do-api-864599:${mod_do_api_file_id}")
 
     // Real mod deobf dependency examples - these get remapped to your current mappings
     // compileOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}:api") // Adds JEI API as a compile dependency
