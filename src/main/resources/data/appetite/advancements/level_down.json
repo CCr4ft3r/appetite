@@ -1,0 +1,28 @@
+{
+  "parent": "appetite:root",
+  "display": {
+    "icon": {
+      "item": "minecraft:poisonous_potato"
+    },
+    "title": {
+      "translate": "advancements.appetite.level_down.title"
+    },
+    "description": {
+      "translate": "advancements.appetite.level_down.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    [
+      "requirement"
+    ]
+  ]
+}

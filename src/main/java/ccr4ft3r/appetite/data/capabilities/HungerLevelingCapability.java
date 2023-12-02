@@ -34,17 +34,35 @@ public class HungerLevelingCapability implements INBTSerializable<CompoundTag> {
         this.lastLevelOfIncrease = tag.getInt("lastLevelOfIncrease");
     }
 
-    public void updateFoodMax(ServerPlayer player) {
+    public void setCurrentFoodMaximum(int currentFoodMaximum) {
+        this.currentFoodMaximum = currentFoodMaximum;
+    }
+
+    public void updateFoodMax(ServerPlayer player, int levelDelta) {
         try {
             if (!getProfile().enableHungerLeveling.get())
                 return;
 
-            if (player.experienceLevel >= lastLevelOfIncrease + getProfile().raisingHungerbarAfter.get() && getCurrentFoodMaximum() < 10) {
-                currentFoodMaximum++;
-                lastLevelOfIncrease = player.experienceLevel;
+            boolean hungerChanged = false;
+            if (levelDelta == 1) {
+                if (player.experienceLevel >= lastLevelOfIncrease + getProfile().raisingHungerbarAfter.get() && getCurrentFoodMaximum() < 10) {
+                    currentFoodMaximum++;
+                    lastLevelOfIncrease = player.experienceLevel;
+                    hungerChanged = true;
+                }
+            } else {
+                if (player.experienceLevel + levelDelta < lastLevelOfIncrease && currentFoodMaximum > getProfile().initialHungerbarMaximum.get()) {
+                    currentFoodMaximum--;
+                    lastLevelOfIncrease = player.experienceLevel - getProfile().raisingHungerbarAfter.get();
+                    hungerChanged = true;
+                    updateFoodMax(player, levelDelta);
+                }
+            }
+
+            if (hungerChanged) {
                 PlayerAdvancements advancements = player.getAdvancements();
                 Advancement levelUpAdvancement = player.createCommandSourceStack().getAdvancement(
-                    new ResourceLocation(ModConstants.MOD_ID, "level_up"));
+                    new ResourceLocation(ModConstants.MOD_ID, levelDelta > 0 ? "level_up" : "level_down"));
                 advancements.getOrStartProgress(levelUpAdvancement).revokeProgress("requirement");
                 advancements.award(levelUpAdvancement, "requirement");
             }

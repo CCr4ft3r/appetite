@@ -126,6 +126,8 @@ public class ProfileConfig {
         public ForgeConfigSpec.IntValue raisingHungerbarAfter;
         public ForgeConfigSpec.BooleanValue enableFoodRestore;
         public ForgeConfigSpec.IntValue minFoodLevelAfterRestore;
+        public ForgeConfigSpec.IntValue foodLevelAfterDeath;
+        public ForgeConfigSpec.BooleanValue hunger2LevelRelation;
 
         public ForgeConfigSpec.BooleanValue enableExhaustionAtTimeOfDay;
         public ForgeConfigSpec.ConfigValue<List<String>> exhaustionAtTimes;
@@ -234,6 +236,8 @@ public class ProfileConfig {
                 "can be increased by leveling up (by gaining experience).", "enableHungerLeveling", false, true, true);
             initialHungerbarMaximum = defineRange("Determines the hunger indicator (drumstick amount) each player starts with when joining a world for the first time (vanilla's default is 10).", "initialHungerbarMaximum", 1, 10, 10, 7, 5);
             raisingHungerbarAfter = defineRange("Determines what level delta is needed to increase the initialHungerbarMaximum by one drumstick.", "raisingHungerbarAfter", 1, 20, 3, 6, 7);
+            hunger2LevelRelation = define("Determines whether a level decrease down to the latest level, that caused a hunger bar increase, should lead to a hunger bar decrease."
+                , "hunger2LevelRelation", false, false, true);
             builder.pop();
 
             builder.push("Exhaustion by time of day");
@@ -245,8 +249,10 @@ public class ProfileConfig {
             builder.push("Advanced Settings");
             enableFoodRestore = define("Defines whether food stats (exhaustion, saturation, food level, ...) should be restored after death.",
                 "enableFoodRestore", false, true, true);
-            minFoodLevelAfterRestore = defineRange("Defines the minimum food level that players gets after their death. Only takes place if enableFoodRestore is enabled.",
+            minFoodLevelAfterRestore = defineRange("Defines the minimum food level that players get after their death. Only takes place if enableFoodRestore is enabled.",
                 "minFoodLevelAfterRestore", 1, 20, 18, 10, 8);
+            foodLevelAfterDeath = defineRange("Defines the food level that players get after their death. When set, minFoodLevelAfterRestore will be ignored. Setting this option to -1 disables it.",
+                "foodLevelAfterDeath", -1, 20, -1, -1, -1);
             coldBiomeMultiplier = defineRange("Sets the multiplier for exhaustion caused by the rules of Appetite when the player is in a cold biome",
                 "coldBiomeMultiplier", 1d, 10d, 1d, 1d, 1d);
             hotBiomeMultiplier = defineRange("Sets the multiplier for exhaustion caused by the rules of Appetite when the player is in a hot biome",

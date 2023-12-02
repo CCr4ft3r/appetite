@@ -10,7 +10,8 @@ import javax.annotation.Nullable;
 
 public class HungerLevelingProvider implements ICapabilityProvider, ICapabilitySerializable<CompoundTag> {
 
-    public static Capability<HungerLevelingCapability> HUNGER_LEVELING_CAP = CapabilityManager.get(new CapabilityToken<>(){});
+    public static Capability<HungerLevelingCapability> HUNGER_LEVELING_CAP = CapabilityManager.get(new CapabilityToken<>() {
+    });
     private HungerLevelingCapability hungerLevelingCapability = null;
     private final LazyOptional<HungerLevelingCapability> opt = LazyOptional.of(this::createCapability);
 
@@ -28,8 +29,8 @@ public class HungerLevelingProvider implements ICapabilityProvider, ICapabilityS
 
     @Override
     public <T> @Nonnull LazyOptional<T> getCapability(@Nonnull Capability<T> cap) {
-        if(cap == HUNGER_LEVELING_CAP)
-            return opt.cast();
+        if (cap == HUNGER_LEVELING_CAP)
+            return LazyOptional.of(() -> hungerLevelingCapability).cast();
         else
             return LazyOptional.empty();
     }

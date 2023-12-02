@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import static ccr4ft3r.appetite.config.ProfileConfig.*;
 
 @Mixin(ServerPlayer.class)
-public class ServerPlayerMixin {
+public abstract class ServerPlayerMixin {
 
     @Inject(method = "restoreFrom", at = @At("HEAD"))
     private void restoreFoodStats(ServerPlayer p_9016_, boolean p_9017_, CallbackInfo ci) {
@@ -17,5 +17,7 @@ public class ServerPlayerMixin {
             ((PlayerAccessor) this).setFoodData(p_9016_.getFoodData());
             ((PlayerAccessor) this).getFoodData().setFoodLevel(getProfile().minFoodLevelAfterRestore.get());
         }
+        if (getProfile().foodLevelAfterDeath.get() > -1)
+            ((PlayerAccessor) this).getFoodData().setFoodLevel(getProfile().foodLevelAfterDeath.get());
     }
 }
