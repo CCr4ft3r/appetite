@@ -30,7 +30,7 @@ public class HungerLevelingProvider implements ICapabilityProvider, ICapabilityS
     @Override
     public <T> @Nonnull LazyOptional<T> getCapability(@Nonnull Capability<T> cap) {
         if (cap == HUNGER_LEVELING_CAP)
-            return LazyOptional.of(() -> hungerLevelingCapability).cast();
+            return opt.cast();
         else
             return LazyOptional.empty();
     }

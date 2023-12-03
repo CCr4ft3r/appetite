@@ -7,6 +7,7 @@ import ccr4ft3r.appetite.data.capabilities.AppetiteCapabilityProvider;
 import ccr4ft3r.appetite.data.capabilities.FrozenAppetiteCapability;
 import ccr4ft3r.appetite.data.capabilities.HungerLevelingCapability;
 import ccr4ft3r.appetite.data.capabilities.HungerLevelingProvider;
+import ccr4ft3r.appetite.mixins.PlayerAccessor;
 import ccr4ft3r.appetite.registry.ModMobEffects;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.contents.TranslatableContents;
@@ -86,6 +87,30 @@ public class PlayerEventHandler {
             else
                 c.setShouldEffectBeRemoved(true);
         });
+    }
+
+    @SubscribeEvent
+    public static void onCloned(PlayerEvent.Clone event) {
+        if (!event.isWasDeath())
+            return;
+        if (getProfile().enableFoodRestore.get()) {
+            ((PlayerAccessor) event.getEntity()).setFoodData(event.getOriginal().getFoodData());
+            ((PlayerAccessor) event.getEntity()).getFoodData().setFoodLevel(getProfile().minFoodLevelAfterRestore.get());
+        }
+        if (getProfile().foodLevelAfterDeath.get() > -1)
+            ((PlayerAccessor) event.getEntity()).getFoodData().setFoodLevel(getProfile().foodLevelAfterDeath.get());
+
+        event.getEntity().getCapability(HungerLevelingProvider.HUNGER_LEVELING_CAP)
+            .ifPresent(o -> {
+                    event.getOriginal().reviveCaps();
+                    o.setCurrentFoodMaximum(
+                        event.getOriginal().getCapability(HungerLevelingProvider.HUNGER_LEVELING_CAP)
+                            .map(HungerLevelingCapability::getCurrentFoodMaximum)
+                            .orElse(getProfile().initialHungerbarMaximum.get())
+                    );
+                    event.getOriginal().invalidateCaps();
+                }
+            );
     }
 
     @SubscribeEvent

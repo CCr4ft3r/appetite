@@ -10,8 +10,7 @@
     "PickupHandlerMixin",
     "PlacementHandlerMixin",
     "PlayerAccessor",
-    "PlayerAdvancementsMixin",
-    "ServerPlayerMixin"
+    "PlayerAdvancementsMixin"
   ],
   "client": [
     "ForgeIngameGuiMixin",
